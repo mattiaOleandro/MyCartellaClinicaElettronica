@@ -25,4 +25,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "LIMIT 1")
     Optional<User> pickRider();
 
+
+    @Query(nativeQuery = true, value = "SELECT * FROM (\n" +
+            "SELECT u.*, COUNT(busyAppointment.id) AS numberOfAppointment\n" +
+            "FROM `user`AS u\n" +
+            "LEFT JOIN user_roles AS ur ON ur.user_id = u.id\n" +
+            "LEFT JOIN (SELECT * FROM `appointment` WHERE `status` IN(4)) AS busyAppointment ON busyAppointment.doctor_id = u.id\n" +
+            "WHERE ur.role_id = 3 AND u.is_active = 1\n" +
+            "GROUP BY u.id\n" +
+            ") AS allDoctor\n" +
+            "WHERE allDoctor.numberOfAppointment = 0 \n" +
+            "LIMIT 1")
+    Optional<User> pickDoctor();
+
 }
