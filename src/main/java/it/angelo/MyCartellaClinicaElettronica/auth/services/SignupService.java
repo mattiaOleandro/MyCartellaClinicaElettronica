@@ -71,9 +71,7 @@ public class SignupService {
         user.setMedicalSpecialization(signupDoctorDTO.getMedicalSpecialization());
         user.setPlaceOfWork(signupDoctorDTO.getPlaceOfWork());
         user.setPassword(passwordEncoder.encode(signupDoctorDTO.getPassword()));
-        //user.setActive(false); // aggiunto parametro in User class
 
-        //genera un codice univoco di 36 caratteri
         user.setActivationCode(UUID.randomUUID().toString());
 
         Set<Role> roles = new HashSet<>();
@@ -82,8 +80,8 @@ public class SignupService {
         roles.add(userRole.get());
         user.setRoles(roles);
 
-        mailNotificationService.sendActivationEmail(user);// invio mail di attivazione
-        return userRepository.save(user); // ritorniamo l'user salvato
+        mailNotificationService.sendActivationEmail(user);
+        return userRepository.save(user);
     }
 
     public User signupPatient(SignupPatientDTO signupPatientDTO, String role) throws Exception{
@@ -95,9 +93,7 @@ public class SignupService {
         user.setEmail(signupPatientDTO.getEmail());
         user.setSurname(signupPatientDTO.getSurname());
         user.setMedicalPathology(signupPatientDTO.getMedicalPathology());
-        //user.setActive(false); // aggiunto parametro in User class
 
-        //genera un codice univoco di 36 caratteri
         user.setActivationCode(UUID.randomUUID().toString());
 
         Set<Role> roles = new HashSet<>();
@@ -106,8 +102,8 @@ public class SignupService {
         roles.add(userRole.get());
         user.setRoles(roles);
 
-        mailNotificationService.sendActivationEmail(user);// invio mail di attivazione
-        return userRepository.save(user); // ritorniamo l'user salvato
+        mailNotificationService.sendActivationEmail(user);
+        return userRepository.save(user);
     }
 
     public User signupSecretary(SignupSecretaryDTO signupSecretaryDTO, String role) throws Exception{
@@ -119,9 +115,7 @@ public class SignupService {
         user.setEmail(signupSecretaryDTO.getEmail());
         user.setSurname(signupSecretaryDTO.getSurname());
         user.setPlaceOfWork(signupSecretaryDTO.getPlaceOfWork());
-        //user.setActive(false); // aggiunto parametro in User class
 
-        //genera un codice univoco di 36 caratteri
         user.setActivationCode(UUID.randomUUID().toString());
 
         Set<Role> roles = new HashSet<>();
@@ -130,8 +124,8 @@ public class SignupService {
         roles.add(userRole.get());
         user.setRoles(roles);
 
-        mailNotificationService.sendActivationEmail(user);// invio mail di attivazione
-        return userRepository.save(user); // ritorniamo l'user salvato
+        mailNotificationService.sendActivationEmail(user);
+        return userRepository.save(user);
     }
 
     //possiamo dare una scadenza a questo activation code activationCodeExpirationDate
