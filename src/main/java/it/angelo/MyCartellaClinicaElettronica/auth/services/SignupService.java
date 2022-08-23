@@ -1,7 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.auth.services;
 
-import it.angelo.MyCartellaClinicaElettronica.auth.entities.SignupActivationDTO;
-import it.angelo.MyCartellaClinicaElettronica.auth.entities.SignupDTO;
+import it.angelo.MyCartellaClinicaElettronica.auth.entities.*;
 import it.angelo.MyCartellaClinicaElettronica.notification.MailNotificationService;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.Role;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -53,6 +52,81 @@ public class SignupService {
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set user role");
+        roles.add(userRole.get());
+        user.setRoles(roles);
+
+        mailNotificationService.sendActivationEmail(user);// invio mail di attivazione
+        return userRepository.save(user); // ritorniamo l'user salvato
+    }
+
+    public User signupDoctor(SignupDoctorDTO signupDoctorDTO, String role) throws Exception{
+        User userInDB = userRepository.findByEmail(signupDoctorDTO.getEmail());
+        if(userInDB != null) throw new Exception("Doctor already exist");
+
+        User user = new User();
+        user.setName(signupDoctorDTO.getName());
+        user.setEmail(signupDoctorDTO.getEmail());
+        user.setSurname(signupDoctorDTO.getSurname());
+        user.setBadgeNumber(signupDoctorDTO.getBadgeNumber());
+        user.setMedicalSpecialization(signupDoctorDTO.getMedicalSpecialization());
+        user.setPlaceOfWork(signupDoctorDTO.getPlaceOfWork());
+        user.setPassword(passwordEncoder.encode(signupDoctorDTO.getPassword()));
+        //user.setActive(false); // aggiunto parametro in User class
+
+        //genera un codice univoco di 36 caratteri
+        user.setActivationCode(UUID.randomUUID().toString());
+
+        Set<Role> roles = new HashSet<>();
+        Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
+        if(!userRole.isPresent()) throw new Exception("Cannot set Doctor role");
+        roles.add(userRole.get());
+        user.setRoles(roles);
+
+        mailNotificationService.sendActivationEmail(user);// invio mail di attivazione
+        return userRepository.save(user); // ritorniamo l'user salvato
+    }
+
+    public User signupPatient(SignupPatientDTO signupPatientDTO, String role) throws Exception{
+        User userInDB = userRepository.findByEmail(signupPatientDTO.getEmail());
+        if(userInDB != null) throw new Exception("Patient already exist");
+
+        User user = new User();
+        user.setName(signupPatientDTO.getName());
+        user.setEmail(signupPatientDTO.getEmail());
+        user.setSurname(signupPatientDTO.getSurname());
+        user.setMedicalPathology(signupPatientDTO.getMedicalPathology());
+        //user.setActive(false); // aggiunto parametro in User class
+
+        //genera un codice univoco di 36 caratteri
+        user.setActivationCode(UUID.randomUUID().toString());
+
+        Set<Role> roles = new HashSet<>();
+        Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
+        if(!userRole.isPresent()) throw new Exception("Cannot set Patient role");
+        roles.add(userRole.get());
+        user.setRoles(roles);
+
+        mailNotificationService.sendActivationEmail(user);// invio mail di attivazione
+        return userRepository.save(user); // ritorniamo l'user salvato
+    }
+
+    public User signupSecretary(SignupSecretaryDTO signupSecretaryDTO, String role) throws Exception{
+        User userInDB = userRepository.findByEmail(signupSecretaryDTO.getEmail());
+        if(userInDB != null) throw new Exception("Secretary already exist");
+
+        User user = new User();
+        user.setName(signupSecretaryDTO.getName());
+        user.setEmail(signupSecretaryDTO.getEmail());
+        user.setSurname(signupSecretaryDTO.getSurname());
+        user.setPlaceOfWork(signupSecretaryDTO.getPlaceOfWork());
+        //user.setActive(false); // aggiunto parametro in User class
+
+        //genera un codice univoco di 36 caratteri
+        user.setActivationCode(UUID.randomUUID().toString());
+
+        Set<Role> roles = new HashSet<>();
+        Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
+        if(!userRole.isPresent()) throw new Exception("Cannot set Secretary role");
         roles.add(userRole.get());
         user.setRoles(roles);
 

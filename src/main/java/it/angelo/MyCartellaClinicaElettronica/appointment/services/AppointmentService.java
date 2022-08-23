@@ -34,6 +34,8 @@ public class AppointmentService {
         appointment.setNumber(appointmentInput.getNumber());
         appointment.setZipCode(appointmentInput.getZipCode());
 
+        appointment.setAppointmentStart(appointmentInput.getAppointmentStart());
+        appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
 
         //check for patient
         if(appointmentInput.getPatient() == null) throw new Exception("Patient not found");

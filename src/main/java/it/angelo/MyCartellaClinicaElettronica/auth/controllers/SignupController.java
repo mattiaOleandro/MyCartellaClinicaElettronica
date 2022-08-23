@@ -1,7 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.auth.controllers;
 
-import it.angelo.MyCartellaClinicaElettronica.auth.entities.SignupActivationDTO;
-import it.angelo.MyCartellaClinicaElettronica.auth.entities.SignupDTO;
+import it.angelo.MyCartellaClinicaElettronica.auth.entities.*;
 import it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,21 @@ public class SignupController {
     @PostMapping("/signup")
     public User signup(@RequestBody SignupDTO signupDTO)throws Exception{
         return signupService.signup(signupDTO);
+    }
+
+    @PostMapping("/signup/doctor/{role}")
+    public User signupDoctor(@RequestBody SignupDoctorDTO signupDoctorDTO, @PathVariable String role)throws Exception{
+        return signupService.signupDoctor(signupDoctorDTO, role);
+    }
+
+    @PostMapping("/signup/patient/{role}")
+    public User signupPatient(@RequestBody SignupPatientDTO signupPatientDTO, @PathVariable String role)throws Exception{
+        return signupService.signupPatient(signupPatientDTO, role);
+    }
+
+    @PostMapping("/signup/secretary/{role}")
+    public User signupSecretary(@RequestBody SignupSecretaryDTO signupSecretaryDTO, @PathVariable String role)throws Exception{
+        return signupService.signupSecretary(signupSecretaryDTO, role);
     }
 
     @PostMapping("/signup/{role}")

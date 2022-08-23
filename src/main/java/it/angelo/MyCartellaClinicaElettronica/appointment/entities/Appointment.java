@@ -1,11 +1,11 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
-import it.angelo.MyCartellaClinicaElettronica.order.entities.OrderStateEnum;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -23,6 +23,9 @@ public class Appointment extends BaseEntity {
     private String city;
     private String zipCode;
     private String state;
+
+    private LocalDateTime AppointmentStart;
+    private LocalDateTime AppointmentEnd;
 
     private AppointmentStateEnum status = AppointmentStateEnum.CREATED;
 

@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name="`user`")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -41,4 +41,14 @@ public class User {
                     @JoinColumn(name = "ROLE_ID")
             })
     private Set<Role> roles;
+
+    private String badgeNumber;
+
+    @Enumerated(EnumType.STRING)
+    private EnumMedicalSpecializzation medicalSpecialization;
+
+    @Enumerated(EnumType.STRING)
+    private EnumPlaceOfWork placeOfWork;
+
+    private String medicalPathology;
 }
