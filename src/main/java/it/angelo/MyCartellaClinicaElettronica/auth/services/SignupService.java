@@ -44,7 +44,17 @@ public class SignupService {
         user.setEmail(signupDTO.getEmail());
         user.setSurname(signupDTO.getSurname());
         user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));// la password viene codificata con PasswordEncoder
+
+        user.setAddress(signupDTO.getAddress());
+        user.setCity(signupDTO.getCity());
+        user.setPhone(signupDTO.getPhone());
+        user.setNationality(signupDTO.getNationality());
+        user.setPlaceOfBirth(signupDTO.getPlaceOfBirth());
+        user.setBirthDate(signupDTO.getBirthDate());
+        user.setFiscalCode(signupDTO.getFiscalCode());
+        user.setDocumentNumber(signupDTO.getDocumentNumber());
         //user.setActive(false); // aggiunto parametro in User class
+
 
         //genera un codice univoco di 36 caratteri
         user.setActivationCode(UUID.randomUUID().toString());

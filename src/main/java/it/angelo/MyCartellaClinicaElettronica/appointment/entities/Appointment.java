@@ -6,7 +6,9 @@ import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity
@@ -30,6 +32,11 @@ public class Appointment extends BaseEntity {
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime AppointmentEnd;
+
+//--------------- test date for find appointment betweeen DATE -------------
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate appointmentDate;
+//--------------------------------------------------------------------------
 
     private AppointmentStateEnum status = AppointmentStateEnum.CREATED;
 

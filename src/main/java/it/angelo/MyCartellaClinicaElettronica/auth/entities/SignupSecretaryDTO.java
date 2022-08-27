@@ -7,15 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Data
-public class SignupSecretaryDTO {
-
-    private String name;
-
-    private String surname;
-
-    private String email;
-
-    private String password;
+public class SignupSecretaryDTO extends SignupDTO{
 
     private String badgeNumber;
 

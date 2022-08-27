@@ -8,15 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Data
-public class SignupDoctorDTO {
-
-    private String name;
-
-    private String surname;
-
-    private String email;
-
-    private String password;
+public class SignupDoctorDTO extends SignupDTO{
 
     private String badgeNumber;
 

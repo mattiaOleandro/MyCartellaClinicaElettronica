@@ -26,18 +26,35 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+ /*   @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
+    }*/
+
     protected void configure(HttpSecurity http) throws  Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
 
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll() //da eliminare in produzione
+                .antMatchers("/v2/api-docs",
+                        "/swagger-resources/configuration/ui",
+                        "/swagger-resources",
+                        "/swagger-resources/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll()
                 /*.antMatchers("/admin/**").hasAnyRole("ROLE_"+ Roles.ADMIN, "ROLE_"+ Roles.OWNER, "ROLE_"+ Roles.SUPER_ADMIN)
                 .antMatchers("/app/**").hasAnyRole("ROLE_"+ Roles.REGISTERED)*/
                 /*.antMatchers("/blog/**").hasRole("ROLE:EDITOR")
                 .antMatchers("/dev-tools/**").hasAnyAuthority("DEV_READ", "DEV_DELETE")
                 .antMatchers("/dev-tools/-bis/**").hasAuthority("DO_DEV_TOOLS_READ")*/
                 .anyRequest().authenticated();
+
 
         http.csrf().disable();// sistema di sicurezza
         http.headers().frameOptions().disable();// sistema di sicurezza per frame

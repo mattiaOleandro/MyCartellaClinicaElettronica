@@ -2,17 +2,29 @@ package it.angelo.MyCartellaClinicaElettronica.auth.entities;
 
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import java.time.LocalDate;
+
 @Data
+@MappedSuperclass
 public class SignupDTO {
 
-    /** User name */
     private String name;
-    /** User surname */
     private String surname;
-
-    /** User email */
     private String email;
-    /** User password clear */
     private String password;
+
+    private String address;
+    private String city;
+    private String phone;
+    private String nationality;
+    private String placeOfBirth;
+    private LocalDate birthDate;
+
+    @Column(unique = true,length = 16) //valutare omocodia
+    private String fiscalCode;
+
+    private String documentNumber;
 
 }

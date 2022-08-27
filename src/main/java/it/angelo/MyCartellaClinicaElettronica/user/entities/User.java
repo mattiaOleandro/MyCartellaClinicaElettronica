@@ -3,6 +3,7 @@ package it.angelo.MyCartellaClinicaElettronica.user.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -41,7 +42,20 @@ public class User{
                     @JoinColumn(name = "ROLE_ID")
             })
     private Set<Role> roles;
+//-----------------------------------------------------------------------------------------------------------
+    private String address;
+    private String city;
+    private String phone;
+    private String nationality;
+    private String placeOfBirth;
+    private LocalDate birthDate;
 
+    @Column(unique = true,length = 16) //valutare omocodia
+    private String fiscalCode;
+
+    private String documentNumber;
+
+//-----------------------------------------------------------------------------------------------------------
     private String badgeNumber;
 
     @Enumerated(EnumType.STRING)
