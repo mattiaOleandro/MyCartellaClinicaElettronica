@@ -6,6 +6,10 @@ import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Angelo Zammataro
+ * manages the user registration procedure
+ */
 @RestController
 @RequestMapping("/auth")
 public class SignupController {
@@ -13,6 +17,11 @@ public class SignupController {
     @Autowired
     private SignupService signupService;
 
+    /**
+     * @param signupDTO contains all user attributes that will be inserted in the body of the API
+     * @return a signupDTO object
+     * @throws Exception can throw a generic exception
+     */
     @PostMapping("/signup")
     public User signup(@RequestBody SignupDTO signupDTO)throws Exception{
         return signupService.signup(signupDTO);

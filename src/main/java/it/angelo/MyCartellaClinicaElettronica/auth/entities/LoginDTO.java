@@ -2,6 +2,9 @@ package it.angelo.MyCartellaClinicaElettronica.auth.entities;
 
 import lombok.Data;
 
+/**
+ * contains 2 attribute: email and password, mandatory for login
+ */
 @Data
 public class LoginDTO {
 

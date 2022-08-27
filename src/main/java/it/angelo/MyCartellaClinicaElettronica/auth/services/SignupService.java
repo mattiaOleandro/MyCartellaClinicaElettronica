@@ -16,6 +16,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * it's a service tha contain business logic for handling user signup and activation
+ */
 @Service
 public class SignupService {
 

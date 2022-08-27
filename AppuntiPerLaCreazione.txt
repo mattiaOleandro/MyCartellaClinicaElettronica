@@ -1,0 +1,34 @@
+-- SYSTEM LOGIN --
+1 - Creiamo il package auth (dominio auth)
+	1.1 Creaimo il sub-package controller
+	1.2 Creaimo il sub-package entities
+	1.3 Creaimo il sub-package services
+	
+2 - Creiamo il package user (dominio user) rappresentazione del ns utente
+	2.1 Creaimo il sub-package controller
+	2.2 Creaimo il sub-package entities
+	
+3 - Rinominiamo application.properties in .YAML e inseriamo la configurazione
+	3.1 Inseriamo la configurazione per il ns DB(mysql nel ns caso)
+	
+4 - Creiamo la Classe user e inseriamo gli attributi( name, surname, email, password, JWT etc.)
+	4.1 Quando l'utente farà login, verrà restituito un JWT Token che servirà per autenticare la 	sessione.
+	il token JWT(JSON Web Tokens) è un metodo per rappresentare dati codificati secondo lo 		standard RFC 7519. Risulta così composto: 
+		■ Header che contiene le informazioni di testa: algoritmo di codifica e tipo
+		■ Paylod che contiene le informazioni sensibili
+		■ Signature è la firma( può essere una string a ed è identificata come SECRET)
+	Questo token JWT viene assegnato all'utente e sostituirà username e psw per la sessione.
+	
+5 - Creiamo 3 Classi nel package auth/controller:
+		■ LoginController (contiene API per effettuare il login)
+		■ PasswordRestoreController (contiene API per recupero password)
+		■ SignupController (contiene API per la registrazione dell'utente)
+	5.1 Creiamo una classe nel package auth/entities:	
+		■ LoginDTO (contiene username e pwd dell'utente, serve per effettuare il login
+		■ SignupDTO (contiene username e pwd dell'utente, serve per effettuare il signup
+	5.2 Creiamo una classe nel package auth/services:	
+		■ LoginService (contiene la logica di business del login)
+	5.3 Creiamo una classe nel package auth/entities:	
+		■ RequestPasswordDTO (contiene l'email su cui vogliamo recuperare la password)
+	5.4 Creiamo una classe nel package auth/entities:	
+		■ RestorePasswordDTO (contiene la nuova password e il codice di recupero)

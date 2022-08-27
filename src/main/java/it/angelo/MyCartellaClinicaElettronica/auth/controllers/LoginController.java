@@ -9,16 +9,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * create an API for handling login system
+ */
+//annotiamo la classe come RestController e mappiamo su /auth
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
 
+    //Iniettiamo il il loginService
     @Autowired
     private LoginService loginService;
 
+    //mappiamo il metodo sul percorso /login
+
+    /**
+     * @param loginDTO contains login info to transfer
+     * @return loginRTO that contain an user and a JWT Token
+     * @throws Exception generic if loginRTO is null
+     */
     @PostMapping("/login")
+    //creiamo un metodo che prende in ingresso un LoginDTO e ci restituisce un LoginRTO
     public LoginRTO login(@RequestBody LoginDTO loginDTO)throws Exception{
+        //invochiamo il metodo login presente nella classe LoginService
         LoginRTO loginRTO = loginService.login(loginDTO);
+        //lanciamo un eccezione generica se loginRTO è nullo
         if(loginRTO == null) throw new Exception("Cannot login");
         return loginRTO;
     }

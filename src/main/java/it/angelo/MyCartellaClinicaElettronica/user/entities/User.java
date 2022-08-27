@@ -30,7 +30,7 @@ public class User{
     private String email;
     private String password;
 
-    // https://jwt.io/
+    // https://jwt.io/ allows you to decode, verify and generate JWT.
     private LocalDateTime jwtCreatedOn;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
@@ -42,6 +42,7 @@ public class User{
                     @JoinColumn(name = "ROLE_ID")
             })
     private Set<Role> roles;
+
 //-----------------------------------------------------------------------------------------------------------
     private String address;
     private String city;
@@ -54,7 +55,6 @@ public class User{
     private String fiscalCode;
 
     private String documentNumber;
-
 //-----------------------------------------------------------------------------------------------------------
     private String badgeNumber;
 
