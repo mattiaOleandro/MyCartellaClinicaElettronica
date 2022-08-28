@@ -28,12 +28,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * manages authentication and authorizations
+ */
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserRepository userRepo;
 
+    //è una collection(simile alla lista) che contiene SimpleGrantedAuthority
     private Collection<? extends GrantedAuthority> getAuthorities(User user){
         if (user == null || !user.isActive()) return List.of();
         return Arrays.asList(user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role.getName())).toArray(SimpleGrantedAuthority[]::new));
@@ -62,6 +66,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         DecodedJWT decoded;
         try {
+            //costruzione del verificatore JWT
             JWTVerifier verifier = JWT.require(Algorithm.HMAC512(LoginService.JWT_SECRET)).withIssuer("develhope-demo").build();
             decoded = verifier.verify(token);
         }catch (JWTVerificationException ex){

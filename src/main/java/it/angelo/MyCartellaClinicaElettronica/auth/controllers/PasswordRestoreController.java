@@ -38,7 +38,7 @@ public class PasswordRestoreController {
     /**
      * accept 2 String: newPassword and resetPasswordCode, located in RestorePasswordDTO Class
      * invoke restore method from PasswordService Class
-     * @param restorePasswordDTO that contain a newPassword and resetPasswordCode
+     * @param restorePasswordDTO contain a newPassword and resetPasswordCode
      * @throws Exception a generic exception can be thrown
      */
     @PostMapping("/restore")

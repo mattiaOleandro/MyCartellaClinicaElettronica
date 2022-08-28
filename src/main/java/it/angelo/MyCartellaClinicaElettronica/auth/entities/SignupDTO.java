@@ -28,7 +28,9 @@ public class SignupDTO {
     private String placeOfBirth;
     private LocalDate birthDate;
 
-    //come l' email deve essere unico
+    /**
+     * fiscalCode attribute must be unique and has a length equal to 16
+     */
     @Column(unique = true,length = 16) //valutare omocodia
     private String fiscalCode;
 

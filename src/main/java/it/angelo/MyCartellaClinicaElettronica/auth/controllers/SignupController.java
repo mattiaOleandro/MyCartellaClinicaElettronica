@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Angelo Zammataro
- * manages the user registration procedure
+ * creates the endpoints needed to manage the registration process
  */
 @RestController
 @RequestMapping("/auth")
@@ -46,6 +45,13 @@ public class SignupController {
     public User signup(@RequestBody SignupDTO signupDTO, @PathVariable String role)throws Exception{
         return signupService.signup(signupDTO, role);
     }
+
+    /**
+     * this method activate user after signup
+     * @param signupActivationDTO contain the activationCode
+     * @return a user
+     * @throws Exception can throw a generic exception
+     */
     @PostMapping("/signup/activation")
     public User signup(@RequestBody SignupActivationDTO signupActivationDTO) throws Exception {
         return signupService.activate(signupActivationDTO);

@@ -38,6 +38,13 @@ public class SignupService {
         return this.signup(signupDTO, Roles.REGISTERED);
     }
 
+    /**
+     * contains the business logic related to the signup
+     * @param signupDTO represents the user data that will be transferred from the frontend
+     * @param role the role of user
+     * @return an user
+     * @throws Exception can throw a generic exception
+     */
     public User signup(SignupDTO signupDTO, String role) throws Exception { //SignupDTO rappresenta in Java l'oggetto body su Postman
         User userInDB = userRepository.findByEmail(signupDTO.getEmail());
         if(userInDB != null) throw new Exception("User already exist");
@@ -46,8 +53,8 @@ public class SignupService {
         user.setName(signupDTO.getName());
         user.setEmail(signupDTO.getEmail());
         user.setSurname(signupDTO.getSurname());
-        user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));// la password viene codificata con PasswordEncoder
-
+        //la password viene codificata con PasswordEncoder e assegnata all'utente
+        user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
         user.setAddress(signupDTO.getAddress());
         user.setCity(signupDTO.getCity());
         user.setPhone(signupDTO.getPhone());
@@ -58,10 +65,10 @@ public class SignupService {
         user.setDocumentNumber(signupDTO.getDocumentNumber());
         //user.setActive(false); // aggiunto parametro in User class
 
-
         //genera un codice univoco di 36 caratteri
         user.setActivationCode(UUID.randomUUID().toString());
 
+        //assegniamo all'utente un set di ruoli
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set user role");
@@ -142,6 +149,15 @@ public class SignupService {
     }
 
     //possiamo dare una scadenza a questo activation code activationCodeExpirationDate
+    //potrebbe essere utile ogni tot tempo, creare una routine per eliminare gli utenti che si sono
+    //registrati MA mai attivati.
+
+    /**
+     * this method activate user after signup
+     * @param signupActivationDTO contain the activationCode
+     * @return a user
+     * @throws Exception can throw a generic exception
+     */
     public User activate(SignupActivationDTO signupActivationDTO) throws Exception {
         User user = userRepository.findByActivationCode(signupActivationDTO.getActivationCode());
         if(user == null) throw  new Exception("User not found");

@@ -3,17 +3,39 @@ package it.angelo.MyCartellaClinicaElettronica.user.repositories;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
+/**
+ * is the repository of the user
+ */
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    /**
+     * search user by email
+     * @param email email of the user
+     * @return an email
+     */
     User findByEmail(String email);
 
+    /**
+     * search user by activationCode
+     * @param activationCode for enable user
+     * @return an activationCode
+     */
     User findByActivationCode(String activationCode);
 
+    /**
+     * search user by PasswordResetCode
+     * @param passwordResetCode for reset password
+     * @return a passwordResetCode
+     */
     User findByPasswordResetCode(String passwordResetCode);
 
+    /**
+     * @deprecated this method belongs to another exercise
+     * @return a rider
+     */
     @Query(nativeQuery = true, value = "SELECT * FROM (\n" +
             "SELECT u.*, COUNT(busyOrders.id) AS numberOfOrders\n" +
             "FROM `user`AS u\n" +
@@ -26,7 +48,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "LIMIT 1")
     Optional<User> pickRider();
 
-
+    /**
+     * assign the first available Doctor to the appointment
+     * @return an available Doctor
+     */
     @Query(nativeQuery = true, value = "SELECT * FROM (\n" +
             "SELECT u.*, COUNT(busyAppointment.id) AS numberOfAppointment\n" +
             "FROM `user`AS u\n" +

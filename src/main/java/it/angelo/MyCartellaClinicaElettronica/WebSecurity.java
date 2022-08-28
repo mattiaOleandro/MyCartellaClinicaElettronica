@@ -21,6 +21,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
 
+
+    //non possiamo fare @Autowired di questo perchè non è un servizio(???), chiedere a Carlo
+    //quindi il metodo va annotato con @Bean
+    //siamo in presenza di un password encoder
+    //se cerchiamo su google "Java Spring encoder" ne troviamo diversi
+    /**
+     * PasswordEncoder class
+     * @return new BCryptPasswordEncoder()
+     */
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -36,10 +45,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 "/webjars/**");
     }*/
 
+    /**
+     * configure the security of all my app
+     * @param http is a HttpSecurity object
+     * @throws Exception can throw a generic exception
+     */
+    //disattiviamo il form di login di default di SpringBoot e configuriamo manualmente la sicurezza della ns app
     protected void configure(HttpSecurity http) throws  Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll() //da eliminare in produzione
                 .antMatchers("/v2/api-docs",
@@ -56,10 +70,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
 
-        http.csrf().disable();// sistema di sicurezza
-        http.headers().frameOptions().disable();// sistema di sicurezza per frame
+        http.csrf().disable();// disabilitiamo sistema di sicurezza(???) da approfondire
+        http.headers().frameOptions().disable();// disabilitiamo sistema di sicurezza per frame(???) da approfondire
 
         // add JWT token filter
+        // prima di tutte le chiamate API si inserisce questo filtro sull'autenticazione
         http.addFilterBefore(
                 jwtTokenFilter,
                 UsernamePasswordAuthenticationFilter.class

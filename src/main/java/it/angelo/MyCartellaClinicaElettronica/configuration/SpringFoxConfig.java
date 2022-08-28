@@ -36,7 +36,7 @@ public class SpringFoxConfig {
                         "   swagger API documentation  ", //   description
                         "1.0.0",// version
                         " https://it.wikipedia.org/wiki/Licenza_MIT",//termsOfServiceUrl
-                        new Contact("Kemy.Dev", "https://github.com/Mayakem76/CustomQueryExample1", "kemy.dev.test@gmail.com"),//Contact contact
+                        new Contact("Team 1 DevelHope", "https://github.com/AngeloZammataro", "develhope.test.agosto.2022@gmail.com"),//Contact contact
                         "MIT",//license
                         " https://it.wikipedia.org/wiki/Licenza_MIT",//licenseUrl
                         Collections.emptyList()
