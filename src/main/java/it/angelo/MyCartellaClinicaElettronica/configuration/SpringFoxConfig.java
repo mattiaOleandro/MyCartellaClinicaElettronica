@@ -8,15 +8,16 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.spring.web.plugins.WebFluxRequestHandlerProvider;
 import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,10 @@ import java.util.stream.Collectors;
 @Configuration
 public class SpringFoxConfig {
     //  ApiInfo(String title, String description, String version,  ...)
+
+    //https://www.baeldung.com/spring-boot-swagger-jwt
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -36,7 +41,7 @@ public class SpringFoxConfig {
                         "   swagger API documentation  ", //   description
                         "1.0.0",// version
                         " https://it.wikipedia.org/wiki/Licenza_MIT",//termsOfServiceUrl
-                        new Contact("Team 1 DevelHope", "https://github.com/AngeloZammataro", "develhope.test.agosto.2022@gmail.com"),//Contact contact
+                        new Contact("Team 1 DevelHope", "https://github.com/AngeloZammataro", "develhope.test.agosto.2022@gmail.com"),//Contact
                         "MIT",//license
                         " https://it.wikipedia.org/wiki/Licenza_MIT",//licenseUrl
                         Collections.emptyList()
@@ -44,8 +49,33 @@ public class SpringFoxConfig {
                        // new Tag("hello-controller","the hello Controller"),
                      //   new Tag("echo-controller","the echo controller")
                 )*/
-                ;
+                .securityContexts(Arrays.asList(securityContext()))
+                .securitySchemes(Arrays.asList(apiKey()))
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
     }
+
+    private ApiKey apiKey() {
+        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .build();
+    }
+
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope
+                = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+    }
+//---------------------------------------------------------------------------------------
+
     @Bean
     public static BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {
         return new BeanPostProcessor() {
@@ -78,5 +108,4 @@ public class SpringFoxConfig {
             }
         };
     }
-
 }

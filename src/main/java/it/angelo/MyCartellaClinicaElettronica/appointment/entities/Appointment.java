@@ -8,8 +8,10 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
+/**
+ * represent an appointment
+ */
 @Data
 @Entity
 @Table(name = "appointment")

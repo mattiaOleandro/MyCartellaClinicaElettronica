@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -22,7 +23,14 @@ public class AppointmentService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * save an appointment
+     * @param appointmentInput is an appointmentDTO object
+     * @return an appointment
+     * @throws Exception a generic exception can be thrown
+     */
     public Appointment save(AppointmentDTO appointmentInput)throws Exception{
+        // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Appointment appointment = new Appointment();
         appointment.setCreatedAt(LocalDateTime.now());
@@ -34,10 +42,10 @@ public class AppointmentService {
         appointment.setNumber(appointmentInput.getNumber());
         appointment.setZipCode(appointmentInput.getZipCode());
 
-        //appointment.setAppointmentStart(appointmentInput.getAppointmentStart());
-        //appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
+        appointment.setAppointmentStart(appointmentInput.getAppointmentStart());
+        appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
 
-        appointment.setAppointmentDate(appointmentInput.getAppointmentDate());
+        appointment.setAppointmentDate(LocalDate.from(appointmentInput.getAppointmentStart()));
 
         //check for patient
         if(appointmentInput.getPatient() == null) throw new Exception("Patient not found");

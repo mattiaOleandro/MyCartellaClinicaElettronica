@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+/**
+ * contains all attributes relating to an appointment
+ */
 @Data
 public class AppointmentDTO {
 

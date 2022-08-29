@@ -8,6 +8,9 @@ public class Roles {
     public final static String RESTAURANT = "RESTAURANT";
     public final static String RIDER ="RIDER";
 
+    public final static String OWNER = "OWNER";
+    public final static String SUPER_ADMIN = "SUPER_ADMIN";
+    public final static String ADMIN = "ADMIN";
     public final static String DOCTOR = "DOCTOR";
     public final static String SECRETARY = "SECRETARY";
     public final static String PATIENT ="PATIENT";

@@ -8,11 +8,10 @@ import it.angelo.MyCartellaClinicaElettronica.appointment.services.AppointmentSe
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +19,12 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/appointment")
+//@PreAuthorize("hasRole('"+ Roles.REGISTERED + "') OR hasRole('"+Roles.ADMIN+"')")
 public class AppointmentController {
 
     @Autowired
@@ -44,6 +43,7 @@ public class AppointmentController {
 
     // get single appointment
     @GetMapping("/{id}")
+    //@PostAuthorize("hasRole('"+Roles.ADMIN + "') OR returnObject.body == null OR returnObject.body.createdBy.id == authentication.principal.id")
     public ResponseEntity<Appointment> getSingle(@PathVariable Long id, Principal principal){
 
         Optional<Appointment> appointment = appointmentRepository.findById(id);
@@ -63,7 +63,7 @@ public class AppointmentController {
         return ResponseEntity.notFound().build();
     }
 
-    // get single appointment
+    // get all appointment
     @GetMapping
     public ResponseEntity<List<Appointment>> getAll(Principal principal){
 
@@ -128,5 +128,24 @@ public class AppointmentController {
                                                                 @DateTimeFormat(pattern = "yyyy-MM-dd")
                                                                 LocalDate end){
         return appointmentRepository.findByAppointmentDateBetween(start, end);
+    }
+
+    //edit an appointment
+    @PutMapping("/{id}")
+    public ResponseEntity<Appointment> update(@RequestBody Appointment appointment, @PathVariable Long id){
+        if(!appointmentService.canEdit(id)){
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.ok(appointmentService.update(id, appointment));
+    }
+
+    //delete an appointment
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        if(!appointmentService.canEdit(id)){
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        appointmentRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

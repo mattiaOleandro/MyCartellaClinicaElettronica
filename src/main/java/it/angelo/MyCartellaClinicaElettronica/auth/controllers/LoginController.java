@@ -25,8 +25,8 @@ public class LoginController {
 
     /**
      * @param loginDTO contains login info to transfer
-     * @return loginRTO that contain an user and a JWT Token
-     * @throws Exception generic if loginRTO is null
+     * @return loginRTO that contain a user and a JWT Token
+     * @throws Exception a generic exception can be thrown if loginRTO is null
      */
     @PostMapping("/login")
     //creiamo un metodo che prende in ingresso un LoginDTO e ci restituisce un LoginRTO
