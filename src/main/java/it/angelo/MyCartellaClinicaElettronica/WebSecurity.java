@@ -69,7 +69,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-resources",
                         "/swagger-resources/configuration/security",
                         "/swagger-ui.html",
-                        "/webjars/**").permitAll()
+                        "/webjars/**").permitAll();
                 // questi ulteriori antmathers mi consentono di abilitare le root per secondo i ruoli
                 // quindi possiamo proteggere API o gruppi di API da accessi indesiderati
                 // hasRole rappresenta i ruoli
@@ -79,8 +79,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 /*.antMatchers("/blog/**").hasRole("ROLE_EDITOR")
                 .antMatchers("/dev-tools/**").hasAnyAuthority("DEV_READ", "DEV_DELETE")
                 .antMatchers("/dev-tools/-bis/**").hasAuthority("DO_DEV_TOOLS_READ")*/
-                .anyRequest().authenticated();
-
+        //--------------------------------------------------------------------------------------------------------------
+                //.anyRequest().authenticated(); // ATTENZIONE!!! tutte le richieste in whitelist così sono libere! Da ricontrollare.
+        //--------------------------------------------------------------------------------------------------------------
 
         http.csrf().disable();// disabilitiamo sistema di sicurezza(???) da approfondire
         http.headers().frameOptions().disable();// disabilitiamo sistema di sicurezza per frame(???) da approfondire

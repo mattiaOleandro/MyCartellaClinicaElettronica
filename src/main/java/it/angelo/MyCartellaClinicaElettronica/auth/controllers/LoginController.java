@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class LoginController {
 
-    //Iniettiamo il il loginService
+    //Iniettiamo il loginService
     @Autowired
     private LoginService loginService;
 

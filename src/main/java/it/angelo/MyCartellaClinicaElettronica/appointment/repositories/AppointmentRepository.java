@@ -28,6 +28,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("select a from Appointment a where a.status = :appointmentStateEnum")
     List<Appointment> findAllByStatus(@Param("appointmentStateEnum") AppointmentStateEnum appointmentStateEnum);
 
+    /**
+     * @deprecated Appointment
+     * @param appointmentStart
+     * @param appointmentEnd
+     * @return
+     */
     // findAppointmentByRangeDate una query nativa, dobbiamo farla funzionare.
     @Query(nativeQuery = true,
             value = "SELECT a.appointment_start, u.surname AS 'Doctor', up.surname AS 'Patient', a.`description` " +
