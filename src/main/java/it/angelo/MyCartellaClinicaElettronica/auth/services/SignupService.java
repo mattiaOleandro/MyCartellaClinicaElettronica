@@ -70,7 +70,7 @@ public class SignupService {
 
         //assegniamo all'utente un set di ruoli
         Set<Role> roles = new HashSet<>();
-        Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
+        Optional<Role> userRole = roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set user role");
         roles.add(userRole.get());
         user.setRoles(roles);
