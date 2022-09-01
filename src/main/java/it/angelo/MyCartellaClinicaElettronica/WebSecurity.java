@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * general security configuration
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity( //abilita delle annotazioni(???) da chiedere a Carlo
+@EnableGlobalMethodSecurity( //abilita la sicurezza a livello di singolo metodo
         prePostEnabled = true,
         securedEnabled = true,
         jsr250Enabled = true)
@@ -25,9 +25,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
 
-
-    //non possiamo fare @Autowired di questo perchè non è un servizio(???), chiedere a Carlo
-    //quindi il metodo va annotato con @Bean
+    //il nostro intento è accedere alla Classe BCryptPasswordEncoder(), non usiamo il classico @Autowired ma...
+    //...annotiamo con @Bean e ritorniamo BCryptPasswordEncoder()
     //siamo in presenza di un password encoder
     //se cerchiamo su google "Java Spring encoder" ne troviamo diversi
     /**
@@ -38,16 +37,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
- /*   @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**");
-    }*/
 
     /**
      * configure the security of all my app

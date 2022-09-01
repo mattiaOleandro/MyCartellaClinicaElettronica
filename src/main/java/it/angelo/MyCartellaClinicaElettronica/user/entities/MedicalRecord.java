@@ -1,5 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.user.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
 
@@ -8,7 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name="`medical_record`")
+@Table(name="MEDICAL_RECORD")
 public class MedicalRecord extends BaseEntity {
 
     @Id
@@ -19,27 +21,16 @@ public class MedicalRecord extends BaseEntity {
 
     private boolean isActive = true;
 
-    @OneToOne
+    @ManyToOne
     private User patient;
 
     @ManyToOne
     private User doctor;
-/*
-    @OneToMany(mappedBy = "medical_record")
-    private Set<MedicalReport> medicalReport;
-*/
 
-
-    // Facciamo il join della tabella MEDICAL_RECORD e della tabella MEDICAL_REPORT. Una cartella medica
-    // può quindi avere uno o più referti al suo interno
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(name = "MEDICAL_RECORD_MEDICAL_REPORT",
-            joinColumns = {
-                    @JoinColumn(name = "MEDICAL_RECORD_ID")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "MEDICAL_REPORT_ID")
-            })
+    //set di referti medici
+    //mappedBy deve contenere il nome dell'istanza del proprietario della relazione che è: medicalRecord
+    @OneToMany(mappedBy = "medicalRecord")
+    @JsonBackReference //necessario per evitare Infinite recursion (StackOverflowError)
     private Set<MedicalReport> medicalReport;
 
 }

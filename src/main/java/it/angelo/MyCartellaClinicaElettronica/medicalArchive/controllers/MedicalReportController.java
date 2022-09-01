@@ -1,12 +1,8 @@
 package it.angelo.MyCartellaClinicaElettronica.medicalArchive.controllers;
 
-import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecordDTO;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalReportDTO;
-import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalRecordRepository;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalReportRepository;
-import it.angelo.MyCartellaClinicaElettronica.medicalArchive.services.MedicalRecordService;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.services.MedicalReportService;
-import it.angelo.MyCartellaClinicaElettronica.user.entities.MedicalRecord;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.MedicalReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +23,13 @@ public class MedicalReportController {
     MedicalReportService medicalReportService;
 
     // create medical record
+
+    /**
+     * method for create a medical report
+     * @param medicalReport is a medical record
+     * @return a ResponseEntity with medicalReport
+     * @throws Exception a generic exception can be thrown
+     */
     @PostMapping
     @PreAuthorize("hasRole('ROLE_DOCTOR')") //solo un MEDICO può creare una referto
     public ResponseEntity<MedicalReport> create(@RequestBody MedicalReportDTO medicalReport) throws Exception{

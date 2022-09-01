@@ -12,4 +12,6 @@ public class MedicalReportDTO {
     private String medicalExamination;
 
     private Long patient;
+
+    private Long medicalRecord;
 }

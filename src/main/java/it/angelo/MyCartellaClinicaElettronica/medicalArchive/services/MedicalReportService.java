@@ -1,6 +1,5 @@
 package it.angelo.MyCartellaClinicaElettronica.medicalArchive.services;
 
-import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecordDTO;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalReportDTO;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalRecordRepository;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalReportRepository;
@@ -32,6 +31,7 @@ public class MedicalReportService {
         // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        // creo un nuovo medicalReport e assegno un valore ai suoi attributi
         MedicalReport medicalReport = new MedicalReport();
         medicalReport.setDoctor(user);
         medicalReport.setAnamnesis(medicalReportInput.getAnamnesis());
@@ -39,16 +39,11 @@ public class MedicalReportService {
         medicalReport.setTherapy(medicalReportInput.getTherapy());
         medicalReport.setPrognosis(medicalReportInput.getPrognosis());
         medicalReport.setMedicalExamination(medicalReportInput.getMedicalExamination());
-        /*
-        //assegniamo alla cartella medica  un set di referti
-        Set<MedicalReport> medicalReports = new HashSet<>();
-        Optional<MedicalReport> medicalReportmedicalRecord = medicalRecordRepository.findByMedicalRecord();
-        if(!medicalReportmedicalRecord.isPresent()) throw new Exception("Cannot set medical Record");
-        medicalReports.add(medicalReportmedicalRecord.get());
-        medicalRecord.setMedicalReport(medicalReports);
-        */
+
         medicalReport.setCreatedBy(user);
         medicalReport.setCreatedAt(LocalDateTime.now());
+        Optional<MedicalRecord> medicalRecord2 = medicalRecordRepository.findById(medicalReportInput.getMedicalRecord());
+        medicalReport.setMedicalRecord(medicalRecord2.get());
 
         //check for patient
         if(medicalReportInput.getPatient() == null) throw new Exception("Patient not found");
@@ -56,7 +51,14 @@ public class MedicalReportService {
         if(!patient.isPresent() || !Roles.hasRole(patient.get(), Roles.PATIENT)) throw new Exception("Patient not found");
 
         medicalReport.setPatient(patient.get());
+/*
+        //check for medical Report
+        if(medicalReportInput.getMedicalRecord() == null) throw new Exception("Medical Record not found");
+        Optional<MedicalRecord> medicalRecord = medicalRecordRepository.findById(medicalReportInput.getMedicalRecord());
+        if(!medicalRecord.isPresent()) throw new Exception("Medical Record not found");
 
+        medicalReport.setMedicalRecord(medicalRecord.get());
+*/
         return medicalReportRepository.save(medicalReport);
     }
 }

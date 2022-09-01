@@ -30,12 +30,22 @@ public class MedicalRecordService {
     public MedicalRecord save(MedicalRecordDTO medicalRecordInput)throws Exception{
         // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         MedicalRecord medicalRecord = new MedicalRecord();
         medicalRecord.setDoctor(user);
         medicalRecord.setDescription(medicalRecordInput.getDescription());
         medicalRecord.setPatientHistory(medicalRecordInput.getPatientHistory());
         medicalRecord.setCreatedBy(user);
         medicalRecord.setCreatedAt(LocalDateTime.now());
+
+        /*
+        //assegniamo alla cartella medica  un set di referti
+        Set<MedicalReport> medicalReports = new HashSet<>();
+        Optional<MedicalReport> medicalReportmedicalRecord = medicalRecordRepository.findByMedicalRecord();
+        if(!medicalReportmedicalRecord.isPresent()) throw new Exception("Cannot set medical Record");
+        medicalReports.add(medicalReportmedicalRecord.get());
+        //medicalRecord.setMedicalReport(medicalReports);
+*/
 
         //check for patient
         if(medicalRecordInput.getPatient() == null) throw new Exception("Patient not found");
