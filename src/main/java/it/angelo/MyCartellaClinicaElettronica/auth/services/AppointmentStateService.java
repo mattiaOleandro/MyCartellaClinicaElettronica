@@ -1,4 +1,4 @@
-package it.angelo.MyCartellaClinicaElettronica.appointment.services;
+package it.angelo.MyCartellaClinicaElettronica.auth.services;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentStateEnum;

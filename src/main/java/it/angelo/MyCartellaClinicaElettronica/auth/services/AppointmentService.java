@@ -1,11 +1,14 @@
-package it.angelo.MyCartellaClinicaElettronica.appointment.services;
+package it.angelo.MyCartellaClinicaElettronica.auth.services;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentDTO;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
+import it.angelo.MyCartellaClinicaElettronica.auth.controllers.PasswordRestoreController;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,10 @@ import java.util.Optional;
 
 @Service
 public class AppointmentService {
+
+    Logger logger = LoggerFactory.getLogger(AppointmentService.class);
+    int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
+
 
     @Autowired
     private AppointmentRepository appointmentRepository;

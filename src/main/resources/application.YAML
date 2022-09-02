@@ -1,7 +1,16 @@
 spring:
+  output:
+    ansi:
+      enabled: always
+logging:
+  level:
+    root: INFO
+    it.angelo.MyCartellaClinicaElettronica.auth.services: DEBUG
+---
+spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: S1V1sP4c3mP4r4B3llum
+    password: Lolistheway1
     url: jdbc:mysql://localhost:3306/my-cartella-clinica-elettronica-db
     username: root
   jpa:

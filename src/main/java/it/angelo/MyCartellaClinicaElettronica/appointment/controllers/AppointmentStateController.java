@@ -2,7 +2,7 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.controllers;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
-import it.angelo.MyCartellaClinicaElettronica.appointment.services.AppointmentStateService;
+import it.angelo.MyCartellaClinicaElettronica.auth.services.AppointmentStateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
