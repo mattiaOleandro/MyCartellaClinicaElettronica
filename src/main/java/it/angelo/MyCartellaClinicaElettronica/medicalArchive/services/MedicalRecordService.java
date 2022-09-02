@@ -1,5 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.medicalArchive.services;
 
+import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecordDTO;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalRecordRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.MedicalRecord;
@@ -38,14 +39,6 @@ public class MedicalRecordService {
         medicalRecord.setCreatedBy(user);
         medicalRecord.setCreatedAt(LocalDateTime.now());
 
-        /*
-        //assegniamo alla cartella medica  un set di referti
-        Set<MedicalReport> medicalReports = new HashSet<>();
-        Optional<MedicalReport> medicalReportmedicalRecord = medicalRecordRepository.findByMedicalRecord();
-        if(!medicalReportmedicalRecord.isPresent()) throw new Exception("Cannot set medical Record");
-        medicalReports.add(medicalReportmedicalRecord.get());
-        //medicalRecord.setMedicalReport(medicalReports);
-*/
 
         //check for patient
         if(medicalRecordInput.getPatient() == null) throw new Exception("Patient not found");
@@ -55,5 +48,22 @@ public class MedicalRecordService {
         medicalRecord.setPatient(patient.get());
 
         return medicalRecordRepository.save(medicalRecord);
+    }
+
+    public MedicalRecord update(Long id, MedicalRecord medicalRecordInput){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (medicalRecordInput == null)return null;
+        medicalRecordInput.setId(id);
+        medicalRecordInput.setUpdatedAt(LocalDateTime.now());
+        medicalRecordInput.setUpdatedBy(user);
+        return medicalRecordRepository.save(medicalRecordInput);
+    }
+
+    //controlliamo se una Cartella clinica è modificabile dall'utente autenticato
+    public boolean canEdit(Long id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<MedicalRecord> medicalRecord = medicalRecordRepository.findById(id);
+        if(!medicalRecord.isPresent())return false;
+        return medicalRecord.get().getCreatedBy().getId() == user.getId();
     }
 }

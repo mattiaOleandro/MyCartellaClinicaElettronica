@@ -42,23 +42,24 @@ public class MedicalReportService {
 
         medicalReport.setCreatedBy(user);
         medicalReport.setCreatedAt(LocalDateTime.now());
+/*
         Optional<MedicalRecord> medicalRecord2 = medicalRecordRepository.findById(medicalReportInput.getMedicalRecord());
         medicalReport.setMedicalRecord(medicalRecord2.get());
-
+*/
         //check for patient
         if(medicalReportInput.getPatient() == null) throw new Exception("Patient not found");
         Optional<User> patient = userRepository.findById(medicalReportInput.getPatient());
         if(!patient.isPresent() || !Roles.hasRole(patient.get(), Roles.PATIENT)) throw new Exception("Patient not found");
 
         medicalReport.setPatient(patient.get());
-/*
+
         //check for medical Report
         if(medicalReportInput.getMedicalRecord() == null) throw new Exception("Medical Record not found");
         Optional<MedicalRecord> medicalRecord = medicalRecordRepository.findById(medicalReportInput.getMedicalRecord());
         if(!medicalRecord.isPresent()) throw new Exception("Medical Record not found");
 
         medicalReport.setMedicalRecord(medicalRecord.get());
-*/
+
         return medicalReportRepository.save(medicalReport);
     }
 }
