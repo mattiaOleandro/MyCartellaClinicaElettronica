@@ -33,7 +33,7 @@ public class User{
     // https://jwt.io/ allows you to decode, verify and generate JWT.
     private LocalDateTime jwtCreatedOn;
 
-    // facciamo il join della tabella user e della tabella USER_ROLES. Un'utente può quindi avere uno o più ruoli
+    // Facciamo il join della tabella user e della tabella USER_ROLES. Un'utente può quindi avere uno o più ruoli
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES",
             joinColumns = {

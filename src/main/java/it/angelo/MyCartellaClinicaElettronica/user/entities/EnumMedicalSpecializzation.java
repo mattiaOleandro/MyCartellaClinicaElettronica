@@ -11,5 +11,6 @@ public enum EnumMedicalSpecializzation {
     UROLOGY,
     RHEUMATOLOGY,
     ORTHOPAEDICS,
-    RADIOLOGY
+    RADIOLOGY,
+    NEUROSURGEON
 }

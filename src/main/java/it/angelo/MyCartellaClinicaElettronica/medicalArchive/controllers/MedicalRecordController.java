@@ -1,6 +1,5 @@
 package it.angelo.MyCartellaClinicaElettronica.medicalArchive.controllers;
 
-import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecordDTO;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalRecordRepository;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.services.MedicalRecordService;
@@ -12,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -80,14 +80,36 @@ public class MedicalRecordController {
         return null;
     }
 
-    // edit a medical record
+    // update medical record don't work correctly!
     @PutMapping("/{id}")
-    public ResponseEntity<MedicalRecord> update(@RequestBody MedicalRecord medicalRecord, @PathVariable Long id){
+    public ResponseEntity<MedicalRecord> update(@RequestBody MedicalRecord medicalRecord,
+                                                @PathVariable Long id) throws Exception {
         if(!medicalRecordService.canEdit(id)){
             return  ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         return ResponseEntity.ok(medicalRecordService.update(id, medicalRecord));
     }
+
+
+
+    // update medical record through native query
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    public ResponseEntity<MedicalRecord> updateDescription2(@RequestParam Long id,
+                                                            @RequestParam String description,
+                                                            @RequestParam String patient_history,
+                                                            MedicalRecord medicalRecordUpdated) {
+
+        return ResponseEntity.ok(medicalRecordService.update2(id, description, patient_history, medicalRecordUpdated));
+    }
+
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<?> partialUpdate(@PathVariable String description, @PathVariable("id") String id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok("resource address updated");
+    }
+
 
     //delete an appointment
     @DeleteMapping("/{id}")
