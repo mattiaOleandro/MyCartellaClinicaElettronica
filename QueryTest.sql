@@ -16,3 +16,7 @@ SELECT * FROM `medical_record`;
 UPDATE `medical_record` 
 SET `description` = 'descrizione della cartella clinica HEIDI 2afe',`patient_history` = 'Storia del paziente HEIDI afwa'
 WHERE `medical_record`.id = 95;
+
+SELECT s.id, s.scheme_of_the_day, a.id, a.scheme_of_the_day_id FROM `scheme_of_the_day` AS s
+JOIN `appointment` AS a ON a.scheme_of_the_day_id = s.id
+WHERE s.id = a.scheme_of_the_day_id;

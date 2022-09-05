@@ -72,7 +72,6 @@ public class MedicalRecordService {
     }
 
 
-
     //controlliamo se una Cartella clinica è modificabile dall'utente autenticato
     public boolean canEdit(Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

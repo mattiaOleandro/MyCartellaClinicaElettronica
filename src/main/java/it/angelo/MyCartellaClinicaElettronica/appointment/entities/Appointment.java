@@ -48,4 +48,9 @@ public class Appointment extends BaseEntity {
     @ManyToOne
     private User doctor;
 
+    @ManyToOne
+    private SchemeOfTheDay schemeOfTheDay;
+
+    private TimeSlot timeSlot;
+
 }

@@ -106,8 +106,8 @@ public class AppointmentController {
         return null;
     }
 
-    //dovrebbe fare la stessa cosa di findByAppointmentDateBetween ma servendosi di una query nativa.
-    //la troviamo in "AppointmentRepository". Il metodo da debug sembra funzionare ma la query no.
+    //Dovrebbe fare la stessa cosa di findByAppointmentDateBetween ma servendosi di una query nativa
+    //la troviamo in "AppointmentRepository". Il metodo da debug sembra funzionare ma la query no
     //da rivedere
     @GetMapping("/findAppointmentByRangeDate")
     public List<Appointment> getAllAppointmentByRangeDate(@RequestParam("appointmentStart")

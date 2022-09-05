@@ -28,11 +28,11 @@ public class AppointmentStateService {
         if(appointment.getPatient().getId() != user.getId()) throw new Exception("This is not your appointment");
         // Additional actions (!)
 
-        //Doctor selection
+        //Doctor selection, the first available doctor will be assigned to appointment
         User doctor = doctorService.pickDoctor();
         appointment.setDoctor(doctor);
 
-        //go ahead one step
+        //go ahead one step in state machine
         appointment.setStatus(AppointmentStateEnum.ACCEPTED);
         appointment.setUpdatedAt(LocalDateTime.now());
         appointment.setUpdatedBy(user);
