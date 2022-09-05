@@ -6,6 +6,8 @@ import it.angelo.MyCartellaClinicaElettronica.auth.entities.LoginDTO;
 import it.angelo.MyCartellaClinicaElettronica.auth.entities.LoginRTO;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,19 +32,35 @@ public class LoginService {
     @Autowired
     private UserRepository userRepository;
 
+    Logger logger = LoggerFactory.getLogger(LoginService.class);
+    int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
+
     /**
      * manages login system
      * @param loginDTO an entity that contains email and password
      * @return a LoginRTO that contains user and JWT Token
      */
     public LoginRTO login(LoginDTO loginDTO){
+        logger.info("Public method 'login' method called at "+ LoginService.class +" at line#" + lineGetter);
+
         if(loginDTO == null) return null;
+        logger.error("if statement from public LoginService 'login' inside :"+
+                AppointmentStateService.class +" at line#" +
+                lineGetter + "- Error : loginDTO is null");
+
         User userFromDB = userRepository.findByEmail(loginDTO.getEmail());//cerca userFromDB per email
+
         if(userFromDB == null || !userFromDB.isActive()) return null;// ritorna nullo se userFromDB è nullo o inattivo
+        logger.error("if statement from public LoginService 'login' inside :"+
+                LoginService.class +" at line#" +
+                lineGetter + "- Error : userFromDB is null");
 
         // chiama il metodo canUserLogin, se restituisce true l'utente può loggarsi
         boolean canLogin = this.canUserLogin(userFromDB, loginDTO.getPassword());
         if(!canLogin) return null; // se restituisce false l'utente non può loggarsi
+        logger.error("if statement from public LoginService 'login' inside :"+
+                LoginService.class +" at line#" +
+                lineGetter + "- Error : userFromDB can't log in");
 
         String JWT = generateJWT(userFromDB);
 
@@ -65,6 +83,8 @@ public class LoginService {
      * @return true if user can log in, otherwise returns false
      */
     public boolean canUserLogin(User user, String password){
+        logger.info("Public method 'canUserLogin' method called at "+ LoginService.class +" at line#" + lineGetter);
+
         return passwordEncoder.matches(password, user.getPassword()); //(password in chiaro, password criptata)
     }
 
@@ -102,11 +122,12 @@ public class LoginService {
     }
 
     /**
-     *
+     * Updates the User given's JWT by refreshing the LocalDateTime of creation and saving the user.
      * @param user
      * @return
      */
     public String generateJWT(User user) {
+        logger.info("Public method 'generateJWT' method called at "+ LoginService.class +" at line#" + lineGetter);
         String JWT = getJWT(user);
 
         user.setJwtCreatedOn(LocalDateTime.now());

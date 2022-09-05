@@ -1,5 +1,8 @@
 package it.angelo.MyCartellaClinicaElettronica.configuration;
 
+import it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -27,11 +30,15 @@ import java.util.stream.Collectors;
 public class SpringFoxConfig {
     //  ApiInfo(String title, String description, String version,  ...)
 
+    Logger logger = LoggerFactory.getLogger(SpringFoxConfig.class);
+    int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
+
     //https://www.baeldung.com/spring-boot-swagger-jwt
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     @Bean
     public Docket api() {
+        logger.info("Public method 'api' method called at "+ SpringFoxConfig.class +" at line#" + lineGetter);
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
@@ -58,16 +65,19 @@ public class SpringFoxConfig {
     }
 
     private ApiKey apiKey() {
+        logger.info("Private method 'apiKey' method called at "+ SpringFoxConfig.class +" at line#" + lineGetter);
         return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
     }
 
     private SecurityContext securityContext() {
+        logger.info("Private method 'securityContext' method called at "+ SpringFoxConfig.class +" at line#" + lineGetter);
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .build();
     }
 
     List<SecurityReference> defaultAuth() {
+        logger.info("The method 'defaultAuth' method called at "+ SpringFoxConfig.class +" at line#" + lineGetter);
         AuthorizationScope authorizationScope
                 = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
