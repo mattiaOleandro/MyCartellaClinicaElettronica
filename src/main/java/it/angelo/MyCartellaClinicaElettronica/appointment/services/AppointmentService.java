@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @ToString
@@ -44,10 +45,10 @@ public class AppointmentService {
         // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Appointment appointment = null;
-        /*
+
         if (TimeSlot.TIME_SLOT_18_00_19_00.equals(appointmentInput.getTimeSlot())){
             System.out.println("EQUALITY CONFIRMED");
-        }*/
+        }
 
         List<Date> listOfDay = schemeOfTheDayRepository.findAllDate();
         System.out.println("LIST OF DAY");
@@ -124,34 +125,38 @@ public class AppointmentService {
                     System.out.println("DATE FROM FRONT-END: " + LocalDate.from(appointmentInput.getAppointmentStart()));
                     System.out.println("-------------------OK-OK---------------");
 
-                    appointment = new Appointment();
-                    appointment.setCreatedAt(LocalDateTime.now());
-                    appointment.setCreatedBy(user);
-                    appointment.setAddress(appointmentInput.getAddress());
-                    appointment.setCity(appointmentInput.getCity());
-                    appointment.setDescription(appointmentInput.getDescription());
-                    appointment.setState(appointmentInput.getState());
-                    appointment.setNumber(appointmentInput.getNumber());
-                    appointment.setZipCode(appointmentInput.getZipCode());
-                    appointment.setTimeSlot(appointmentInput.getTimeSlot());
+                    if (listOfDay.size()-1 == i) {
 
-                    appointment.setAppointmentStart(appointmentInput.getAppointmentStart());
-                    appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
+                        appointment = new Appointment();
+                        appointment.setCreatedAt(LocalDateTime.now());
+                        appointment.setCreatedBy(user);
+                        appointment.setAddress(appointmentInput.getAddress());
+                        appointment.setCity(appointmentInput.getCity());
+                        appointment.setDescription(appointmentInput.getDescription());
+                        appointment.setState(appointmentInput.getState());
+                        appointment.setNumber(appointmentInput.getNumber());
+                        appointment.setZipCode(appointmentInput.getZipCode());
+                        appointment.setTimeSlot(appointmentInput.getTimeSlot());
 
-                    appointment.setAppointmentDate(LocalDate.from(appointmentInput.getAppointmentStart()));
+                        appointment.setAppointmentStart(appointmentInput.getAppointmentStart());
+                        appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
 
-                    //check for patient
-                    if(appointmentInput.getPatient() == null) throw new Exception("Patient not found");
-                    Optional<User> patient = userRepository.findById(appointmentInput.getPatient());
-                    if(!patient.isPresent() || !Roles.hasRole(patient.get(), Roles.PATIENT)) throw new Exception("Patient not found");
-                    appointment.setPatient(patient.get());
+                        appointment.setAppointmentDate(LocalDate.from(appointmentInput.getAppointmentStart()));
 
-                    SchemeOfTheDay schemeOfTheDay = new SchemeOfTheDay();
-                    schemeOfTheDay.setTimeSlot8IsAvailable(false);
-                    schemeOfTheDay.setSchemeOfTheDay(appointment.getAppointmentDate());
-                    appointment.setSchemeOfTheDay(schemeOfTheDay);
-                    schemeOfTheDayRepository.save(schemeOfTheDay);
-                    System.out.println("SAVED");
+                        //check for patient
+                        if (appointmentInput.getPatient() == null) throw new Exception("Patient not found");
+                        Optional<User> patient = userRepository.findById(appointmentInput.getPatient());
+                        if (!patient.isPresent() || !Roles.hasRole(patient.get(), Roles.PATIENT))
+                            throw new Exception("Patient not found");
+                        appointment.setPatient(patient.get());
+
+                        SchemeOfTheDay schemeOfTheDay = new SchemeOfTheDay();
+                        schemeOfTheDay.setTimeSlot8IsAvailable(false);
+                        schemeOfTheDay.setSchemeOfTheDay(appointment.getAppointmentDate());
+                        appointment.setSchemeOfTheDay(schemeOfTheDay);
+                        schemeOfTheDayRepository.save(schemeOfTheDay);
+                        System.out.println("SAVED");
+                    }
                 }
             }
         if (appointment != null) {

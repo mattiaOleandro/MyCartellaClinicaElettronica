@@ -21,6 +21,7 @@ public interface SchemeOfTheDayRepository extends JpaRepository<SchemeOfTheDay,L
                                       "WHERE s.id = :id;")
     List<Date> findOneDate(@Param(value = "id") Long id);
 
+    //cerca il "timeSlot"(fascia oraria) per data
     @Query(nativeQuery = true,value = "SELECT sotd.scheme_of_the_day FROM scheme_of_the_day AS sotd\n" +
                                         "WHERE sotd.scheme_of_the_day = :scheme_of_the_day")
     List<Date> findTimeSlotFromDate(@Param(value = "scheme_of_the_day") Date scheme_of_the_day);
