@@ -32,14 +32,12 @@ public class PasswordRestoreController {
      */
     @PostMapping("/request")
     public void passwordRequest(@RequestBody RequestPasswordDTO requestPasswordDTO) throws Exception {
-        logger.info("@PostMapped '/request' method called at "+ PasswordRestoreController.class +" at line#" + lineGetter);
+        logger.info("@PostMapped '/request' method called at "+ PasswordRestoreController.class + " at line#" + lineGetter);
         try {
             passwordService.request(requestPasswordDTO);
-            if (requestPasswordDTO == null)
-                logger.error("@PostMapped '/request' method called at "+ PasswordRestoreController.class + " at line#" +
-                        lineGetter +"- Error : 'requestPasswordDTO' is null");
+            if (requestPasswordDTO == null) throw new Exception("Password is null");
         }catch (Exception e){
-
+            logger.error(String.format("@PostMapped \'/request\' method called at %s at line# %d Error : %s", PasswordRestoreController.class, lineGetter, e.getMessage()));
         }
     }
 
@@ -58,3 +56,15 @@ public class PasswordRestoreController {
         passwordService.restore(restorePasswordDTO);
     }
 }
+
+//@PostMapping("/request")
+//public void passwordRequest(@RequestBody RequestPasswordDTO requestPasswordDTO) throws Exception {
+//    logger.info("@PostMapped '/request' method called at "+ PasswordRestoreController.class +" at line#" + lineGetter);
+//    try {
+//        passwordService.request(requestPasswordDTO);
+//        if (requestPasswordDTO == null) throw new Exception("Password is null");
+//    }catch (Exception e){
+//        logger.error(String.format("@PostMapped '/request' method called at %s at line#%d
+//                     - Error : %s", PasswordRestoreController.class, lineGetter, e.getMessage());
+//    }
+//}
