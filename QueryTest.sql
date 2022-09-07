@@ -17,6 +17,18 @@ UPDATE `medical_record`
 SET `description` = 'descrizione della cartella clinica HEIDI 2afe',`patient_history` = 'Storia del paziente HEIDI afwa'
 WHERE `medical_record`.id = 95;
 
-SELECT s.id, s.scheme_of_the_day, a.id, a.scheme_of_the_day_id FROM `scheme_of_the_day` AS s
+SELECT s.id AS "id schema del giorno", s.scheme_of_the_day, a.id, a.time_slot, a.scheme_of_the_day_id FROM `scheme_of_the_day` AS s
 JOIN `appointment` AS a ON a.scheme_of_the_day_id = s.id
-WHERE s.id = a.scheme_of_the_day_id;
+WHERE s.id = 136;
+
+SELECT sotd.scheme_of_the_day FROM scheme_of_the_day AS sotd
+WHERE sotd.scheme_of_the_day = '2022-10-17';
+
+UPDATE scheme_of_the_day AS sotd
+SET time_slot8is_available = TRUE
+WHERE sotd.scheme_of_the_day = '2022-10-17';
+
+SELECT * FROM scheme_of_the_day AS sotd;
+
+SELECT sotd.id FROM scheme_of_the_day AS sotd
+WHERE sotd.scheme_of_the_day = '2022-09-21';

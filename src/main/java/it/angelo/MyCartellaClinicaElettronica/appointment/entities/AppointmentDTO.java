@@ -34,5 +34,4 @@ public class AppointmentDTO {
     private Long patient;
 
     private TimeSlot timeSlot;
-
 }

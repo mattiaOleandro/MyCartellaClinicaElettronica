@@ -9,9 +9,9 @@ import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +37,14 @@ public class AppointmentController {
     // create appointment
     @PostMapping
     @PreAuthorize("hasRole('ROLE_SECRETARY')") //solo un SEGRETARIO registrato può creare un appuntamento
-    public ResponseEntity<Appointment> create(@RequestBody AppointmentDTO appointment) throws Exception{
-        return ResponseEntity.ok(appointmentService.save(appointment));
+    public HttpEntity<? extends Object> create(@RequestBody AppointmentDTO appointment) throws Exception{
+        if (appointmentService.getFlag().equals("SLOT 7 - 17:00/18:00")){//sistemare l'eguaglianza con attributo concreto
+            return new ResponseEntity<String>(
+                    "The slot is busy",
+                    HttpStatus.BAD_REQUEST);
+        }else {
+            return ResponseEntity.ok(appointmentService.save(appointment));
+        }
     }
 
     // get single appointment

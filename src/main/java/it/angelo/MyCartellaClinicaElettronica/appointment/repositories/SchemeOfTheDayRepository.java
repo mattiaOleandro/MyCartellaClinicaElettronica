@@ -26,6 +26,16 @@ public interface SchemeOfTheDayRepository extends JpaRepository<SchemeOfTheDay,L
                                         "WHERE sotd.scheme_of_the_day = :scheme_of_the_day")
     List<Date> findTimeSlotFromDate(@Param(value = "scheme_of_the_day") Date scheme_of_the_day);
 
+    //cerca l'ID della tabella "scheme_of_the_day" attraverso la data
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "UPDATE appointment AS a\n" +
+            "SET scheme_of_the_day_id = (SELECT sotd.id FROM scheme_of_the_day AS sotd\n" +
+            "WHERE sotd.scheme_of_the_day = 'scheme_of_the_day')\n" +
+            "WHERE a.appointment_date = 'scheme_of_the_day'")
+    void findSchemeOfTheDayIdByDate(@Param(value = "scheme_of_the_day") Date scheme_of_the_day);
+
+
     @Transactional
     @Modifying
     @Query(nativeQuery = true,value = "UPDATE scheme_of_the_day AS sotd\n" +
@@ -89,5 +99,6 @@ public interface SchemeOfTheDayRepository extends JpaRepository<SchemeOfTheDay,L
             "WHERE sotd.scheme_of_the_day = :scheme_of_the_day")
     void updateTimeSlot1FromDate(@Param(value = "scheme_of_the_day") Date scheme_of_the_day,
                                  @Param(value = "time_slot1is_available") Boolean aBoolean);
+
 }
 
