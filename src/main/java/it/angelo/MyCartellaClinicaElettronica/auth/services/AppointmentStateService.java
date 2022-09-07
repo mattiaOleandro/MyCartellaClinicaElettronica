@@ -27,25 +27,23 @@ public class AppointmentStateService {
 
     public Appointment setAccept(Appointment appointment) throws Exception{
 
-        logger.info("Public method 'setAccept' method called at "+ AppointmentService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/setAccept\' method called at %s at line# %d by %s",
+                AppointmentStateService.class , lineGetter, appointment.getNumber()));
 
         if(appointment == null) throw new NullPointerException();
-        logger.error("if statement from public AppointmentStateService 'setAccept' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : appointment is null");
+        logger.error(String.format("if statement in \'/setAccept\' method called at %s at line# %d by %s - Error : appointment is null.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
 
         if(appointment.getStatus() != AppointmentStateEnum.CREATED) throw new Exception("Cannot edit appointment");
-        logger.error("if statement from public AppointmentStateService 'setAccept' inside :"+
-                AppointmentService.class +" at line#" +
-                lineGetter + "- Error : Cannot edit appointment");
+        logger.error(String.format("if statement in \'/setAccept\' method called at %s at line# %d by %s - Error : Cannot edit appointment.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if(appointment.getPatient().getId() != user.getId()) throw new Exception("This is not your appointment");
-        logger.error("if statement from public AppointmentStateService 'setAccept' inside :" +
-                AppointmentService.class +" at line#" +
-                lineGetter + "- Error : This is not your appointment");
+        logger.error(String.format("if statement in \'/setAccept\' method called at %s at line# %d by %s - Error : This is not your appointment.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
         // Additional actions (!)
 
         //Doctor selection
@@ -60,23 +58,21 @@ public class AppointmentStateService {
     }
 
     public Appointment setInProgress(Appointment appointment) throws Exception{
-        logger.info("Public method 'setInProgress' method called at "+ AppointmentService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/setInProgress\' method called at %s at line# %d by %s",
+                AppointmentStateService.class , lineGetter, appointment.getNumber()));
 
         if(appointment == null) throw new NullPointerException();
-        logger.error("if statement from public AppointmentStateService 'setInProgress' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : appointment is null");
+        logger.error(String.format("if statement in \'/setInProgress\' method called at %s at line# %d by %s - Error : appointment is null.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
         if(appointment.getStatus() != AppointmentStateEnum.ACCEPTED) throw new Exception("Cannot edit appointment");
-        logger.error("if statement from public AppointmentStateService 'setInProgress' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : Cannot edit appointment");
+        logger.error(String.format("if statement in \'/setInProgress\' method called at %s at line# %d by %s - Error : Cannot edit appointment.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(appointment.getDoctor().getId() != user.getId()) throw new Exception("This is not your appointment");
-        logger.error("if statement from public AppointmentStateService 'setInProgress' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : This is not your appointment");
+        logger.error(String.format("if statement in \'/setInProgress\' method called at %s at line# %d by %s - Error : This is not your appointment.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
         //go ahead one step
         appointment.setStatus(AppointmentStateEnum.IN_PROGRESS);
@@ -86,23 +82,21 @@ public class AppointmentStateService {
     }
 
     public Appointment setComplete(Appointment appointment) throws Exception{
-        logger.info("Public method 'setInProgress' method called at "+ AppointmentService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/setComplete\' method called at %s at line# %d by %s",
+                AppointmentStateService.class , lineGetter, appointment.getNumber()));
         if(appointment == null) throw new NullPointerException();
-        logger.error("if statement from public AppointmentStateService 'setComplete' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : appointment is null");
+        logger.error(String.format("if statement in \'/setComplete\' method called at %s at line# %d by %s - Error : appointment is null.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
         if(appointment.getStatus() != AppointmentStateEnum.IN_PROGRESS) throw new Exception("Cannot edit appointment");
-        logger.error("if statement from public AppointmentStateService 'setComplete' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : Cannot edit appointment");
+        logger.error(String.format("if statement in \'/setComplete\' method called at %s at line# %d by %s - Error : Cannot edit appointment.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(appointment.getDoctor().getId() != user.getId()) throw new Exception("This is not your appointment");
-        logger.error("if statement from public AppointmentStateService 'setComplete' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : This is not your appointment");
+        logger.error(String.format("if statement in \'/setComplete\' method called at %s at line# %d by %s - Error : This is not your appointment.",
+                AppointmentStateService.class, lineGetter, appointment.getNumber()));
 
         //go ahead one step
         appointment.setStatus(AppointmentStateEnum.COMPLETED);

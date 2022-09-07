@@ -40,7 +40,8 @@ public class SignupService {
     int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
 
     public User signup(SignupDTO signupDTO) throws Exception {
-        logger.info("Public method 'signup' method called at "+ SignupService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/signup\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupDTO.getEmail()));
         return this.signup(signupDTO, Roles.REGISTERED);
     }
 
@@ -52,13 +53,13 @@ public class SignupService {
      * @throws Exception can throw a generic exception
      */
     public User signup(SignupDTO signupDTO, String role) throws Exception { //SignupDTO rappresenta in Java l'oggetto body su Postman
-        logger.info("Public method 'signup' method called at "+ SignupService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/signup\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupDTO.getEmail()));
 
         User userInDB = userRepository.findByEmail(signupDTO.getEmail());
         if(userInDB != null) throw new Exception("User already exist");
-        logger.error("if statement from public SignupService 'request' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : User already exist");
+        logger.error(String.format(" if statement in \'/signup\' method called at %s at line# %d - Error : User already exist.",
+                SignupService.class, lineGetter));
         // creo nuovo user e setto i parametri necessari
         User user = new User();
         user.setName(signupDTO.getName());
@@ -83,9 +84,8 @@ public class SignupService {
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set user role");
-        logger.error("if statement from public 'signup' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : Cannot set user role");
+        logger.error(String.format(" if statement in \'/signup\' method called at %s at line# %d - Error : Cannot set user role.",
+                SignupService.class, lineGetter));
         roles.add(userRole.get());
         user.setRoles(roles);
 
@@ -94,13 +94,13 @@ public class SignupService {
     }
 
     public User signupDoctor(SignupDoctorDTO signupDoctorDTO, String role) throws Exception{
-        logger.info("Public method 'signupDoctor' method called at "+ SignupService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/signupDoctor\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupDoctorDTO.getEmail()));
 
         User userInDB = userRepository.findByEmail(signupDoctorDTO.getEmail());
         if(userInDB != null) throw new Exception("Doctor already exist");
-        logger.error("if statement from public 'signupDoctor' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : Doctor already exist");
+        logger.error(String.format(" if statement in \'/signupDoctor\' method called at %s at line# %d - Error : Doctor already exist.",
+                SignupService.class, lineGetter));
 
         User user = new User();
         user.setName(signupDoctorDTO.getName());
@@ -116,9 +116,8 @@ public class SignupService {
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set Doctor role");
-        logger.error("if statement from public 'signupDoctor' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : Cannot set Doctor role");
+        logger.error(String.format(" if statement in \'/signupDoctor\' method called at %s at line# %d - Error : Cannot set Doctor role.",
+                SignupService.class, lineGetter));
 
         roles.add(userRole.get());
         user.setRoles(roles);
@@ -128,12 +127,13 @@ public class SignupService {
     }
 
     public User signupPatient(SignupPatientDTO signupPatientDTO, String role) throws Exception{
-        logger.info("Public method 'signupPatient' method called at "+ SignupService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/signupPatient\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupPatientDTO.getEmail()));
+
         User userInDB = userRepository.findByEmail(signupPatientDTO.getEmail());
         if(userInDB != null) throw new Exception("Patient already exist");
-        logger.error("if statement from public 'signupPatient' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : Patient already exist");
+        logger.error(String.format(" if statement in \'/signupPatient\' method called at %s at line# %d - Error : Patient already exist.",
+                SignupService.class, lineGetter));
 
         User user = new User();
         user.setName(signupPatientDTO.getName());
@@ -146,10 +146,10 @@ public class SignupService {
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set Patient role");
-        logger.error("if statement from public 'signupPatient' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : Cannot set Patient role");
-        roles.add(userRole.get());
+
+        logger.error(String.format(" if statement in \'/signupPatient\' method called at %s at line# %d - Error : Cannot set Patient role.",
+                SignupService.class, lineGetter));
+
         user.setRoles(roles);
 
         mailNotificationService.sendActivationEmail(user);
@@ -157,12 +157,12 @@ public class SignupService {
     }
 
     public User signupSecretary(SignupSecretaryDTO signupSecretaryDTO, String role) throws Exception{
-        logger.info("Public method 'signupSecretary' method called at "+ SignupService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/signupSecretary\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupSecretaryDTO.getEmail()));
         User userInDB = userRepository.findByEmail(signupSecretaryDTO.getEmail());
         if(userInDB != null) throw new Exception("Secretary already exist");
-        logger.error("if statement from public 'signupSecretary' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : Secretary already exist");
+        logger.error(String.format(" if statement in \'/signupSecretary\' method called at %s at line# %d - Error : Secretary already exist.",
+                SignupService.class, lineGetter));
 
         User user = new User();
         user.setName(signupSecretaryDTO.getName());
@@ -175,9 +175,8 @@ public class SignupService {
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set Secretary role");
-        logger.error("if statement from public 'signupSecretary' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : Cannot set Secretary role");
+        logger.error(String.format(" if statement in \'/signupSecretary\' method called at %s at line# %d - Error : Cannot set Secretary role.",
+                SignupService.class, lineGetter));
         roles.add(userRole.get());
         user.setRoles(roles);
 
@@ -196,12 +195,12 @@ public class SignupService {
      * @throws Exception can throw a generic exception
      */
     public User activate(SignupActivationDTO signupActivationDTO) throws Exception {
-        logger.info("Public method 'activate' method called at "+ SignupService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/activate\' method called at %s at line# %d .",
+                SignupService.class , lineGetter));
         User user = userRepository.findByActivationCode(signupActivationDTO.getActivationCode());
         if(user == null) throw  new Exception("User not found");
-        logger.error("if statement from public 'activate' inside :"+
-                SignupService.class +" at line#" +
-                lineGetter + "- Error : User not found");
+        logger.error(String.format(" if statement in \'/activate\' method called at %s at line# %d - Error : User not found.",
+                SignupService.class, lineGetter));
         user.setActive(true);
         user.setActivationCode(null);
         return userRepository.save(user);

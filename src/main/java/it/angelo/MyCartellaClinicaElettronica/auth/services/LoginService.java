@@ -41,26 +41,24 @@ public class LoginService {
      * @return a LoginRTO that contains user and JWT Token
      */
     public LoginRTO login(LoginDTO loginDTO){
-        logger.info("Public method 'login' method called at "+ LoginService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/login\' method called at %s at line# %d by %s",
+                LoginService.class , lineGetter, loginDTO.getEmail()));
 
         if(loginDTO == null) return null;
-        logger.error("if statement from public LoginService 'login' inside :"+
-                AppointmentStateService.class +" at line#" +
-                lineGetter + "- Error : loginDTO is null");
+        logger.error(String.format(" if statement in \'/login\' method called at %s at line# %d - Error : loginDTO is null.",
+                LoginService.class, lineGetter));
 
         User userFromDB = userRepository.findByEmail(loginDTO.getEmail());//cerca userFromDB per email
 
         if(userFromDB == null || !userFromDB.isActive()) return null;// ritorna nullo se userFromDB è nullo o inattivo
-        logger.error("if statement from public LoginService 'login' inside :"+
-                LoginService.class +" at line#" +
-                lineGetter + "- Error : userFromDB is null");
+        logger.error(String.format("if statement in \'/login\' method called at %s at line# %d - Error : userFromDB is null or inactive.",
+                LoginService.class, lineGetter));
 
         // chiama il metodo canUserLogin, se restituisce true l'utente può loggarsi
         boolean canLogin = this.canUserLogin(userFromDB, loginDTO.getPassword());
         if(!canLogin) return null; // se restituisce false l'utente non può loggarsi
-        logger.error("if statement from public LoginService 'login' inside :"+
-                LoginService.class +" at line#" +
-                lineGetter + "- Error : userFromDB can't log in");
+        logger.error(String.format("if statement in \'/login\' method called at %s at line# %d - Error : userFromDB cannot login.",
+                LoginService.class, lineGetter));
 
         String JWT = generateJWT(userFromDB);
 
@@ -83,7 +81,8 @@ public class LoginService {
      * @return true if user can log in, otherwise returns false
      */
     public boolean canUserLogin(User user, String password){
-        logger.info("Public method 'canUserLogin' method called at "+ LoginService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/canUserLogin\' method called at %s at line# %d by %s",
+                LoginService.class , lineGetter, user.getEmail()));
 
         return passwordEncoder.matches(password, user.getPassword()); //(password in chiaro, password criptata)
     }
@@ -127,7 +126,8 @@ public class LoginService {
      * @return
      */
     public String generateJWT(User user) {
-        logger.info("Public method 'generateJWT' method called at "+ LoginService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/generateJWT\' method called at %s at line# %d by %s",
+                LoginService.class , lineGetter, user.getEmail()));
         String JWT = getJWT(user);
 
         user.setJwtCreatedOn(LocalDateTime.now());

@@ -32,12 +32,14 @@ public class PasswordRestoreController {
      */
     @PostMapping("/request")
     public void passwordRequest(@RequestBody RequestPasswordDTO requestPasswordDTO) throws Exception {
-        logger.info("@PostMapped '/request' method called at "+ PasswordRestoreController.class + " at line#" + lineGetter);
+        logger.debug(String.format("@PostMapped \'/passwordRequest\' method called at %s at line# %d by %s",
+                PasswordRestoreController.class , lineGetter, requestPasswordDTO.getEmail()));
         try {
             passwordService.request(requestPasswordDTO);
             if (requestPasswordDTO == null) throw new Exception("Password is null");
         }catch (Exception e){
-            logger.error(String.format("@PostMapped \'/request\' method called at %s at line# %d Error : %s", PasswordRestoreController.class, lineGetter, e.getMessage()));
+            logger.error(String.format("if statement in \'/passwordRequest\' method called at %s at line# %d by %s - Error : %s",
+                    PasswordRestoreController.class, lineGetter, requestPasswordDTO.getEmail() , e.getMessage()));
         }
     }
 
@@ -49,10 +51,11 @@ public class PasswordRestoreController {
      */
     @PostMapping("/restore")
     public void passwordRestore(@RequestBody RestorePasswordDTO restorePasswordDTO) throws Exception{
-        logger.info("@PostMapped '/restore' method called at "+ PasswordRestoreController.class +" at line#" + lineGetter);
+        logger.debug(String.format("@PostMapped \'/passwordRestore\' method called at %s at line# %d.",
+                PasswordRestoreController.class , lineGetter));
         if (restorePasswordDTO == null)
-            logger.error("@PostMapped '/restore' method called at "+ PasswordRestoreController.class + " at line#" +
-                    lineGetter +"- Error : 'restorePasswordDTO' is null");
+            logger.error(String.format("if statement in\'/passwordRestore\' method called at %s at line# %d by %s - Error : restorePasswordDTO is null.",
+                    PasswordRestoreController.class, lineGetter));
         passwordService.restore(restorePasswordDTO);
     }
 }

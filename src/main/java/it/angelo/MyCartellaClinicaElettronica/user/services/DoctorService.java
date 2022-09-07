@@ -1,6 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.user.services;
 
 import it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService;
+import it.angelo.MyCartellaClinicaElettronica.user.controllers.UserController;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -21,7 +22,8 @@ public class DoctorService {
     int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
 
     public User pickDoctor() {
-        logger.info("Public method 'pickDoctor' method called at "+ DoctorService.class +" at line#" + lineGetter);
+        logger.debug(String.format("\'/pickDoctor\' method called at %s at line# %d .",
+                DoctorService.class , lineGetter));
         Optional<User> doctor = userRepository.pickDoctor();
         if(doctor.isPresent()){
             return doctor.get();

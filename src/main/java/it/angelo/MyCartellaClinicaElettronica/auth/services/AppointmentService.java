@@ -39,7 +39,8 @@ public class AppointmentService {
      */
     public Appointment save(AppointmentDTO appointmentInput)throws Exception{
         // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
-        logger.info("Public method 'save' method called at "+ AppointmentService.class +" at line#" + lineGetter);
+        logger.debug(String.format(" \'/save\' method called at %s at line# %d by %s",
+                AppointmentService.class , lineGetter, appointmentInput.getNumber()));
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Appointment appointment = new Appointment();
         appointment.setCreatedAt(LocalDateTime.now());
@@ -58,12 +59,12 @@ public class AppointmentService {
 
         //check for patient
         if(appointmentInput.getPatient() == null) throw new Exception("Patient not found");
-        logger.error("if statement from public Appointment 'save' inside :"+ AppointmentService.class +" at line#" +
-                lineGetter + "- Error : 'Patient is null");
+        logger.error(String.format("if statement in \'/save\' method called at %s at line# %d by %s - Error : Patient not found.",
+                AppointmentService.class, lineGetter, appointmentInput.getNumber()));
         Optional<User> patient = userRepository.findById(appointmentInput.getPatient());
         if(!patient.isPresent() || !Roles.hasRole(patient.get(), Roles.PATIENT)) throw new Exception("Patient not found");
-        logger.error("if statement from public Appointment 'save' inside "+ AppointmentService.class +" at line#" +
-                lineGetter + "- Error : 'Patient not found");
+        logger.error(String.format("if statement in \'/save\' method called at %s at line# %d by %s - Error : Patient not found.",
+                AppointmentService.class, lineGetter, appointmentInput.getNumber()));
 
         appointment.setPatient(patient.get());
 
@@ -71,11 +72,12 @@ public class AppointmentService {
     }
 
     public Appointment update(Long id, Appointment appointmentInput){
-        logger.info("Public method 'update' method called at "+ AppointmentService.class +" at line#" + lineGetter);
+        logger.debug(String.format(" \'/update\' method called at %s at line# %d by %s",
+                AppointmentService.class , lineGetter, appointmentInput.getNumber()));
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (appointmentInput == null)return null;
-        logger.error("if statement from public Appointment 'update' inside "+ AppointmentService.class +" at line#" +
-                lineGetter + "- Error : 'appointmentInput is null");
+        logger.error(String.format("if statement in \'/save\' method called at %s at line# %d by %s - Error : appointmentInput is null.",
+                AppointmentService.class, lineGetter, appointmentInput.getNumber()));
         appointmentInput.setId(id);
         appointmentInput.setUpdatedAt(LocalDateTime.now());
         appointmentInput.setUpdatedBy(user);
@@ -83,12 +85,13 @@ public class AppointmentService {
     }
 
     public boolean canEdit(Long id) {
+        logger.debug(String.format(" \'/canEdit\' method called at %s at line# %d by ID %s",
+                AppointmentService.class , lineGetter, id));
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info("Public method 'canEdit' method called at "+ AppointmentService.class +" at line#" + lineGetter);
         Optional<Appointment> appointment = appointmentRepository.findById(id);
         if(!appointment.isPresent())return false;
-        logger.error("if statement from public Appointment 'update' inside "+ AppointmentService.class +" at line#" +
-                lineGetter + "- Error : 'appointmentInput is not present");
+        logger.error(String.format("if statement in \'/canEdit\' method called at %s at line# %d - Error : appointment is not present.",
+                AppointmentService.class, lineGetter));
         return appointment.get().getCreatedBy().getId() == user.getId();
     }
 }

@@ -1,5 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.auth.controllers;
 
+import it.angelo.MyCartellaClinicaElettronica.appointment.controllers.AppointmentController;
 import it.angelo.MyCartellaClinicaElettronica.auth.entities.LoginDTO;
 import it.angelo.MyCartellaClinicaElettronica.auth.entities.LoginRTO;
 import it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService;
@@ -36,14 +37,17 @@ public class LoginController {
     @PostMapping("/login")
     //creiamo un metodo che prende in ingresso un LoginDTO e ci restituisce un LoginRTO
     public LoginRTO login(@RequestBody LoginDTO loginDTO)throws Exception{
-        logger.info("@PostMapped '/login' method called at "+ LoginController.class + " at line#" + lineGetter);
+        logger.debug(String.format("@PostMapped \'/login\' method called at %s at line# %d by %s",
+                LoginController.class , lineGetter, loginDTO.getEmail()));
         if (loginDTO == null)
-            logger.error("@PostMapped '/login' method called at "+ LoginController.class + " at line#" +
-                    lineGetter +"- Error : 'loginDTO' is null");
+            logger.error(String.format("if statement in \'/login\' method called at %s at line# %d by %s - Error : loginDTO is null.",
+                    LoginController.class, lineGetter, loginDTO.getEmail()));
         //invochiamo il metodo login presente nella classe LoginService
         LoginRTO loginRTO = loginService.login(loginDTO);
         //lanciamo un eccezione generica se loginRTO è nullo
         if(loginRTO == null) throw new Exception("Cannot login");
+        logger.error(String.format("if statement in \'/login\' method called at %s at line# %d by %s - Error : Cannot login.",
+                LoginController.class, lineGetter, loginRTO.getUser().getEmail()));
         return loginRTO;
     }
 }
