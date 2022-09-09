@@ -32,3 +32,8 @@ SELECT * FROM scheme_of_the_day AS sotd;
 
 SELECT sotd.id FROM scheme_of_the_day AS sotd
 WHERE sotd.scheme_of_the_day = '2022-09-21';
+
+UPDATE appointment AS a
+SET scheme_of_the_day_id = (SELECT sotd.id FROM scheme_of_the_day AS sotd
+WHERE sotd.scheme_of_the_day = '2022-09-26')
+WHERE a.appointment_date = '2022-09-26';
