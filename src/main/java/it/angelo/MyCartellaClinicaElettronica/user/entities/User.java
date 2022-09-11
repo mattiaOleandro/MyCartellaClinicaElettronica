@@ -32,7 +32,7 @@ public class User{
     private String activationCode;
 
     @Column(length = 36)
-    @ApiModelProperty(value = " ", example = " ")//TODO chiedere ad Angelo
+    @ApiModelProperty(value = "Code to reset the user password", example = "FLE23J73JDN")
     private String passwordResetCode;
 
     @Column(unique = true)
@@ -43,7 +43,7 @@ public class User{
     private String password;
 
     // https://jwt.io/ allows you to decode, verify and generate JWT.
-    @ApiModelProperty(value = " ", example = " ")//TODO chiedere ad Angelo
+    @ApiModelProperty(value = "Indicates when the JWT Token was created", example = "2022-09-11")
     private LocalDateTime jwtCreatedOn;
 
     // Facciamo il join della tabella user e della tabella USER_ROLES. Un'utente può quindi avere uno o più ruoli
@@ -55,7 +55,7 @@ public class User{
             inverseJoinColumns = {
                     @JoinColumn(name = "ROLE_ID")
             })
-    @ApiModelProperty(value = " ", example = " ")//TODO chiedere ad Angelo
+    @ApiModelProperty(value = "Set user roles", example = "REGISTERED")
     private Set<Role> roles;
 
 //-----------------------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ public class User{
     @ApiModelProperty(value = "Place of birth of the user", example = "Roma")
     private String placeOfBirth;
 
-    @ApiModelProperty(value = "Date of birth of the user", example = "1994/02/11")
+    @ApiModelProperty(value = "Date of birth of the user", example = "1994-02-11")
     private LocalDate birthDate;
 
     @Column(unique = true,length = 16) //valutare omocodia
