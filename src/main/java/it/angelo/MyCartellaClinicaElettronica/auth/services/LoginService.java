@@ -45,20 +45,14 @@ public class LoginService {
                 LoginService.class , lineGetter, loginDTO.getEmail()));
 
         if(loginDTO == null) return null;
-        logger.error(String.format(" if statement in \'/login\' method called at %s at line# %d - Error : loginDTO is null.",
-                LoginService.class, lineGetter));
 
         User userFromDB = userRepository.findByEmail(loginDTO.getEmail());//cerca userFromDB per email
 
         if(userFromDB == null || !userFromDB.isActive()) return null;// ritorna nullo se userFromDB è nullo o inattivo
-        logger.error(String.format("if statement in \'/login\' method called at %s at line# %d - Error : userFromDB is null or inactive.",
-                LoginService.class, lineGetter));
 
         // chiama il metodo canUserLogin, se restituisce true l'utente può loggarsi
         boolean canLogin = this.canUserLogin(userFromDB, loginDTO.getPassword());
         if(!canLogin) return null; // se restituisce false l'utente non può loggarsi
-        logger.error(String.format("if statement in \'/login\' method called at %s at line# %d - Error : userFromDB cannot login.",
-                LoginService.class, lineGetter));
 
         String JWT = generateJWT(userFromDB);
 

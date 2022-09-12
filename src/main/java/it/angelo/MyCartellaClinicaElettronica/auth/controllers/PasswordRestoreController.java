@@ -53,9 +53,7 @@ public class PasswordRestoreController {
     public void passwordRestore(@RequestBody RestorePasswordDTO restorePasswordDTO) throws Exception{
         logger.debug(String.format("@PostMapped \'/passwordRestore\' method called at %s at line# %d.",
                 PasswordRestoreController.class , lineGetter));
-        if (restorePasswordDTO == null)
-            logger.error(String.format("if statement in\'/passwordRestore\' method called at %s at line# %d by %s - Error : restorePasswordDTO is null.",
-                    PasswordRestoreController.class, lineGetter));
+        if (restorePasswordDTO == null) throw new NullPointerException("restorePasswordDTO is null.");
         passwordService.restore(restorePasswordDTO);
     }
 }

@@ -39,15 +39,11 @@ public class LoginController {
     public LoginRTO login(@RequestBody LoginDTO loginDTO)throws Exception{
         logger.debug(String.format("@PostMapped \'/login\' method called at %s at line# %d by %s",
                 LoginController.class , lineGetter, loginDTO.getEmail()));
-        if (loginDTO == null)
-            logger.error(String.format("if statement in \'/login\' method called at %s at line# %d by %s - Error : loginDTO is null.",
-                    LoginController.class, lineGetter, loginDTO.getEmail()));
+        if (loginDTO == null) throw new NullPointerException("loginDTO is null.");
         //invochiamo il metodo login presente nella classe LoginService
         LoginRTO loginRTO = loginService.login(loginDTO);
         //lanciamo un eccezione generica se loginRTO è nullo
         if(loginRTO == null) throw new Exception("Cannot login");
-        logger.error(String.format("if statement in \'/login\' method called at %s at line# %d by %s - Error : Cannot login.",
-                LoginController.class, lineGetter, loginRTO.getUser().getEmail()));
         return loginRTO;
     }
 }

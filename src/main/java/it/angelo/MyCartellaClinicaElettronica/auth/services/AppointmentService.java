@@ -59,12 +59,10 @@ public class AppointmentService {
 
         //check for patient
         if(appointmentInput.getPatient() == null) throw new Exception("Patient not found");
-        logger.error(String.format("if statement in \'/save\' method called at %s at line# %d by %s - Error : Patient not found.",
-                AppointmentService.class, lineGetter, appointmentInput.getNumber()));
+
         Optional<User> patient = userRepository.findById(appointmentInput.getPatient());
+
         if(!patient.isPresent() || !Roles.hasRole(patient.get(), Roles.PATIENT)) throw new Exception("Patient not found");
-        logger.error(String.format("if statement in \'/save\' method called at %s at line# %d by %s - Error : Patient not found.",
-                AppointmentService.class, lineGetter, appointmentInput.getNumber()));
 
         appointment.setPatient(patient.get());
 
@@ -76,8 +74,7 @@ public class AppointmentService {
                 AppointmentService.class , lineGetter, appointmentInput.getNumber()));
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (appointmentInput == null)return null;
-        logger.error(String.format("if statement in \'/save\' method called at %s at line# %d by %s - Error : appointmentInput is null.",
-                AppointmentService.class, lineGetter, appointmentInput.getNumber()));
+
         appointmentInput.setId(id);
         appointmentInput.setUpdatedAt(LocalDateTime.now());
         appointmentInput.setUpdatedBy(user);
@@ -90,8 +87,7 @@ public class AppointmentService {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Appointment> appointment = appointmentRepository.findById(id);
         if(!appointment.isPresent())return false;
-        logger.error(String.format("if statement in \'/canEdit\' method called at %s at line# %d - Error : appointment is not present.",
-                AppointmentService.class, lineGetter));
+
         return appointment.get().getCreatedBy().getId() == user.getId();
     }
 }

@@ -115,6 +115,8 @@ public class AppointmentController {
     @GetMapping("/findAllByStatus2")
     public ResponseEntity<List<Appointment>> getAllAppointmentByStatus(@RequestParam AppointmentStateEnum appointmentStateEnum, Principal principal){
 
+        logger.debug(String.format("@GetMapped \'/getAllAppointmentByStatus\' method called at %s at line# %d - Date: %s",
+                AppointmentController.class , lineGetter, principal.getName()));
         User user = (User)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
 
         if(Roles.hasRole(user, Roles.SECRETARY)){

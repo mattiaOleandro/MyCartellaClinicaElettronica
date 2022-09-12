@@ -45,8 +45,6 @@ public class PasswordService {
         User userFromDB = userRepository.findByEmail(requestPasswordDTO.getEmail());
         // se user è uguale a null o non è attivo, lancio un'eccezione
         if(userFromDB == null || !userFromDB.isActive()) throw new Exception("Cannot find user");
-        logger.error(String.format(" if statement in \'/request\' method called at %s at line# %d - Error : Cannot find user.",
-                PasswordService.class, lineGetter));
         //assegno un codice temporaneo
         userFromDB.setPasswordResetCode(UUID.randomUUID().toString());
         //invio il codice appena generato via email
@@ -68,8 +66,6 @@ public class PasswordService {
         User userFromDB = userRepository.findByPasswordResetCode(restorePasswordDTO.getResetPasswordCode());
         // se non è presente lancio un'eccezione
         if(userFromDB == null) throw new Exception("Cannot find user");
-        logger.error(String.format(" if statement in \'/restore\' method called at %s at line# %d - Error : Cannot find user.",
-                PasswordService.class, lineGetter));
 
         userFromDB.setPassword(passwordEncoder.encode(restorePasswordDTO.getNewPassword()));
         userFromDB.setPasswordResetCode(null);

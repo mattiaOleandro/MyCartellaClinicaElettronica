@@ -32,9 +32,7 @@ public class SignupController {
     public User signup(@RequestBody SignupDTO signupDTO)throws Exception{
         logger.debug(String.format("@PostMapped \'/signup\' method called at %s at line# %d by %s",
                 SignupController.class , lineGetter, signupDTO.getEmail()));
-        if (signupDTO == null) throw new Exception("signupDTO is null");
-            logger.error(String.format("if statement in \'/signup\' method called at %s at line# %d by %s - Error : signupDTO is null.",
-                    SignupController.class, lineGetter, signupDTO.getEmail()));
+        if (signupDTO == null) throw new NullPointerException("signupDTO is null");
         return signupService.signup(signupDTO);
     }
 
@@ -42,13 +40,8 @@ public class SignupController {
     public User signupDoctor(@RequestBody SignupDoctorDTO signupDoctorDTO, @PathVariable String role)throws Exception{
         logger.debug(String.format("@PostMapped \'/signupDoctor\' method called at %s at line# %d by %s",
                 SignupController.class , lineGetter, signupDoctorDTO.getEmail()));
-        if (signupDoctorDTO == null)
-            logger.error
-                    (String.format("if statement in \'/signup\' method called at %s at line# %d by %s - Error : signupDoctorDTO is null.",
-                    SignupController.class, lineGetter, signupDoctorDTO.getEmail()));
-        if (role == null) logger.error
-                (String.format("if statement in \'/signup\' method called at %s at line# %d by %s - Error : role is null.",
-                        SignupController.class, lineGetter, signupDoctorDTO.getEmail()));
+        if (signupDoctorDTO == null) throw new NullPointerException("signupDoctorDTO is null");
+        if (role == null) throw new NullPointerException("role is null");
         return signupService.signupDoctor(signupDoctorDTO, role);
     }
 
@@ -56,13 +49,8 @@ public class SignupController {
     public User signupPatient(@RequestBody SignupPatientDTO signupPatientDTO, @PathVariable String role)throws Exception{
         logger.debug(String.format("@PostMapped \'/signupPatient\' method called at %s at line# %d by %s",
                 SignupController.class , lineGetter, signupPatientDTO.getEmail()));
-        if (signupPatientDTO == null)
-            logger.error
-                    (String.format("if statement in \'/signupPatient\' method called at %s at line# %d by %s - Error : signupPatientDTO is null.",
-                            SignupController.class, lineGetter, signupPatientDTO.getEmail()));
-        if (role == null) logger.error
-                (String.format("if statement in \'/signupPatient\' method called at %s at line# %d by %s - Error : role is null.",
-                        SignupController.class, lineGetter, signupPatientDTO.getEmail()));
+        if (signupPatientDTO == null) throw new NullPointerException("signupPatientDTO is null");
+        if (role == null) throw new NullPointerException("role is null");
         return signupService.signupPatient(signupPatientDTO, role);
     }
 
@@ -70,13 +58,8 @@ public class SignupController {
     public User signupSecretary(@RequestBody SignupSecretaryDTO signupSecretaryDTO, @PathVariable String role)throws Exception{
         logger.debug(String.format("@PostMapped \'/signupSecretary\' method called at %s at line# %d by %s",
                 SignupController.class , lineGetter, signupSecretaryDTO.getEmail()));
-        if (signupSecretaryDTO == null)
-            logger.error
-                    (String.format("if statement in \'/signupSecretary\' method called at %s at line# %d by %s - Error : signupSecretaryDTO is null.",
-                            SignupController.class, lineGetter, signupSecretaryDTO.getEmail()));
-        if (role == null) logger.error
-                (String.format("if statement in \'/signupSecretary\' method called at %s at line# %d by %s - Error : role is null.",
-                        SignupController.class, lineGetter, signupSecretaryDTO.getEmail()));
+        if (signupSecretaryDTO == null) throw new NullPointerException("signupSecretaryDTO is null");
+        if (role == null) throw new NullPointerException("role is null");
         return signupService.signupSecretary(signupSecretaryDTO, role);
     }
 
@@ -84,13 +67,9 @@ public class SignupController {
     public User signup(@RequestBody SignupDTO signupDTO, @PathVariable String role)throws Exception{
         logger.debug(String.format("@PostMapped \'/signup\' method called at %s at line# %d by %s",
                 SignupController.class , lineGetter, signupDTO.getEmail()));
-        if (signupDTO == null)
-            logger.error(String.format("if statement in \'/signup\' method called at %s at line# %d by %s - Error : signupDTO is null.",
-                    SignupController.class, lineGetter, signupDTO.getEmail()));
-        if (role == null) logger.error
-                (String.format("if statement in \'/signup\' method called at %s at line# %d by %s - Error : role is null.",
-                        SignupController.class, lineGetter, signupDTO.getEmail()));
-        return signupService.signup(signupDTO, role);
+        if (signupDTO == null) throw new NullPointerException("signupDTO is null");
+        if (role == null) throw new NullPointerException("role is null");
+            return signupService.signup(signupDTO, role);
     }
 
     /**
@@ -103,10 +82,7 @@ public class SignupController {
     public User signup(@RequestBody SignupActivationDTO signupActivationDTO) throws Exception {
         logger.debug(String.format("@PostMapped \'/signup\' method called at %s at line# %d .",
                 SignupController.class , lineGetter));
-        if (signupActivationDTO == null)
-            logger.error
-                    (String.format("if statement in \'/signup\' method called at %s at line# %d - Error : signupActivationDTO is null.",
-                            SignupController.class, lineGetter));
+        if (signupActivationDTO == null) throw new NullPointerException("signupActivationDTO is null");
         return signupService.activate(signupActivationDTO);
     }
 }
