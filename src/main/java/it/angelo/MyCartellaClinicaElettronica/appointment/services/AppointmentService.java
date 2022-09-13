@@ -12,6 +12,8 @@ import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,7 @@ import java.util.Optional;
 @Data
 public class AppointmentService {
 
-    private String flag = "free";
+    private boolean free = false;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -63,6 +65,7 @@ public class AppointmentService {
                 //Se appointmentStart(che mi viene passato da AppointmentDTO) è uguale alla data presente in lista
                 if (LocalDate.from(appointmentInput.getAppointmentStart()).toString().equals(date.toString())) {
                     System.out.println("DATES ARE EQUALS ENTER INTO SWITCH!!!");
+                    free = true;
                     //Estraggo il timeSlot tramite la data match-ata nel ciclo if
                     calendarDayRepository.findTimeSlotFromDate(date);
                     //verifico in quale casistica ricade il timeSlot estratto
