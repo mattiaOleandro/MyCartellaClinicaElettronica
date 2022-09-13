@@ -1,5 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.order.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import it.angelo.MyCartellaClinicaElettronica.order.entities.Order;
 import it.angelo.MyCartellaClinicaElettronica.order.repositories.OrdersRepository;
 import it.angelo.MyCartellaClinicaElettronica.order.services.OrderStateService;
@@ -26,7 +28,8 @@ public class OrderStateController {
 
     @PreAuthorize("hasRole('ROLE_RESTAURANT')")
     @PutMapping("/accepted")
-    public ResponseEntity accepted(@PathVariable long id) throws Exception{
+    @ApiOperation(value = "Order status accepted", notes = "Change the status of the current order to accepted")
+    public ResponseEntity accepted(@ApiParam(value = "The parameter is a long type data which is equivalent to the order id")@PathVariable long id) throws Exception{
         Optional<Order> order = ordersRepository.findById(id);
         if(!order.isPresent())return ResponseEntity.notFound().build();
         return ResponseEntity.ok(orderStateService.setAccept(order.get()));
@@ -34,7 +37,8 @@ public class OrderStateController {
 
     @PreAuthorize("hasRole('ROLE_RESTAURANT')")
     @PutMapping("/in-preparation")
-    public ResponseEntity inPreparation(@PathVariable long id) throws Exception{
+    @ApiOperation(value = "Order status in preparation", notes = "Change the status of the current order to in preparation")
+    public ResponseEntity inPreparation(@ApiParam(value = "The parameter is a long type data which is equivalent to the order id")@PathVariable long id) throws Exception{
         Optional<Order> order = ordersRepository.findById(id);
         if(!order.isPresent())return ResponseEntity.notFound().build();
         return ResponseEntity.ok(orderStateService.setInPreparation(order.get()));
@@ -42,7 +46,8 @@ public class OrderStateController {
 
     @PreAuthorize("hasRole('ROLE_RESTAURANT')")
     @PutMapping("/ready")
-    public ResponseEntity ready(@PathVariable long id) throws Exception{
+    @ApiOperation(value = "Order status ready", notes = "Change the status of the current order to ready")
+    public ResponseEntity ready(@ApiParam(value = "The parameter is a long type data which is equivalent to the order id")@PathVariable long id) throws Exception{
         Optional<Order> order = ordersRepository.findById(id);
         if(!order.isPresent())return ResponseEntity.notFound().build();
         return ResponseEntity.ok(orderStateService.setReady(order.get()));
@@ -50,7 +55,8 @@ public class OrderStateController {
 
     @PreAuthorize("hasRole('ROLE_RIDER')")
     @PutMapping("/delivering")
-    public ResponseEntity delivering(@PathVariable long id) throws Exception{
+    @ApiOperation(value = "Order status delivering", notes = "Change the status of the current order to delivering")
+    public ResponseEntity delivering(@ApiParam(value = "The parameter is a long type data which is equivalent to the order id")@PathVariable long id) throws Exception{
         Optional<Order> order = ordersRepository.findById(id);
         if(!order.isPresent())return ResponseEntity.notFound().build();
         return ResponseEntity.ok(orderStateService.setDelivery(order.get()));
@@ -58,7 +64,8 @@ public class OrderStateController {
 
     @PreAuthorize("hasRole('ROLE_RIDER')")
     @PutMapping("/complete")
-    public ResponseEntity complete(@PathVariable long id) throws Exception{
+    @ApiOperation(value = "Order status complete", notes = "Change the status of the current order to complete")
+    public ResponseEntity complete(@ApiParam(value = "The parameter is a long type data which is equivalent to the order id")@PathVariable long id) throws Exception{
         Optional<Order> order = ordersRepository.findById(id);
         if(!order.isPresent())return ResponseEntity.notFound().build();
         return ResponseEntity.ok(orderStateService.setComplete(order.get()));
