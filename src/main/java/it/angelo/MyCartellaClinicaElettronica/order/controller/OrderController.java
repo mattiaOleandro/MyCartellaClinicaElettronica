@@ -1,5 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.order.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import it.angelo.MyCartellaClinicaElettronica.order.entities.Order;
 import it.angelo.MyCartellaClinicaElettronica.order.entities.OrderDTO;
 import it.angelo.MyCartellaClinicaElettronica.order.repositories.OrdersRepository;
@@ -28,12 +30,14 @@ public class OrderController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_REGISTERED')") //solo un user registrato può creare un ordine
-    public ResponseEntity<Order> create(@RequestBody OrderDTO order) throws Exception{
+    @ApiOperation(value = "Create orders", notes = "Create an order by passing it a body with all the necessary data and save it in the DB")
+    public ResponseEntity<Order> create(@ApiParam(value = "The requested parameter is the body of the order which corresponds to the OrderDTO data")@RequestBody OrderDTO order) throws Exception{
         return ResponseEntity.ok(orderService.save(order));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getSingle(@PathVariable Long id, Principal principal){
+    @ApiOperation(value = "Get single orders by id", notes = "Return a specific order based on the past id")
+    public ResponseEntity<Order> getSingle(@ApiParam(value = "The requested parameter is a Long type data which is equivalent to the order id")@PathVariable Long id, @ApiParam(value = "The parameter is a User entity")Principal principal){
 
         Optional<Order> order = ordersRepository.findById(id);
         if (!order.isPresent())return ResponseEntity.notFound().build();
@@ -52,7 +56,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAll(Principal principal){
+    @ApiOperation(value = "Get all orders", notes = "Returns a list containing all orders")
+    public ResponseEntity<List<Order>> getAll(@ApiParam(value = "The parameter is a User entity")Principal principal){
         User user = (User)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         if(Roles.hasRole(user, Roles.REGISTERED)){
             return ResponseEntity.ok(ordersRepository.findByCreatedBy(user));
