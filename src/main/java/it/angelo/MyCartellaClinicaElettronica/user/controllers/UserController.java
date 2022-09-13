@@ -1,5 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.user.controllers;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import it.angelo.MyCartellaClinicaElettronica.auth.entities.LoginRTO;
 import it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -17,7 +19,8 @@ public class UserController {
     LoginService loginService;
 
     @GetMapping("/profile")
-    public LoginRTO getProfile(Principal principal ){
+    @ApiOperation(value = "Get user profile", notes = "Returns a user")
+    public LoginRTO getProfile(@ApiParam(value = "The parameter is a User entity")Principal principal ){
         User user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         LoginRTO rto = new LoginRTO();
         rto.setUser(user);
