@@ -85,4 +85,6 @@ public class SignupController {
         if (signupActivationDTO == null) throw new NullPointerException("signupActivationDTO is null");
         return signupService.activate(signupActivationDTO);
     }
+
+
 }
