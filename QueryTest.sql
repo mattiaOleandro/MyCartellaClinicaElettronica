@@ -1,3 +1,7 @@
+SELECT HOUR(appointment_start), MINUTE(appointment_start) 
+FROM appointment
+WHERE (SELECT HOUR(appointment_start)) = 10;
+
 SELECT * FROM `appointment` 
 JOIN `user`
 WHERE `user`.id = `doctor_id`;
@@ -21,19 +25,37 @@ SELECT s.id AS "id schema del giorno", s.scheme_of_the_day, a.id, a.time_slot, a
 JOIN `appointment` AS a ON a.scheme_of_the_day_id = s.id
 WHERE s.id = 136;
 
-SELECT sotd.scheme_of_the_day FROM scheme_of_the_day AS sotd
-WHERE sotd.scheme_of_the_day = '2022-10-17';
+-- findAllDate
+SELECT cd.`day` FROM `calendar_day` AS cd;
 
-UPDATE scheme_of_the_day AS sotd
-SET time_slot8is_available = TRUE
-WHERE sotd.scheme_of_the_day = '2022-10-17';
+-- findOneDate
+SELECT cd.`day` FROM `calendar_day` AS cd
+WHERE cd.id = 317;
 
-SELECT * FROM scheme_of_the_day AS sotd;
+-- findTimeSlotFromDate
+SELECT cd.`day` FROM calendar_day AS cd
+WHERE cd.`day` = '2022-09-18';
 
-SELECT sotd.id FROM scheme_of_the_day AS sotd
-WHERE sotd.scheme_of_the_day = '2022-09-21';
+-- update calendar_day and set timeSlot to true where calendar_day is equal to date
+UPDATE calendar_day AS cd
+SET time_slot8is_available = FALSE
+WHERE cd.`day` = '2022-09-17';
 
+-- seleziona tutto dalla tabella calendar_day
+SELECT * FROM calendar_day AS cd;
+
+-- seleziona l'id dalla tabella calendar_day dove la colonna day è uguale alla data specificata
+SELECT cd.id FROM calendar_day AS cd
+WHERE cd.`day` = '2022-10-10';
+
+-- set timeSLot
 UPDATE appointment AS a
-SET scheme_of_the_day_id = (SELECT sotd.id FROM scheme_of_the_day AS sotd
-WHERE sotd.scheme_of_the_day = '2022-09-26')
-WHERE a.appointment_date = '2022-09-26';
+SET calendar_day_id = (SELECT cd.id FROM calendar_day AS cd
+WHERE cd.`day` = '2022-12-25')
+WHERE a.appointment_date = '2022-12-25' AND (SELECT HOUR(appointment_start)) = 18;
+
+-- seleziona tutto da appointment dove a.appointment_date = date e a.time_slot = time_slot
+SELECT * FROM appointment AS a
+WHERE a.appointment_date = '2022-12-25' AND (SELECT HOUR(appointment_start)) = 18;
+
+
