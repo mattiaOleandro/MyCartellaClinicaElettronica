@@ -2,12 +2,11 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -20,7 +19,7 @@ public class CalendarDay {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private LocalDate day;
+    private Date day;
 
     private boolean timeSlot1IsAvailable = true;// dalle 8:00 alle 9:00
     private boolean timeSlot2IsAvailable = true;// dalle 9:00 alle 10:00
