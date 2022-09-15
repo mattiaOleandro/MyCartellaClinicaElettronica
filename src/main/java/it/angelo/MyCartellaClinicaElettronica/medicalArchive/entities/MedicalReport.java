@@ -18,10 +18,10 @@ public class MedicalReport {
     @GeneratedValue
     private long id;
 
-    @ManyToOne
+    @OneToMany
     private User patient;
 
-    @ManyToOne
+    @OneToMany
     private User doctor;
 
     @Column(nullable = false, length = 4000)

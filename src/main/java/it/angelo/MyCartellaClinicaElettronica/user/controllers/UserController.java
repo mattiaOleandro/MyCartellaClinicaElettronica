@@ -23,7 +23,7 @@ public class UserController {
     int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
 
     @GetMapping("/profile")
-    public LoginRTO getProfile(Principal principal ){
+    public LoginRTO getProfile(Principal principal){
         logger.debug(String.format("\'/getProfile\' method called at %s at line# %d .",
                 UserController.class , lineGetter));
 
