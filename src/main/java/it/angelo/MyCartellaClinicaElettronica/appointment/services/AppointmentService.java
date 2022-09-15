@@ -193,8 +193,6 @@ public class AppointmentService {
 
                     appointment.setAppointmentDate((LocalDate.from(appointmentInput.getAppointmentStart())));
 
-                    appointment.setFlag(true);
-
                     //check for patient
                     if (appointmentInput.getPatient() == null) throw new Exception("Patient not found");
                     Optional<User> patient = userRepository.findById(appointmentInput.getPatient());
@@ -231,9 +229,6 @@ public class AppointmentService {
                     appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
 
                     appointment.setAppointmentDate(LocalDate.from(appointmentInput.getAppointmentStart()));
-
-                    appointment.setFlag(true);
-
 
                     //check for patient
                     if (appointmentInput.getPatient() == null) throw new Exception("Patient not found");

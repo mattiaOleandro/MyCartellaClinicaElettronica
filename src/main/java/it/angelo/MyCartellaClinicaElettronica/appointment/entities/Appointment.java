@@ -59,6 +59,4 @@ public class Appointment extends BaseEntity {
 
     private TimeSlot timeSlot;
 
-    private boolean flag;
-
 }
