@@ -8,6 +8,7 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -40,7 +41,7 @@ public class Appointment extends BaseEntity {
 
 //--------------- test date for find appointment betweeen DATE -------------
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date appointmentDate;
+    private LocalDate appointmentDate;
 //--------------------------------------------------------------------------
 
     private AppointmentStateEnum status = AppointmentStateEnum.CREATED;

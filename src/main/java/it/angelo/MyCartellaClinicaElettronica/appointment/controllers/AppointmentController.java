@@ -38,12 +38,13 @@ public class AppointmentController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_SECRETARY')") //solo un SEGRETARIO registrato può creare un appuntamento
     public HttpEntity<? extends Object> create(@RequestBody AppointmentDTO appointment) throws Exception{
+        Appointment a = appointmentService.save(appointment);
         if (appointmentService.isFree()){//sistemare l'eguaglianza con attributo concreto
             return new ResponseEntity<String>(
                     "The slot is busy",
                     HttpStatus.BAD_REQUEST);
         }else {
-            return ResponseEntity.ok(appointmentService.save(appointment));
+            return ResponseEntity.ok(a);
         }
     }
 

@@ -6,7 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -19,7 +19,8 @@ public class CalendarDay {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private Date day;
+    @Column(unique = true)
+    private LocalDate day;
 
     private boolean timeSlot1IsAvailable = true;// dalle 8:00 alle 9:00
     private boolean timeSlot2IsAvailable = true;// dalle 9:00 alle 10:00

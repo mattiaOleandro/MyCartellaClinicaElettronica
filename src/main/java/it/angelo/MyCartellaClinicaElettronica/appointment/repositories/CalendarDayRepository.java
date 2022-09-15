@@ -49,7 +49,7 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     @Modifying
     @Query(nativeQuery = true,value = "UPDATE calendar_day AS cd\n" +
             "SET time_slot7is_available = :time_slot7is_available\n" +
-            "WHERE cd = :day")
+            "WHERE cd.day = :day")
     void updateTimeSlot7FromDate(@Param(value = "day") Date day,
                                  @Param(value = "time_slot7is_available") Boolean aBoolean);
 
@@ -101,5 +101,37 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     void updateTimeSlot1FromDate(@Param(value = "day") Date day,
                                  @Param(value = "time_slot1is_available") Boolean aBoolean);
 
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot8is_available` FROM calendar_day AS cd \n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot8FromDate(@Param(value = "day") Date day);
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot7is_available` FROM calendar_day AS cd \n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot7FromDate(@Param(value = "day") Date day);
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot6is_available` FROM calendar_day AS cd \n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot6FromDate(@Param(value = "day") Date day);
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot5is_available` FROM calendar_day AS cd \n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot5FromDate(@Param(value = "day") Date day);
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot4is_available` FROM calendar_day AS cd \n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot4FromDate(@Param(value = "day") Date day);
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot3is_available` FROM calendar_day AS cd \n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot3FromDate(@Param(value = "day") Date day);
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot2is_available` FROM calendar_day AS cd \n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot2FromDate(@Param(value = "day") Date day);
+
+    @Query(nativeQuery = true,value = "SELECT cd.`time_slot1is_available` FROM calendar_day AS cd\n" +
+            "WHERE cd.`day` = :day")
+    boolean findTimeSlot1FromDate(@Param(value = "day") Date day);
 }
 

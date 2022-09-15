@@ -3,6 +3,7 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -28,7 +29,7 @@ public class AppointmentDTO {
 
 //--------------- test date for find appointment betweeen DATE -------------
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date appointmentDate;
+    private LocalDate appointmentDate;
 //--------------------------------------------------------------------------
     private Long patient;
 
