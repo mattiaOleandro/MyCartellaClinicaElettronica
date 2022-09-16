@@ -2,7 +2,6 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.repositories;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentStateEnum;
-import it.angelo.MyCartellaClinicaElettronica.appointment.entities.TimeSlot;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,7 +48,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     // cerca gli appuntamenti in un range di date, lo implementiamo in "Appointment Controller"
     List<Appointment> findByAppointmentDateBetween(@Param("start") LocalDate start, @Param("end")LocalDate end);
-
-
 }
 

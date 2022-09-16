@@ -114,8 +114,6 @@ public class AppointmentService {
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             //setto il timeSlot su falso
                             calendarDayRepository.updateTimeSlot1FromDate(date, Boolean.FALSE);
-                            //aggiorno la tabella calendar_day
-                            calendarDayRepository.updateCalendarDayIdByDate(date,8);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 1;
                             break;
@@ -123,7 +121,6 @@ public class AppointmentService {
                             System.out.println("SLOT 2 - 09:00/10:00");
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             calendarDayRepository.updateTimeSlot2FromDate(date, Boolean.FALSE);
-                            calendarDayRepository.updateCalendarDayIdByDate(date,9);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 2;
                             break;
@@ -131,7 +128,6 @@ public class AppointmentService {
                             System.out.println("SLOT 3 - 10:00/11:00");
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             calendarDayRepository.updateTimeSlot3FromDate(date, Boolean.FALSE);
-                            calendarDayRepository.updateCalendarDayIdByDate(date,10);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 3;
                             break;
@@ -139,7 +135,6 @@ public class AppointmentService {
                             System.out.println("SLOT 4 - 11:00/12:00");
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             calendarDayRepository.updateTimeSlot4FromDate(date, Boolean.FALSE);
-                            calendarDayRepository.updateCalendarDayIdByDate(date,11);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 4;
                             break;
@@ -147,7 +142,6 @@ public class AppointmentService {
                             System.out.println("SLOT 5 - 15:00/16:00");
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             calendarDayRepository.updateTimeSlot5FromDate(date, Boolean.FALSE);
-                            calendarDayRepository.updateCalendarDayIdByDate(date,15);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 5;
                             break;
@@ -155,7 +149,6 @@ public class AppointmentService {
                             System.out.println("SLOT 6 - 16:00/17:00");
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             calendarDayRepository.updateTimeSlot6FromDate(date, Boolean.FALSE);
-                            calendarDayRepository.updateCalendarDayIdByDate(date,16);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 6;
                             break;
@@ -163,7 +156,6 @@ public class AppointmentService {
                             System.out.println("SLOT 7 - 17:00/18:00");
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             calendarDayRepository.updateTimeSlot7FromDate(date, Boolean.FALSE);
-                            calendarDayRepository.updateCalendarDayIdByDate(date,17);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 7;
                             break;
@@ -171,7 +163,6 @@ public class AppointmentService {
                             System.out.println("SLOT 8 - 18:00/19:00");
                             System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
                             calendarDayRepository.updateTimeSlot8FromDate(date, Boolean.FALSE);
-                            calendarDayRepository.updateCalendarDayIdByDate(date,18);
                             System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
                             timeSlotSetting = 8;
                             break;
@@ -193,6 +184,9 @@ public class AppointmentService {
 
                     appointment.setAppointmentDate((LocalDate.from(appointmentInput.getAppointmentStart())));
 
+                    //inserisce la chiave esterna(calendar_day_id) nella tabella appointment
+                    appointment.setCalendarDay(calendarDayRepository.findAllByDay(LocalDate.from(appointmentInput.getAppointmentStart())));
+
                     //check for patient
                     if (appointmentInput.getPatient() == null) throw new Exception("Patient not found");
                     Optional<User> patient = userRepository.findById(appointmentInput.getPatient());
@@ -213,6 +207,7 @@ public class AppointmentService {
                 //se abbiamo finito di scorrere la lista
                 if (listOfDay.size()-1 == i) {
 
+                    System.out.println("CREATE NEW DATE APPOINTMENT");
                     //creiamo un nuovo appuntamento
                     appointment = new Appointment();
                     appointment.setCreatedAt(LocalDateTime.now());

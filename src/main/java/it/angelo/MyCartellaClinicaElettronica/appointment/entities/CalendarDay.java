@@ -1,7 +1,5 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,7 +17,6 @@ public class CalendarDay {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(unique = true)
     private LocalDate day;
 
     private boolean timeSlot1IsAvailable = true;// dalle 8:00 alle 9:00
@@ -34,8 +31,6 @@ public class CalendarDay {
 
 
     @OneToMany(mappedBy = "calendarDay")
-    @JsonBackReference //necessario per evitare Infinite recursion (StackOverflowError)
-    @JsonIgnore
     private Set<Appointment> appointment;
 
 }

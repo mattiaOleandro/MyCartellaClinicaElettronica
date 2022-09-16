@@ -8,11 +8,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
+
+    CalendarDay findAllByDay(LocalDate day);
+
 
     @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd")
     List<Date> findAllDate();
@@ -25,17 +29,6 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     @Query(nativeQuery = true,value = "SELECT cd.`day` FROM calendar_day AS cd\n" +
                                       "WHERE cd.`day` = :day")
     List<Date> findTimeSlotFromDate(@Param(value = "day") Date day);
-
-    //aggiorna
-    @Transactional
-    @Modifying
-    @Query(nativeQuery = true,value = "UPDATE appointment AS a\n" +
-            "SET calendar_day_id = (SELECT cd.id FROM calendar_day AS cd\n" +
-            "WHERE cd.`day` = :day)\n" +
-            "WHERE a.appointment_date = :day AND (SELECT HOUR(appointment_start)) = :hour")
-    void updateCalendarDayIdByDate(@Param(value = "day") Date day,
-                                   @Param(value = "hour") int hour);
-
 
     @Transactional
     @Modifying

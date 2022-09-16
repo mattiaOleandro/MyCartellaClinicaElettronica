@@ -1,5 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -10,7 +11,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * represent an appointment
@@ -52,9 +52,9 @@ public class Appointment extends BaseEntity {
     @ManyToOne
     private User doctor;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "calendar_day_id")
-    @JsonManagedReference
     private CalendarDay calendarDay;
 
     private TimeSlot timeSlot;
