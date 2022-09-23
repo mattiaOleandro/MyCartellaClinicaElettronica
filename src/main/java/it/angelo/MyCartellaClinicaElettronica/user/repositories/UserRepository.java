@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -66,4 +67,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "LIMIT 1")
     Optional<User> pickDoctor();
 
+    User findUserById(Long id);
+
+    @Query(nativeQuery = true, value = "SELECT ur.role_id FROM user_role AS us" +
+            "WHERE ur.user_id = :id AND ur.user_role = 4\n")
+    boolean isRoleDoctorById(Long id);
+
+    @Query(nativeQuery = true, value = "SELECT ur.user_id FROM user_role AS us" +
+            "WHERE ur.user_role = 4\n")
+    List<Long> getUserIdByRoleId();
 }

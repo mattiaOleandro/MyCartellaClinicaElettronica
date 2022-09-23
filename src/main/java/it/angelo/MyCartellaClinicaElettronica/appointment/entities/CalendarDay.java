@@ -1,5 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
+import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -32,5 +33,10 @@ public class CalendarDay {
 
     @OneToMany(mappedBy = "calendarDay")
     private Set<Appointment> appointment;
+
+
+    @OneToOne
+    @JoinColumn(name = "doctor_id")
+    private User doctor;
 
 }

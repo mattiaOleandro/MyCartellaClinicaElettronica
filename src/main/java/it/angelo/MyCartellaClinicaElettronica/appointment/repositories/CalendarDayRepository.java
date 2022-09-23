@@ -1,6 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.repositories;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.CalendarDay;
+import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +18,9 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
 
     CalendarDay findAllByDay(LocalDate day);
 
+    @Query(nativeQuery = true, value = "SELECT cd.`doctor_id` FROM `calendar_day` AS cd")
+    List<Long> findAllDoctorId();
+
 
     @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd")
     List<Date> findAllDate();
@@ -29,6 +33,14 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     @Query(nativeQuery = true,value = "SELECT cd.`day` FROM calendar_day AS cd\n" +
                                       "WHERE cd.`day` = :day")
     List<Date> findTimeSlotFromDate(@Param(value = "day") Date day);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "UPDATE calendar_day AS cd\n" +
+            "SET doctor_id = :doctorId\n" +
+            "WHERE cd.day = :day")
+    void updateDoctorIdFromData(@Param(value = "day") Date day,
+                                @Param(value = "id") Long id);
 
     @Transactional
     @Modifying

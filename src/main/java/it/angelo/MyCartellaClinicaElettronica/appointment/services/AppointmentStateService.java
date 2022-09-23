@@ -29,8 +29,8 @@ public class AppointmentStateService {
         // Additional actions (!)
 
         //Doctor selection, the first available doctor will be assigned to appointment
-        User doctor = doctorService.pickDoctor();
-        appointment.setDoctor(doctor);
+        //User doctor = doctorService.pickDoctor();
+        //appointment.setDoctor(doctor);
 
         //go ahead one step in state machine
         appointment.setStatus(AppointmentStateEnum.ACCEPTED);

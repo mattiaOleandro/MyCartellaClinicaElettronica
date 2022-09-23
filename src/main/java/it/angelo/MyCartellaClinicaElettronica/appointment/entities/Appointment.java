@@ -2,7 +2,6 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
