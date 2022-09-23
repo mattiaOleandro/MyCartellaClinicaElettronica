@@ -35,7 +35,7 @@ public class CalendarDay {
     private Set<Appointment> appointment;
 
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "doctor_id")
     private User doctor;
 
