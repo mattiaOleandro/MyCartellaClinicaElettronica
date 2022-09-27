@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     @Modifying
     @Query(nativeQuery = true,value = "UPDATE calendar_day AS cd\n" +
             "SET time_slot7is_available = :time_slot7is_available\n" +
-            "WHERE cd = :day")
+            "WHERE cd.day = :day")
     void updateTimeSlot7FromDate(@Param(value = "day") Date day,
                                  @Param(value = "time_slot7is_available") Boolean aBoolean);
 

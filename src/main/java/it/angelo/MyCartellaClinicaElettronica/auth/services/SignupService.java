@@ -113,6 +113,7 @@ public class SignupService {
         user.setEmail(signupPatientDTO.getEmail());
         user.setSurname(signupPatientDTO.getSurname());
         user.setMedicalPathology(signupPatientDTO.getMedicalPathology());
+        user.setPassword(passwordEncoder.encode(signupPatientDTO.getPassword()));
 
         user.setActivationCode(UUID.randomUUID().toString());
 
@@ -135,6 +136,7 @@ public class SignupService {
         user.setEmail(signupSecretaryDTO.getEmail());
         user.setSurname(signupSecretaryDTO.getSurname());
         user.setPlaceOfWork(signupSecretaryDTO.getPlaceOfWork());
+        user.setPassword(passwordEncoder.encode(signupSecretaryDTO.getPassword()));
 
         user.setActivationCode(UUID.randomUUID().toString());
 

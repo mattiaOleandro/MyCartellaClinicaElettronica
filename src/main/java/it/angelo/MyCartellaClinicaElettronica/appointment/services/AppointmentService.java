@@ -3,7 +3,6 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.services;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentDTO;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.CalendarDay;
-import it.angelo.MyCartellaClinicaElettronica.appointment.entities.TimeSlot;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.CalendarDayRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -49,7 +48,8 @@ public class AppointmentService {
         // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Appointment appointment = null;
+        //creo un appuntamento vuoto
+        Appointment appointment = new Appointment();
         int timeSlotSetting = 0;
 
         //Lista dei giorni presenti in tabella. Utilizziamo il metodo findByDate
@@ -206,6 +206,8 @@ public class AppointmentService {
                         appointment.setCalendarDay(calendarDay);
                         calendarDayRepository.save(calendarDay);
                         System.out.println("SAVED");
+                        calendarDayRepository.updateCalendarDayIdByDate(date,8);
+                        System.out.println("SLOT UPDATED");
                     }
                 }
             }

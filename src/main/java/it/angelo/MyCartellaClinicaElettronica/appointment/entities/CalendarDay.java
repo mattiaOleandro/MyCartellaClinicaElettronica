@@ -2,7 +2,7 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @DynamicUpdate
 @Table(name="CALENDAR_DAY")
-public class CalendarDay {
+public class CalendarDay extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
