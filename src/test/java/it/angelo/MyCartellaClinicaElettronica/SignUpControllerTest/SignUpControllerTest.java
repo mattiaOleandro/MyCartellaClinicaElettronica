@@ -54,15 +54,16 @@ public class SignUpControllerTest {
                         .contentType("application/json")
                         .param("signUpDTO", "true")
                         .content(objectMapper.writeValueAsString(signupDTO)))
-                .andExpect(status().isOk());
+                        .andDo(print())
+                        .andExpect(status().isOk());
     }
 
     @Test
     public void signupDoctor() throws Exception{
         //Creiamo una copia dell'oggetto che verrà trasformata in Json dal mockMVC
         SignupDoctorDTO signupDoctorDTO = new SignupDoctorDTO(
-                "Pippo", "Morfina",
-                "pippoladroga@gmail.com", "password",
+                "Furio", "Camillo",
+                "camillone@gmail.com", "password",
                 "via bianca","Milano","123456789",
                 "Italiana","Milano",LocalDate.parse("1970-09-30"),
                 "af6a4fa654f654","ad888ad",
@@ -78,7 +79,8 @@ public class SignUpControllerTest {
                 //scriviamo i parametri in ingresso del metodo originale
                         .param("signupDoctorDTO", "true")
                 //Convertiamo tutto in stringa con ObjectMapper
-                        .content(objectMapper.writeValueAsString(signupDoctorDTO)))
+                        .content(objectMapper.writeValueAsString(signupDoctorDTO))).
+                andDo(print())
                 //asseriamo che lo status debba essere 200 OK per sancire che il test sia di esito positivo
                 .andExpect(status().isOk());
     }
