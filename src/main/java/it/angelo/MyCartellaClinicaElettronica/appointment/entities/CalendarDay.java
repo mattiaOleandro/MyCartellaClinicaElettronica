@@ -35,8 +35,14 @@ public class CalendarDay {
     private Set<Appointment> appointment;
 
 
-    @OneToMany
-    @JoinColumn(name = "doctor_id")
-    private User doctor;
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name = "CALENDAR_DOCTOR",
+            joinColumns = {
+                    @JoinColumn(name = "CALENDAR_ID")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "DOCTOR_ID")
+            })
+    private Set<User> doctor;
 
 }

@@ -3,6 +3,7 @@ package it.angelo.MyCartellaClinicaElettronica.user.repositories;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -69,11 +70,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserById(Long id);
 
-    @Query(nativeQuery = true, value = "SELECT ur.role_id FROM user_role AS us" +
-            "WHERE ur.user_id = :id AND ur.user_role = 4\n")
-    boolean isRoleDoctorById(Long id);
+    @Query(nativeQuery = true, value = "SELECT ur.role_id FROM user_roles AS ur\n" +
+            "WHERE ur.user_id = :id")
+    Long getSingleUserIdRoleId(@Param(value = "id")Long id);
 
-    @Query(nativeQuery = true, value = "SELECT ur.user_id FROM user_role AS us" +
-            "WHERE ur.user_role = 4\n")
-    List<Long> getUserIdByRoleId();
+    @Query(nativeQuery = true, value = "SELECT ur.user_id FROM user_roles AS ur\n" +
+            "WHERE ur.role_id = 4")
+    List<Long> getAllUserIdByRoleId();
 }
