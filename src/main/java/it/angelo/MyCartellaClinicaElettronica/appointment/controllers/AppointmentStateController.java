@@ -2,8 +2,7 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.controllers;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
-import it.angelo.MyCartellaClinicaElettronica.auth.controllers.PasswordRestoreController;
-import it.angelo.MyCartellaClinicaElettronica.auth.services.AppointmentStateService;
+import it.angelo.MyCartellaClinicaElettronica.appointment.services.AppointmentStateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

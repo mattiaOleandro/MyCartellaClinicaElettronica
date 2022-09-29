@@ -10,7 +10,7 @@ logging:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: Lolistheway1
+    password: password
     url: jdbc:mysql://localhost:3306/my-cartella-clinica-elettronica-db
     username: root
   jpa:
