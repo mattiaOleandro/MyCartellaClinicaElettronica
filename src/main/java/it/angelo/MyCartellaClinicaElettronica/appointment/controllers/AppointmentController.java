@@ -12,8 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -42,10 +44,15 @@ public class AppointmentController {
     // create appointment
     @PostMapping
     @PreAuthorize("hasRole('ROLE_SECRETARY')") //solo un SEGRETARIO registrato può creare un appuntamento
-    public ResponseEntity<Appointment> create(@RequestBody AppointmentDTO appointment) throws Exception{
-        logger.debug(String.format("@PostMapped \'/create\' method called at %s at line# %d by %s",
-                AppointmentController.class , lineGetter, appointment.getNumber()));
-        return ResponseEntity.ok(appointmentService.save(appointment));
+    public HttpEntity<? extends Object> create(@RequestBody AppointmentDTO appointment) throws Exception{
+        Appointment a = appointmentService.save(appointment);
+        if (appointmentService.isFree()){
+            return new ResponseEntity<String>(
+                    "The slot is busy",
+                    HttpStatus.BAD_REQUEST);
+        }else {
+            return ResponseEntity.ok(a);
+        }
     }
 
     // get single appointment

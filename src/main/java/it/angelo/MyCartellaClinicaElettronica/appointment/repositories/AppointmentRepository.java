@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
      * @param appointmentEnd
      * @return
      */
-    // findAppointmentByRangeDate una query nativa, dobbiamo farla funzionare.
+    // findAppointmentByRangeDate una query nativa, non funziona.
     @Query(nativeQuery = true,
             value = "SELECT a.appointment_start, u.surname AS 'Doctor', up.surname AS 'Patient', a.`description` " +
                     "FROM `appointment` AS a " +
@@ -43,6 +44,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                     "WHERE appointment_start BETWEEN :appointmentStart AND :appointmentEnd")
     List<Appointment> findAppointmentByRangeDate(@Param("appointmentStart") LocalDateTime appointmentStart,
                                                  @Param("appointmentEnd") LocalDateTime appointmentEnd);
+
 
     // cerca gli appuntamenti in un range di date, lo implementiamo in "Appointment Controller"
     List<Appointment> findByAppointmentDateBetween(@Param("start") LocalDate start, @Param("end")LocalDate end);

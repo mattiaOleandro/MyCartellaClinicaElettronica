@@ -49,7 +49,7 @@ public class SignupService {
      * contains the business logic related to the signup
      * @param signupDTO represents the user data that will be transferred from the frontend
      * @param role the role of user
-     * @return an user
+     * @return a user
      * @throws Exception can throw a generic exception
      */
     public User signup(SignupDTO signupDTO, String role) throws Exception { //SignupDTO rappresenta in Java l'oggetto body su Postman
@@ -80,7 +80,7 @@ public class SignupService {
 
         //assegniamo all'utente un set di ruoli
         Set<Role> roles = new HashSet<>();
-        Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
+        Optional<Role> userRole = roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set user role");
         roles.add(userRole.get());
         user.setRoles(roles);
