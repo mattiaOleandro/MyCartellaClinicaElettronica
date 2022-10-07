@@ -244,7 +244,7 @@ public class AppointmentService {
                             System.out.println("Nella data selezionata il dottore non ha ancora appuntamenti");
 
                             //se abbiamo finito di scorrere la lista
-                            if (listOfDoctorId.size()-1 == j && listOfUserIdRoleDoctor.size()-1 == y) {
+                            if (listOfDay.size()-1 == i && listOfDoctorId.size()-1 == j && listOfUserIdRoleDoctor.size()-1 == y) {
                                 if (userRepository.findUserById(appointmentInput.getDoctor()) == null && !isDoctor){
                                     free = true;//sistemare controller
                                 }else{
