@@ -1,12 +1,12 @@
-package it.angelo.MyCartellaClinicaElettronica.user.entities;
+package it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecord;
+import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 
 // Referto medico

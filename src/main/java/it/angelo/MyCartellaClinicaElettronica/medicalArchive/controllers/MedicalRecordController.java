@@ -3,7 +3,7 @@ package it.angelo.MyCartellaClinicaElettronica.medicalArchive.controllers;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecordDTO;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalRecordRepository;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.services.MedicalRecordService;
-import it.angelo.MyCartellaClinicaElettronica.user.entities.MedicalRecord;
+import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecord;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +80,6 @@ public class MedicalRecordController {
         return null;
     }
 
-    // update medical record don't work correctly!
     @PutMapping("/{id}")
     public ResponseEntity<MedicalRecord> update(@RequestBody MedicalRecord medicalRecord,
                                                 @PathVariable Long id) throws Exception {
@@ -91,23 +90,18 @@ public class MedicalRecordController {
     }
 
 
-
-    // update medical record through native query
-    @PutMapping("/update")
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
-    public ResponseEntity<MedicalRecord> updateDescription2(@RequestParam Long id,
-                                                            @RequestParam String description,
-                                                            @RequestParam String patient_history,
-                                                            MedicalRecord medicalRecordUpdated) {
-
-        return ResponseEntity.ok(medicalRecordService.update2(id, description, patient_history, medicalRecordUpdated));
+    @PatchMapping("/patch/description/{id}")
+    public ResponseEntity<?> patchDescription(@RequestBody String description, @PathVariable("id") Long id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        medicalRecordService.patchDescription(id,description);
+        return ResponseEntity.ok("Description updated");
     }
 
-
-    @PatchMapping("/patch/{id}")
-    public ResponseEntity<?> partialUpdate(@PathVariable String description, @PathVariable("id") String id) {
+    @PatchMapping("/patch/history/{id}")
+    public ResponseEntity<?> patchPatientHistory(@RequestBody String patientHistory, @PathVariable("id") Long id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ResponseEntity.ok("resource address updated");
+        medicalRecordService.patchDescription(id,patientHistory);
+        return ResponseEntity.ok("Patient History updated");
     }
 
 
