@@ -1,7 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.repositories;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.CalendarDay;
-import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,8 +22,9 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     List<Long> findAllDoctorId();
 
 
-    @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd")
-    List<Date> findAllDate();
+    @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd\n" +
+            "WHERE cd.`day` = :day")
+    List<Date> findAllDateByDate(LocalDate day);
 
     @Query(nativeQuery = true,value = "SELECT cd.day FROM `calendar_day` AS cd\n" +
                                       "WHERE cd.id = :id")
