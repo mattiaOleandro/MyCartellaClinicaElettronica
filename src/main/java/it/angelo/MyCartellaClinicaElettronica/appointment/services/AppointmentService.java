@@ -11,6 +11,8 @@ import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
 import lombok.Data;
 import lombok.ToString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ import java.util.Set;
 @Service
 @Data
 public class AppointmentService {
+
+    Logger logger = LoggerFactory.getLogger(AppointmentService.class);
+    int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
+
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -132,6 +138,9 @@ public class AppointmentService {
      * @throws Exception a generic exception can be thrown
      */
     public Appointment save(AppointmentDTO appointmentInput) throws Exception {
+
+        logger.debug(String.format(" \'/save\' method called at %s at line# %d by %s",
+                AppointmentService.class , lineGetter, appointmentInput.getNumber()));
 
         // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -362,6 +371,8 @@ public class AppointmentService {
 
 
     public Appointment update(Long id, Appointment appointmentInput) {
+        logger.debug(String.format(" \'/update\' method called at %s at line# %d by %s",
+                AppointmentService.class , lineGetter, appointmentInput.getNumber()));
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (appointmentInput == null) return null;
         appointmentInput.setId(id);
@@ -371,6 +382,8 @@ public class AppointmentService {
     }
 
     public boolean canEdit(Long id) {
+        logger.debug(String.format(" \'/canEdit\' method called at %s at line# %d by ID %s",
+                AppointmentService.class , lineGetter, id));
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Appointment> appointment = appointmentRepository.findById(id);
         if (!appointment.isPresent()) return false;

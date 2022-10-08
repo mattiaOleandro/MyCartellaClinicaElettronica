@@ -1,4 +1,13 @@
 spring:
+  output:
+    ansi:
+      enabled: always
+logging:
+  level:
+    root: INFO
+    it.angelo.MyCartellaClinicaElettronica.auth.services: DEBUG
+---
+spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: password

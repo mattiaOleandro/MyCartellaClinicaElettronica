@@ -6,6 +6,8 @@ import it.angelo.MyCartellaClinicaElettronica.auth.entities.LoginDTO;
 import it.angelo.MyCartellaClinicaElettronica.auth.entities.LoginRTO;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,14 +32,22 @@ public class LoginService {
     @Autowired
     private UserRepository userRepository;
 
+    Logger logger = LoggerFactory.getLogger(LoginService.class);
+    int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
+
     /**
      * manages login system
      * @param loginDTO an entity that contains email and password
      * @return a LoginRTO that contains user and JWT Token
      */
     public LoginRTO login(LoginDTO loginDTO){
+        logger.debug(String.format("\'/login\' method called at %s at line# %d by %s",
+                LoginService.class , lineGetter, loginDTO.getEmail()));
+
         if(loginDTO == null) return null;
+
         User userFromDB = userRepository.findByEmail(loginDTO.getEmail());//cerca userFromDB per email
+
         if(userFromDB == null || !userFromDB.isActive()) return null;// ritorna nullo se userFromDB è nullo o inattivo
 
         // chiama il metodo canUserLogin, se restituisce true l'utente può loggarsi
@@ -65,6 +75,9 @@ public class LoginService {
      * @return true if user can log in, otherwise returns false
      */
     public boolean canUserLogin(User user, String password){
+        logger.debug(String.format("\'/canUserLogin\' method called at %s at line# %d by %s",
+                LoginService.class , lineGetter, user.getEmail()));
+
         return passwordEncoder.matches(password, user.getPassword()); //(password in chiaro, password criptata)
     }
 
@@ -102,11 +115,13 @@ public class LoginService {
     }
 
     /**
-     *
+     * Updates the User given's JWT by refreshing the LocalDateTime of creation and saving the user.
      * @param user
      * @return
      */
     public String generateJWT(User user) {
+        logger.debug(String.format("\'/generateJWT\' method called at %s at line# %d by %s",
+                LoginService.class , lineGetter, user.getEmail()));
         String JWT = getJWT(user);
 
         user.setJwtCreatedOn(LocalDateTime.now());
