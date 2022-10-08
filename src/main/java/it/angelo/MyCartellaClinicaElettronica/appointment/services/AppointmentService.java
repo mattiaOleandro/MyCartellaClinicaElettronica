@@ -52,20 +52,30 @@ public class AppointmentService {
      * @throws Exception
      */
     private Appointment newAppointment(AppointmentDTO appointmentInput) throws Exception {
-        //creo un nuovo appuntamento
         Appointment appointment = new Appointment();
-
+        logger.debug("New Appointment object instantiated");
         appointment.setCreatedAt(LocalDateTime.now());
+        logger.debug("Set time of creation of the appointment");
         appointment.setAddress(appointmentInput.getAddress());
+        logger.debug("Set address of the appointment");
         appointment.setCity(appointmentInput.getCity());
+        logger.debug("Set city of the appointment");
         appointment.setDescription(appointmentInput.getDescription());
+        logger.debug("Set description of the appointment");
         appointment.setState(appointmentInput.getState());
+        logger.debug("Set state of the appointment");
         appointment.setNumber(appointmentInput.getNumber());
+        logger.debug("Set number of the appointment");
         appointment.setZipCode(appointmentInput.getZipCode());
+        logger.debug("Set zip-code of the appointment");
         appointment.setTimeSlot(appointmentInput.getTimeSlot());
+        logger.debug("Set time-slot of the appointment");
         appointment.setAppointmentStart(appointmentInput.getAppointmentStart());
+        logger.debug("Appointment start date and time set");
         appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
+        logger.debug("Appointment end date and time set");
         appointment.setAppointmentDate((LocalDate.from(appointmentInput.getAppointmentStart())));
+        logger.debug("Set date of the appointment");
 
         //check for patient
         if (appointmentInput.getPatient() == null) throw new Exception("Patient not found");
@@ -73,13 +83,11 @@ public class AppointmentService {
         if (!patient.isPresent() || !Roles.hasRole(patient.get(), Roles.PATIENT))
             throw new Exception("Patient not found");
         appointment.setPatient(patient.get());
+        logger.debug("Set patient of the appointment");
 
-        System.out.println("-------------------SAVED---------------\n" +
-                "APPOINTMENT SAVED!!!\n" +
-                "<-    DATE    ->\n" +
-                "DATE FROM SAVED: " + LocalDate.from(appointmentInput.getAppointmentStart()) + "\n" +
-                "SLOT FROM SAVED: " + appointmentInput.getTimeSlot() + "\n" +
-                "-------------------SAVED---------------" );
+        logger.info("APPOINTMENT SAVED " +
+                "DATE: " + LocalDate.from(appointmentInput.getAppointmentStart()) +
+                ' ' + appointmentInput.getTimeSlot());
         return appointment;
     }
 
@@ -90,43 +98,47 @@ public class AppointmentService {
      * @return calendarDay
      */
     private CalendarDay newCalendarDay(AppointmentDTO appointmentInput){
-        //Creo un nuovo calendarDay
         CalendarDay calendarDay = new CalendarDay();
+        logger.debug("New CalendarDay object instantiated");
         calendarDay.setAppointment(calendarDay.getAppointment());
-
-        //Seleziona lo slot dato in ingresso occupato
+        logger.debug("Set appointment of the calendarDay");
         switch (appointmentInput.getTimeSlot()) {
             case TIME_SLOT_08_00_09_00:
                 calendarDay.setTimeSlot1IsAvailable(false);
+                logger.debug("Set time slot 1 occupied in calendarDay");
                 break;
             case TIME_SLOT_09_00_10_00:
                 calendarDay.setTimeSlot2IsAvailable(false);
+                logger.debug("Set time slot 2 occupied in calendarDay");
                 break;
             case TIME_SLOT_10_00_11_00:
                 calendarDay.setTimeSlot3IsAvailable(false);
+                logger.debug("Set time slot 3 occupied in calendarDay");
                 break;
             case TIME_SLOT_11_00_12_00:
                 calendarDay.setTimeSlot4IsAvailable(false);
+                logger.debug("Set time slot 4 occupied in calendarDay");
                 break;
             case TIME_SLOT_15_00_16_00:
                 calendarDay.setTimeSlot5IsAvailable(false);
+                logger.debug("Set time slot 5 occupied in calendarDay");
                 break;
             case TIME_SLOT_16_00_17_00:
                 calendarDay.setTimeSlot6IsAvailable(false);
+                logger.debug("Set time slot 6 occupied in calendarDay");
                 break;
             case TIME_SLOT_17_00_18_00:
                 calendarDay.setTimeSlot7IsAvailable(false);
+                logger.debug("Set time slot 7 occupied in calendarDay");
                 break;
             case TIME_SLOT_18_00_19_00:
                 calendarDay.setTimeSlot8IsAvailable(false);
+                logger.debug("Set time slot 8 occupied in calendarDay");
                 break;
         }
-        System.out.println("-------------------SAVED---------------\n" +
-                "APPOINTMENT SAVED!!!\n" +
-                "<-    DATE    ->\n" +
-                "DATE FROM SAVED: " + LocalDate.from(appointmentInput.getAppointmentStart()) + "\n" +
-                "SLOT FROM SAVED: " + appointmentInput.getTimeSlot() + "\n" +
-                "-------------------SAVED---------------" );
+        logger.info("CALENDAR DAY SAVED " +
+                "DATE: " + LocalDate.from(appointmentInput.getAppointmentStart()) +
+                ' ' + appointmentInput.getTimeSlot());
         return calendarDay;
     }
 
@@ -145,7 +157,7 @@ public class AppointmentService {
         // rappresenta un utente autenticato, la gestione è demandata a JwtTokenFilter class
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Boolean isDoctor = userRepository.getSingleUserIdRoleId(appointmentInput.getDoctor()) == 4;
+        boolean isDoctor = userRepository.getSingleUserIdRoleId(appointmentInput.getDoctor()) == 4;
 
         if (userRepository.findUserById(appointmentInput.getDoctor()) == null && !isDoctor){
             free = true;//sistemare controller
@@ -155,23 +167,38 @@ public class AppointmentService {
 
         //Lista dei giorni presenti in tabella. Utilizziamo il metodo findByDate
         List<Date> listOfDay = calendarDayRepository.findAllDateByDate(LocalDate.from(appointmentInput.getAppointmentStart()));
-        System.out.println("LIST OF DAY");
-        System.out.println(listOfDay);
-        System.out.println(LocalDate.from(appointmentInput.getAppointmentStart()).toString());
+        logger.debug("LIST OF DAY: " + listOfDay);
+        logger.info("DAY: " + LocalDate.from(appointmentInput.getAppointmentStart()).toString());
 
         List<Long> listOfDoctorId = calendarDayRepository.findAllDoctorId();
         List<Long> listOfUserIdRoleDoctor = userRepository.getAllUserIdByRoleId();
 
         //Scorriamo la lista dei giorni
-        for (int i = 0; i < listOfDay.size(); i++) {
-            Date date = listOfDay.get(i);
-            //Se appointmentStart(che mi viene passato da AppointmentDTO) è uguale alla data presente in lista
-            if (!listOfDay.isEmpty()) {
-                System.out.println("DATES ARE EQUALS!!!");
-                System.out.println("<- COMPARE DATES ->");
-                System.out.println("DATE FROM DATABASE: " + date);
-                System.out.println("DATE FROM FRONT-END: " + LocalDate.from(appointmentInput.getAppointmentStart()));
-                System.out.println("-------------------OK-OK---------------");
+        if(listOfDay.isEmpty()){
+            logger.info("DATES " + LocalDate.from(appointmentInput.getAppointmentStart()) + " NOT EXSIST!");
+            if (userRepository.findUserById(appointmentInput.getDoctor()) == null && !isDoctor){
+                free = true;//TODO sollevare eccezione
+            }else {
+                User doctor = userRepository.findUserById(appointmentInput.getDoctor());
+
+                logger.info("CREATE NEW DATE APPOINTMENT IN DATE: " + LocalDate.from(appointmentInput.getAppointmentStart()));
+                //creiamo un nuovo appuntamento
+                Appointment appointment = newAppointment(appointmentInput);
+                appointment.setDoctor(doctor);
+                appointment.setCreatedBy(user);
+
+                CalendarDay calendarDay = newCalendarDay(appointmentInput);
+                calendarDay.setDay(appointment.getAppointmentDate());
+                appointment.setCalendarDay(calendarDay);
+                calendarDayRepository.save(calendarDay);
+                appointmentRepository.save(appointment);
+                calendarDayRepository.updateCalendarDoctor(calendarDay.getId(), doctor.getId());
+                return appointment;
+            }
+        }else{
+            for (int i = 0; i < listOfDay.size(); i++) {
+                Date date = listOfDay.get(i);
+                logger.info("DATES ARE EQUALS: " + date);
                 //Controlliamo se in questa data il dottore ha già appuntamenti
                 for (int y = 0; y < listOfUserIdRoleDoctor.size(); y++) {
                     Long userDoctor = listOfUserIdRoleDoctor.get(y);
@@ -190,102 +217,93 @@ public class AppointmentService {
                                     if(id1.equals(id2)){
                                         Long calendarId = id1;
                                         System.out.println("calendarId = " + calendarId);
-                                        System.out.println("CHECK SLOT");
+                                        logger.info("CHECK SLOT");
                                         //Controlla se lo slot selezionato è fià occupato
                                         if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_08_00_09_00) && !calendarDayRepository.findTimeSlot1FromId(calendarId)){
-                                            System.out.println("SOLT 1 IS EMPTY");
+                                            logger.info("SOLT 1 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_09_00_10_00) && !calendarDayRepository.findTimeSlot2FromId(calendarId)){
-                                            System.out.println("SOLT 2 IS EMPTY");
+                                            logger.info("SOLT 2 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_10_00_11_00) && !calendarDayRepository.findTimeSlot3FromId(calendarId)){
-                                            System.out.println("SOLT 3 IS EMPTY");
+                                            logger.info("SOLT 3 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_11_00_12_00) && !calendarDayRepository.findTimeSlot4FromId(calendarId)){
-                                            System.out.println("SOLT 4 IS EMPTY");
+                                            logger.info("SOLT 4 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_15_00_16_00) && !calendarDayRepository.findTimeSlot5FromId(calendarId)){
-                                            System.out.println("SOLT 5 IS EMPTY");
+                                            logger.info("SOLT 5 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_16_00_17_00) && !calendarDayRepository.findTimeSlot6FromId(calendarId)){
-                                            System.out.println("SOLT 6 IS EMPTY");
+                                            logger.info("SOLT 6 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_17_00_18_00) && !calendarDayRepository.findTimeSlot7FromId(calendarId)){
-                                            System.out.println("SOLT 7 IS EMPTY");
+                                            logger.info("SOLT 7 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else if(appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_18_00_19_00) && !calendarDayRepository.findTimeSlot8FromId(calendarId)){
-                                            System.out.println("SOLT 8 IS EMPTY");
+                                            logger.info("SOLT 8 IS EMPTY");
                                             free = true;
                                             return null;
                                         }else{
                                             free = false;
-                                            System.out.println("DATES ARE EQUALS ENTER INTO SWITCH!!!");
+                                            logger.debug("DATES ARE EQUALS ENTER INTO SWITCH!!!");
                                             //Estraggo il timeSlot tramite la data match-ata nel ciclo if
                                             calendarDayRepository.findTimeSlotFromDate(date);
                                             //verifico in quale casistica ricade il timeSlot estratto
                                             switch (appointmentInput.getTimeSlot()) {
                                                 case TIME_SLOT_08_00_09_00:
-                                                    System.out.println("SLOT 1 - 08:00/09:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
-                                                    //setto il timeSlot su falso
+                                                    logger.info("SLOT 1 - 08:00/09:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot1FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 1 occupied in calendarDay");
                                                     timeSlotSetting = 1;
                                                     break;
                                                 case TIME_SLOT_09_00_10_00:
-                                                    System.out.println("SLOT 2 - 09:00/10:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
+                                                    logger.info("SLOT 2 - 09:00/10:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot2FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 2 occupied in calendarDay");
                                                     timeSlotSetting = 2;
                                                     break;
                                                 case TIME_SLOT_10_00_11_00:
-                                                    System.out.println("SLOT 3 - 10:00/11:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
+                                                    logger.info("SLOT 3 - 10:00/11:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot3FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 3 occupied in calendarDay");
                                                     timeSlotSetting = 3;
                                                     break;
                                                 case TIME_SLOT_11_00_12_00:
-                                                    System.out.println("SLOT 4 - 11:00/12:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
+                                                    logger.info("SLOT 4 - 11:00/12:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot4FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 4 occupied in calendarDay");
                                                     timeSlotSetting = 4;
                                                     break;
                                                 case TIME_SLOT_15_00_16_00:
-                                                    System.out.println("SLOT 5 - 15:00/16:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
+                                                    logger.info("SLOT 5 - 15:00/16:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot5FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 5 occupied in calendarDay");
                                                     timeSlotSetting = 5;
                                                     break;
                                                 case TIME_SLOT_16_00_17_00:
-                                                    System.out.println("SLOT 6 - 16:00/17:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
+                                                    logger.info("SLOT 6 - 16:00/17:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot6FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 6 occupied in calendarDay");
                                                     timeSlotSetting = 6;
                                                     break;
                                                 case TIME_SLOT_17_00_18_00:
-                                                    System.out.println("SLOT 7 - 17:00/18:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
+                                                    logger.info("SLOT 7 - 17:00/18:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot7FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 7 occupied in calendarDay");
                                                     timeSlotSetting = 7;
                                                     break;
                                                 case TIME_SLOT_18_00_19_00:
-                                                    System.out.println("SLOT 8 - 18:00/19:00");
-                                                    System.out.println("Date from findTimeSlotFromDateBEFORE - " + date);
+                                                    logger.info("SLOT 8 - 18:00/19:00 FROM DATE " + date + " IS AVIABLE");
                                                     calendarDayRepository.updateTimeSlot8FromId(Boolean.FALSE, calendarId);
-                                                    System.out.println("Date from findTimeSlotFromDateAFTER - " + date);
+                                                    logger.debug("Set time slot 8 occupied in calendarDay");
                                                     timeSlotSetting = 8;
                                                     break;
                                             }
@@ -315,7 +333,7 @@ public class AppointmentService {
                                 }else{
                                     User doctor = userRepository.findUserById(appointmentInput.getDoctor());
 
-                                    System.out.println("CREATE NEW DATE APPOINTMENT");
+                                    logger.info("CREATE NEW DATE APPOINTMENT");
                                     //creiamo un nuovo appuntamento
                                     Appointment appointment = newAppointment(appointmentInput);
                                     appointment.setDoctor(doctor);
@@ -332,36 +350,6 @@ public class AppointmentService {
                             }
                             //
                         }
-                    }
-                }
-            }else{
-                //altrimenti, se in calendar_day non troviamo corrispondenza della data passata da front-end
-                System.out.println("DATES NOT ARE EQUALS!!!");
-                System.out.println("<- COMPARE DATES ->");
-                System.out.println("DATE FROM DATABASE: " + date);
-                System.out.println("DATE FROM FRONT-END: " + LocalDate.from(appointmentInput.getAppointmentStart()));
-                System.out.println("-------------------OK-OK---------------");
-
-                //se abbiamo finito di scorrere la lista
-                if (listOfDay.size()-1 == i) {
-                    if (userRepository.findUserById(appointmentInput.getDoctor()) == null && !isDoctor){
-                        free = true;
-                    }else{
-                        User doctor = userRepository.findUserById(appointmentInput.getDoctor());
-
-                        System.out.println("CREATE NEW DATE APPOINTMENT");
-                        //creiamo un nuovo appuntamento
-                        Appointment appointment = newAppointment(appointmentInput);
-                        appointment.setDoctor(doctor);
-                        appointment.setCreatedBy(user);
-
-                        CalendarDay calendarDay = newCalendarDay(appointmentInput);
-                        calendarDay.setDay(appointment.getAppointmentDate());
-                        appointment.setCalendarDay(calendarDay);
-                        calendarDayRepository.save(calendarDay);
-                        appointmentRepository.save(appointment);
-                        calendarDayRepository.updateCalendarDoctor(calendarDay.getId(), doctor.getId());
-                        return appointment;
                     }
                 }
             }
