@@ -19,7 +19,7 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     CalendarDay findAllById(Long id);
 
     @Query(nativeQuery = true, value = "SELECT cd.`doctor_id` FROM `calendar_doctor` AS cd")
-    List<Long> findAllDoctorId();
+    List<Long> findAllDoctorIdInCalendarDoctor();
 
 
     @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd\n" +

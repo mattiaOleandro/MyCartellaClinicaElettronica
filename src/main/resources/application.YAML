@@ -6,6 +6,7 @@ logging:
   level:
     root: INFO
     it.angelo.MyCartellaClinicaElettronica.auth.services: DEBUG
+    it.angelo.MyCartellaClinicaElettronica.appointment.services: DEBUG
 ---
 spring:
   datasource:
