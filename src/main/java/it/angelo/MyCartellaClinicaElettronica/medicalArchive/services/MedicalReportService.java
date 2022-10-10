@@ -235,6 +235,7 @@ public class MedicalReportService {
             document.add(paragraph1);
 
             Paragraph paragraph2 = new Paragraph("Emitted at : " + LocalDateTime.now());
+            document.add(paragraph2);
 
             document.close();
 
