@@ -3,7 +3,6 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.controllers;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentDTO;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentStateEnum;
-import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.SlotEmptyException;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
 import it.angelo.MyCartellaClinicaElettronica.appointment.services.AppointmentService;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -43,7 +42,7 @@ public class AppointmentController {
     // create appointment
     @PostMapping
     @PreAuthorize("hasRole('ROLE_SECRETARY')") //solo un SEGRETARIO registrato può creare un appuntamento
-    public HttpEntity<? extends Object> create(@RequestBody AppointmentDTO appointment) throws Exception, SlotEmptyException{
+    public HttpEntity<? extends Object> create(@RequestBody AppointmentDTO appointment) throws Exception{
         Appointment a = appointmentService.save(appointment);
         if (a == null){
             return new ResponseEntity<String>(
