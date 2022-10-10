@@ -1,6 +1,9 @@
 package it.angelo.MyCartellaClinicaElettronica.medicalArchive.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecordDTO;
+import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalReport;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalRecordRepository;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecord;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -10,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -76,4 +83,6 @@ public class MedicalRecordService {
         if(!medicalRecord.isPresent())return false;
         return medicalRecord.get().getCreatedBy().getId() == user.getId();
     }
+
+
 }

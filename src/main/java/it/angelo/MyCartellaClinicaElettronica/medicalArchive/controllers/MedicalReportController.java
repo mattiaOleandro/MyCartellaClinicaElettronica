@@ -89,4 +89,14 @@ public class MedicalReportController {
         medicalReportRepository.deleteById(id);
         return ResponseEntity.ok("Medical Report deleted!");
     }
+
+    @SneakyThrows
+    @GetMapping("/print/{id}")
+    public ResponseEntity<String> createPdf(@PathVariable Long id){
+        Optional<MedicalReport> medicalReport = medicalReportRepository.findById(id);
+        medicalReportService.createPdf(medicalReport);
+
+        return ResponseEntity.ok("Pdf file Created!");
+
+    }
 }

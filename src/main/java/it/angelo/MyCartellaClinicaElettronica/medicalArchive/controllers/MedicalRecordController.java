@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -114,4 +115,5 @@ public class MedicalRecordController {
         medicalRecordRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
 }

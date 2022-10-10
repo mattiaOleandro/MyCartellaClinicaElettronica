@@ -37,4 +37,5 @@ public class MedicalRecord extends BaseEntity {
     @JsonIgnore // per evitare "Failed to evaluate Jackson deserialization"
     private Set<MedicalReport> medicalReport;
 
+
 }
