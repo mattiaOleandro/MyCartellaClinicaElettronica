@@ -32,7 +32,7 @@ public class MedicalRecord extends BaseEntity {
     //set di referti medici
     //mappedBy deve contenere il nome dell'istanza del proprietario della relazione che è: medicalRecord
     @OneToMany(mappedBy = "medicalRecord")
-    @JsonBackReference //necessario per evitare Infinite recursion (StackOverflowError)
+    //@JsonBackReference //necessario per evitare Infinite recursion (StackOverflowError)
     @JsonIgnore // per evitare "Failed to evaluate Jackson deserialization"
     private Set<MedicalReport> medicalReport;
 

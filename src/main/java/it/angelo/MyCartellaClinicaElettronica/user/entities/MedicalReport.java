@@ -1,6 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.user.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
@@ -34,7 +35,8 @@ public class MedicalReport extends BaseEntity {
     //tanti referti(MedicalReport) possono essere contenuti dentro la cartella clinica(medicalRecord)
     @ManyToOne
     @JoinColumn(name = "medical_record_id")
-    @JsonManagedReference //necessario per evitare Infinite recursion (StackOverflowError)
+    //@JsonManagedReference //necessario per evitare Infinite recursion (StackOverflowError)
+    @JsonIgnore // per evitare "Failed to evaluate Jackson deserialization"
     private MedicalRecord medicalRecord; // lo trovo in MedicalRecord mappedBy
 
 }
