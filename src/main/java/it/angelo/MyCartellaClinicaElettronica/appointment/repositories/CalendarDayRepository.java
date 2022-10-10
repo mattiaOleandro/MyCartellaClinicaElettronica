@@ -26,14 +26,17 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
             "WHERE cd.`day` = :day")
     List<Date> findAllDateByDate(LocalDate day);
 
+    @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd")
+    List<Date> findAllDate();
+
+    @Query(nativeQuery = true, value = "SELECT cd.`id` FROM `calendar_day` AS cd\n" +
+            "WHERE cd.day = :day")
+    Long findIdByDate(LocalDate day);
+
     @Query(nativeQuery = true,value = "SELECT cd.day FROM `calendar_day` AS cd\n" +
                                       "WHERE cd.id = :id")
     List<Date> findOneDate(@Param(value = "id") Long id);
 
-    //cerca il "timeSlot"(fascia oraria) per data
-    @Query(nativeQuery = true,value = "SELECT cd.`day` FROM calendar_day AS cd\n" +
-                                      "WHERE cd.`day` = :day")
-    List<Date> findTimeSlotFromDate(@Param(value = "day") Date day);
 
     @Query(nativeQuery = true, value = "SELECT cd.calendar_id FROM calendar_doctor AS cd\n" +
             "WHERE cd.doctor_id = :id")
