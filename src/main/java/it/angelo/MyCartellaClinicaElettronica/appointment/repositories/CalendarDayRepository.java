@@ -29,6 +29,13 @@ public interface CalendarDayRepository extends JpaRepository<CalendarDay,Long> {
     @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd")
     List<Date> findAllDate();
 
+    @Query(nativeQuery = true, value = "SELECT cd.`day` FROM `calendar_day` AS cd\n" +
+            "WHERE cd.time_slot1is_available = 0 AND cd.time_slot2is_available = 0\n" +
+            "AND cd.time_slot3is_available = 0 AND cd.time_slot4is_available = 0\n" +
+            "AND cd.time_slot5is_available = 0 AND cd.time_slot6is_available = 0\n" +
+            "AND cd.time_slot7is_available = 0 AND cd.time_slot8is_available = 0")
+    List<Date> findAllDateByTimeSlotNotFree();
+
     @Query(nativeQuery = true,value = "SELECT cd.day FROM `calendar_day` AS cd\n" +
                                       "WHERE cd.id = :id")
     List<Date> findOneDate(@Param(value = "id") Long id);

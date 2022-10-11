@@ -25,82 +25,175 @@ public class AvailabilityService {
 
     private LocalDate endOfAvailability;
 
-    private List<LocalDate> listOfAvailability = new ArrayList<>();
+    public List<LocalDate> generateAvailabilityByDoctor(AvailabilityDTO availabilityDTO){
 
-    private List<LocalDate> listDateUnavailabilityOfCalendarDayByDoctor = new ArrayList<>();
+        List<LocalDate> listOfAvailability = new ArrayList<>();
 
-    private List<LocalDate> checkCalendarDayDateUnavailabilityByDoctor(Long doctorId) {
+        endOfAvailability = availabilityDTO.getEndDate();
 
-        List<Date> listDatePossibleUnavailabilityOfCalendarDay = calendarDayRepository.findAllDate();
-        for (int i = 0; i < listDatePossibleUnavailabilityOfCalendarDay.size(); i++) {
-            Date day = listDatePossibleUnavailabilityOfCalendarDay.get(i);
-            List<Date> listDateUnavailabilityOfCalendarDay = new ArrayList<>();
-            List<Long> calendarIdByCalendarDoctor = calendarDayRepository.findCalendarIdFromCalendarDoctorByDoctorId(doctorId);
-            //logger.debug("LIST OF CALENDAR ID BY CALENDAR DOCTOR: " + calendarIdByCalendarDoctor);
+        List<LocalDate> listOfPossibleAvailability = LocalDate.now().datesUntil(endOfAvailability).collect(Collectors.toList());
+
+        List<Date> listDateUnavailabilityOfCalendarDay = calendarDayRepository.findAllDateByTimeSlotNotFree();
+        for (int j = 0; j < listDateUnavailabilityOfCalendarDay.size(); j++) {
+            Date day = listDateUnavailabilityOfCalendarDay.get(j);
+            List<Long> calendarIdByCalendarDoctor = calendarDayRepository.findCalendarIdFromCalendarDoctorByDoctorId(availabilityDTO.getDoctorId());
             List<Long> calendarIdByCalendarDay = calendarDayRepository.findCalendarIdFromCalendarDayByDate(day);
-            //logger.debug("LIST OF CALENDAR ID BY CALENDAR DAY: " + calendarIdByCalendarDay);
             for (Long id1 : calendarIdByCalendarDoctor) {
-                //logger.debug("calendar_id by calendar_doctor = " + id1);
                 for (Long id2 : calendarIdByCalendarDay) {
-                    //logger.debug("calendar_id by calendar_day = " + id2);
-                    //logger.debug("calendar_id1: " + id1 + " and calendar_id2: " + id2 + " is equals? " + id1.equals(id2));
                     if (id1.equals(id2)) {
-                        //logger.info("CALENDAR_ID = " + calendarId);
-                        //Sistemare l'estrazione dell'id di calendarDay tramite anche il dottore, attualmente esistono piu date dello stesso tipo
-                        if (!(calendarDayRepository.findTimeSlot1FromId(id1)) &&
-                                !(calendarDayRepository.findTimeSlot2FromId(id1)) &&
-                                !(calendarDayRepository.findTimeSlot3FromId(id1)) &&
-                                !(calendarDayRepository.findTimeSlot4FromId(id1)) &&
-                                !(calendarDayRepository.findTimeSlot5FromId(id1)) &&
-                                !(calendarDayRepository.findTimeSlot6FromId(id1)) &&
-                                !(calendarDayRepository.findTimeSlot7FromId(id1)) &&
-                                !(calendarDayRepository.findTimeSlot8FromId(id1))) {
-                            listDateUnavailabilityOfCalendarDay.add(day);
-                        }
-                        for (int j = 0; j < listDateUnavailabilityOfCalendarDay.size(); j++) {
-                            Date dayByDoctor = listDatePossibleUnavailabilityOfCalendarDay.get(j);
-
-                            List<Long> calendarIdByCalendarDoctorId = calendarDayRepository.findCalendarIdFromCalendarDoctorByDoctorId(doctorId);
-                            for (int k = 0; k < calendarIdByCalendarDoctorId.size(); k++) {
-                                Long calendarId = calendarIdByCalendarDoctorId.get(k);
-                                if (calendarDayRepository.findCalendarIdFromCalendarDayByDate(dayByDoctor).equals(calendarId)){
-                                    ZoneId defaultZoneId = ZoneId.systemDefault();
-                                    Instant instant = dayByDoctor.toInstant();
-                                    LocalDate dayByDoctorLocalDate = instant.atZone(defaultZoneId).toLocalDate();
-                                    listDateUnavailabilityOfCalendarDayByDoctor.add(dayByDoctorLocalDate);
-                                }
-                            }
+                        LocalDate date = new java.sql.Date(day.getTime()).toLocalDate();
+                        if (listOfPossibleAvailability.contains(date)){
+                            listOfPossibleAvailability.remove(date);
                         }
                     }
                 }
             }
         }
-        return listDateUnavailabilityOfCalendarDayByDoctor;
-    }
-
-    public List<LocalDate> generateAvailabilityByDoctor(AvailabilityDTO availabilityDTO){
-
-        endOfAvailability = availabilityDTO.getEndDate();
-        List<LocalDate> listOfPossibleAvailability = LocalDate.now().datesUntil(endOfAvailability).collect(Collectors.toList());
-        List<LocalDate> listOfUnavailability = checkCalendarDayDateUnavailabilityByDoctor(availabilityDTO.getDoctorId());
 
         for (int i = 0; i < listOfPossibleAvailability.size(); i++) {
             LocalDate date = listOfPossibleAvailability.get(i);
-            //unavailableDay
             if(!(date.getDayOfWeek().name().equalsIgnoreCase("Sunday")) && !(date.getDayOfWeek().name().equalsIgnoreCase("Saturday"))){
                 listOfAvailability.add(date);
-
-            }
-        }
-
-        for (int j = 0; j < listOfUnavailability.size(); j++) {
-            LocalDate dateUnavailability = listOfUnavailability.get(j);
-
-            if (listOfAvailability.contains(dateUnavailability)){
-                listOfAvailability.remove(dateUnavailability);
             }
         }
         return listOfAvailability;
     }
+
+//    public List<LocalDate> generateAvailabilityByDoctor(AvailabilityDTO availabilityDTO){
+//
+//        List<LocalDate> listOfAvailability = new ArrayList<>();
+//
+//        endOfAvailability = availabilityDTO.getEndDate();
+//        List<LocalDate> listOfPossibleAvailability = LocalDate.now().datesUntil(endOfAvailability).collect(Collectors.toList());
+//
+//        for (int i = 0; i < listOfPossibleAvailability.size(); i++) {
+//            LocalDate date = listOfPossibleAvailability.get(i);
+//            //unavailableDay
+//            if(!(date.getDayOfWeek().name().equalsIgnoreCase("Sunday")) && !(date.getDayOfWeek().name().equalsIgnoreCase("Saturday"))){
+//                listOfAvailability.add(date);
+//
+//            }
+//        }
+//
+//        List<Date> listDateUnavailabilityOfCalendarDay = calendarDayRepository.findAllDateByTimeSlotNotFree();
+//        List<Long> calendarIdByCalendarDoctor = calendarDayRepository.findCalendarIdFromCalendarDoctorByDoctorId(availabilityDTO.getDoctorId());
+//        for (int i = 0; i < listDateUnavailabilityOfCalendarDay.size(); i++) {
+//            Date day = listDateUnavailabilityOfCalendarDay.get(i);
+//            List<Long> calendarIdByCalendarDay = calendarDayRepository.findCalendarIdFromCalendarDayByDate(day);
+//            for (Long id1 : calendarIdByCalendarDoctor) {
+//                for (Long id2 : calendarIdByCalendarDay) {
+//                    if (id1.equals(id2)) {
+//                        if (listOfAvailability.contains(day)){
+//                            listOfAvailability.remove(day);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return listOfAvailability;
+//    }
+
+
+
+//    private List<LocalDate> checkCalendarDayDateUnavailabilityByDoctor(Long doctorId) {
+//
+//        List<LocalDate> listDateUnavailabilityOfCalendarDayByDoctor = new ArrayList<>();
+//
+//        List<Date> listDatePossibleUnavailabilityOfCalendarDay = calendarDayRepository.findAllDate();
+//        for (int i = 0; i < listDatePossibleUnavailabilityOfCalendarDay.size(); i++) {
+//            Date day = listDatePossibleUnavailabilityOfCalendarDay.get(i);
+//            List<Date> listDateUnavailabilityOfCalendarDay = new ArrayList<>();
+//            List<Long> calendarIdByCalendarDoctor = calendarDayRepository.findCalendarIdFromCalendarDoctorByDoctorId(doctorId);
+//            List<Long> calendarIdByCalendarDay = calendarDayRepository.findCalendarIdFromCalendarDayByDate(day);
+//            for (Long id1 : calendarIdByCalendarDoctor) {
+//                for (Long id2 : calendarIdByCalendarDay) {
+//                    if (id1.equals(id2)) {
+//                        if ((calendarDayRepository.findTimeSlot1FromId(id1)) &&
+//                                (calendarDayRepository.findTimeSlot2FromId(id1)) &&
+//                                (calendarDayRepository.findTimeSlot3FromId(id1)) &&
+//                                (calendarDayRepository.findTimeSlot4FromId(id1)) &&
+//                                (calendarDayRepository.findTimeSlot5FromId(id1)) &&
+//                                (calendarDayRepository.findTimeSlot6FromId(id1)) &&
+//                                (calendarDayRepository.findTimeSlot7FromId(id1)) &&
+//                                (calendarDayRepository.findTimeSlot8FromId(id1))) {
+//                            listDateUnavailabilityOfCalendarDay.add(day);
+//                            ZoneId defaultZoneId = ZoneId.systemDefault();
+//                            Instant instant = day.toInstant();
+//                            LocalDate dayByDoctorLocalDate = instant.atZone(defaultZoneId).toLocalDate();
+//                            listDateUnavailabilityOfCalendarDayByDoctor.add(dayByDoctorLocalDate);
+//                        }
+////                        for (int j = 0; j < listDateUnavailabilityOfCalendarDay.size(); j++) {
+////                            Date dayByDoctor = listDatePossibleUnavailabilityOfCalendarDay.get(j);
+////
+////                            List<Long> calendarIdByCalendarDoctorId = calendarDayRepository.findCalendarIdFromCalendarDoctorByDoctorId(doctorId);
+////                            for (int k = 0; k < calendarIdByCalendarDoctorId.size(); k++) {
+////                                Long calendarId = calendarIdByCalendarDoctorId.get(k);
+////                                if (calendarDayRepository.findCalendarIdFromCalendarDayByDate(dayByDoctor).equals(calendarId)){
+////                                    ZoneId defaultZoneId = ZoneId.systemDefault();
+////                                    Instant instant = dayByDoctor.toInstant();
+////                                    LocalDate dayByDoctorLocalDate = instant.atZone(defaultZoneId).toLocalDate();
+////                                    listDateUnavailabilityOfCalendarDayByDoctor.add(dayByDoctorLocalDate);
+////                                }
+////                            }
+////                        }
+//                    }
+//                }
+//            }
+//        }
+//        return listDateUnavailabilityOfCalendarDayByDoctor;
+//    }
+//
+//    //estraggo dal db in base all id del dottore tutte le date con gli slot gia occupati.
+//    //l'estrazione partira' dalla data odierna, quindi findAllDateByDoctorIdAndTimeSlotNotFree
+//    private List<LocalDate> dataUnavailabilityByDoctor(Long doctorId){
+//        List<LocalDate> listDateUnavailabilityOfCalendarDayByDoctor = new ArrayList<>();
+//
+//        List<Date> listDateUnavailabilityOfCalendarDay = calendarDayRepository.findAllDateByTimeSlotNotFree();
+//        List<Long> calendarIdByCalendarDoctor = calendarDayRepository.findCalendarIdFromCalendarDoctorByDoctorId(doctorId);
+//        for (int i = 0; i < listDateUnavailabilityOfCalendarDay.size(); i++) {
+//            Date day = listDateUnavailabilityOfCalendarDay.get(i);
+//            List<Long> calendarIdByCalendarDay = calendarDayRepository.findCalendarIdFromCalendarDayByDate(day);
+//            for (Long id1 : calendarIdByCalendarDoctor) {
+//                for (Long id2 : calendarIdByCalendarDay) {
+//                    if (id1.equals(id2)) {
+//                        ZoneId defaultZoneId = ZoneId.systemDefault();
+//                        Instant instant = day.toInstant();
+//                        LocalDate dayByDoctorLocalDate = instant.atZone(defaultZoneId).toLocalDate();
+//                        listDateUnavailabilityOfCalendarDayByDoctor.add(dayByDoctorLocalDate);
+//                    }
+//                }
+//            }
+//        }
+//        return listDateUnavailabilityOfCalendarDayByDoctor;
+//    }
+//
+//    public List<LocalDate> generateAvailabilityByDoctor(AvailabilityDTO availabilityDTO){
+//
+//        List<LocalDate> listOfAvailability = new ArrayList<>();
+//
+//        endOfAvailability = availabilityDTO.getEndDate();
+//        List<LocalDate> listOfPossibleAvailability = LocalDate.now().datesUntil(endOfAvailability).collect(Collectors.toList());
+//        List<LocalDate> listOfUnavailability = checkCalendarDayDateUnavailabilityByDoctor(availabilityDTO.getDoctorId());
+//
+//        for (int i = 0; i < listOfPossibleAvailability.size(); i++) {
+//            LocalDate date = listOfPossibleAvailability.get(i);
+//            //unavailableDay
+//            if(!(date.getDayOfWeek().name().equalsIgnoreCase("Sunday")) && !(date.getDayOfWeek().name().equalsIgnoreCase("Saturday"))){
+//                listOfAvailability.add(date);
+//
+//            }
+//        }
+//
+//        for (int j = 0; j < listOfUnavailability.size(); j++) {
+//            LocalDate dateUnavailability = listOfUnavailability.get(j);
+//
+//            if (listOfAvailability.contains(dateUnavailability)){
+//                listOfAvailability.remove(dateUnavailability);
+//            }
+//        }
+//        return listOfAvailability;
+//    }
+
+
 }
 
