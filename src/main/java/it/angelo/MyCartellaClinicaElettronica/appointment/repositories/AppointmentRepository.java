@@ -2,6 +2,7 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.repositories;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentStateEnum;
+import it.angelo.MyCartellaClinicaElettronica.appointment.entities.TimeSlot;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,12 +32,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("select a from Appointment a where a.status = :appointmentStateEnum")
     List<Appointment> findAllByStatus(@Param("appointmentStateEnum") AppointmentStateEnum appointmentStateEnum);
 
-    /**
-     * @deprecated Appointment
-     * @param appointmentStart
-     * @param appointmentEnd
-     * @return
-     */
+
     // findAppointmentByRangeDate una query nativa, non funziona.
     @Query(nativeQuery = true,
             value = "SELECT a.appointment_start, u.surname AS 'Doctor', up.surname AS 'Patient', a.`description` " +

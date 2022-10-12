@@ -3,6 +3,8 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.controllers;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentDTO;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentStateEnum;
+import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.BodyErrorException;
+import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.MethodErrorException;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
 import it.angelo.MyCartellaClinicaElettronica.appointment.services.AppointmentService;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -42,14 +44,15 @@ public class AppointmentController {
     // create appointment
     @PostMapping
     @PreAuthorize("hasRole('ROLE_SECRETARY')") //solo un SEGRETARIO registrato può creare un appuntamento
-    public HttpEntity<? extends Object> create(@RequestBody AppointmentDTO appointment) throws Exception{
-        Appointment a = appointmentService.save(appointment);
-        if (a == null){
-            return new ResponseEntity<String>(
-                    "The slot is busy",
-                    HttpStatus.BAD_REQUEST);
-        }else {
-            return ResponseEntity.ok(a);
+    public HttpEntity<? extends Object> create(@RequestBody AppointmentDTO appointment){
+        try {
+            return ResponseEntity.ok(appointmentService.save(appointment));
+        }catch (BodyErrorException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (MethodErrorException e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 

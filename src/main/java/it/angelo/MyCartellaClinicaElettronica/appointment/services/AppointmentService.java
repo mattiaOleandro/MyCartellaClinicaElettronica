@@ -4,6 +4,8 @@ import it.angelo.MyCartellaClinicaElettronica.appointment.entities.Appointment;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentDTO;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.CalendarDay;
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.TimeSlot;
+import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.BodyErrorException;
+import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.MethodErrorException;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.CalendarDayRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
@@ -46,29 +48,18 @@ public class AppointmentService {
      */
     private Appointment newAppointment(AppointmentDTO appointmentInput) throws Exception {
         Appointment appointment = new Appointment();
-        logger.debug("New Appointment object instantiated");
+
         appointment.setCreatedAt(LocalDateTime.now());
-        logger.debug("Set time: " + LocalDateTime.now() + " of creation of the appointment");
         appointment.setAddress(appointmentInput.getAddress());
-        logger.debug("Set address: " + appointmentInput.getAddress() + "   of the appointment");
         appointment.setCity(appointmentInput.getCity());
-        logger.debug("Set city: " + appointmentInput.getCity() + " of the appointment");
         appointment.setDescription(appointmentInput.getDescription());
-        logger.debug("Set description: " + appointmentInput.getDescription() + " of the appointment");
         appointment.setState(appointmentInput.getState());
-        logger.debug("Set state: " + appointmentInput.getState() + " of the appointment");
         appointment.setNumber(appointmentInput.getNumber());
-        logger.debug("Set number: " + appointmentInput.getNumber() + " of the appointment");
         appointment.setZipCode(appointmentInput.getZipCode());
-        logger.debug("Set zip-code: " + appointmentInput.getZipCode() + " of the appointment");
         appointment.setTimeSlot(appointmentInput.getTimeSlot());
-        logger.debug("Set time-slot: " + appointmentInput.getTimeSlot() + " of the appointment");
         appointment.setAppointmentStart(appointmentInput.getAppointmentStart());
-        logger.debug("Appointment start date and time: " + appointmentInput.getAppointmentStart() + " set");
         appointment.setAppointmentEnd(appointmentInput.getAppointmentEnd());
-        logger.debug("Appointment end date and time: " + appointmentInput.getAppointmentEnd() + " set");
         appointment.setAppointmentDate(LocalDate.from(appointmentInput.getAppointmentStart()));
-        logger.debug("Set date: " + LocalDate.from(appointmentInput.getAppointmentStart()) + " of the appointment");
 
         //check for patient
         if (appointmentInput.getPatient() == null) throw new Exception("Patient not found");
@@ -76,8 +67,20 @@ public class AppointmentService {
         if (patient.isEmpty() || !Roles.hasRole(patient.get(), Roles.PATIENT))
             throw new Exception("Patient not found");
         appointment.setPatient(patient.get());
-        logger.debug("Set patient: " + patient.get() + " of the appointment");
 
+        logger.debug("New Appointment object instantiated\n" +
+                "Set time: " + LocalDateTime.now() + " of creation of the appointment\n" +
+                "Set address: " + appointmentInput.getAddress() + "   of the appointment\n" +
+                "Set city: " + appointmentInput.getCity() + " of the appointment\n" +
+                "Set description: " + appointmentInput.getDescription() + " of the appointment\n" +
+                "Set state: " + appointmentInput.getState() + " of the appointment\n" +
+                "Set number: " + appointmentInput.getNumber() + " of the appointment\n" +
+                "Set zip-code: " + appointmentInput.getZipCode() + " of the appointment\n" +
+                "Set time-slot: " + appointmentInput.getTimeSlot() + " of the appointment\n" +
+                "Appointment start date and time: " + appointmentInput.getAppointmentStart() + " set\n" +
+                "Appointment end date and time: " + appointmentInput.getAppointmentEnd() + " set\n" +
+                "Set date: " + LocalDate.from(appointmentInput.getAppointmentStart()) + " of the appointment\n" +
+                "Set patient: " + patient.get().getId() + " of the appointment\n");
         logger.info("APPOINTMENT SAVED " +
                 "DATE: " + LocalDate.from(appointmentInput.getAppointmentStart()) +
                 ' ' + appointmentInput.getTimeSlot());
@@ -142,7 +145,7 @@ public class AppointmentService {
      * @return an appointment
      * @throws Exception a generic exception can be thrown
      */
-    public Appointment save(AppointmentDTO appointmentInput) throws Exception {
+    public Appointment save(AppointmentDTO appointmentInput) throws BodyErrorException, MethodErrorException, Exception {
 
         logger.debug(String.format("(save) method called at %s at line# %d by %s",
                 AppointmentService.class , lineGetter, appointmentInput.getNumber()));
@@ -154,15 +157,15 @@ public class AppointmentService {
 
         if(DateAppointment.isBefore(LocalDate.now())){
             logger.debug("Stopped controller!");
-            throw new Exception("The selected date: " + DateAppointment + "could not be entered");
+            throw new BodyErrorException("The selected date: " + DateAppointment + "could not be entered");
         }
 
         boolean isDoctor = userRepository.getSingleUserIdRoleId(appointmentInput.getDoctor()) == 4;
         logger.debug("The user " + appointmentInput.getDoctor() + " is doctor? " + isDoctor);
 
-        if (userRepository.findUserById(appointmentInput.getDoctor()) == null && !isDoctor){
+        if (userRepository.findUserById(appointmentInput.getDoctor()) == null || !isDoctor){
             logger.debug("Stopped controller!");
-            throw new Exception("There is a problem with the selected doctor: " + appointmentInput.getDoctor());
+            throw new BodyErrorException("There is a problem with the selected doctor: " + appointmentInput.getDoctor());
         }
 
         List<Date> listOfDay = calendarDayRepository.findAllDateByDate(LocalDate.from(appointmentInput.getAppointmentStart()));
@@ -182,9 +185,9 @@ public class AppointmentService {
             logger.info("CREATE NEW DATE APPOINTMENT IN DATE: " + LocalDate.from(appointmentInput.getAppointmentStart()));
             Appointment appointment = newAppointment(appointmentInput);
             appointment.setDoctor(doctor);
-            logger.debug("Set doctor: " + doctor + " of the appointment");
+            logger.debug("Set doctor: " + doctor.getId() + " of the appointment");
             appointment.setCreatedBy(user);
-            logger.debug("Set the user: " + user + " who created the appointment");
+            logger.debug("Set the user: " + user.getId() + " who created the appointment");
             logger.info("CREATE NEW CALENDAR DAY: " + LocalDate.from(appointmentInput.getAppointmentStart()));
             CalendarDay calendarDay = newCalendarDay(appointmentInput);
             calendarDay.setDay(appointment.getAppointmentDate());
@@ -205,7 +208,7 @@ public class AppointmentService {
                 for (int y = 0; y < listOfUserIdRoleDoctor.size(); y++) {
                     Long userDoctorId = listOfUserIdRoleDoctor.get(y);
                     logger.debug("DOCTOR ID: " + userDoctorId);
-                    for (int j = 0; j < listOfDoctorIdInCalendarDoctor.size(); j++) {
+                    for (int j = 0; j < listOfDoctorIdInCalendarDoctor.size(); j++) {//evitare i cicli estraendo solo da calendar_doctor tramite l'id passato in input
                         Long calendarDoctorId = listOfDoctorIdInCalendarDoctor.get(j);
                         logger.debug("CALENDAR DOCTOR ID: " + calendarDoctorId);
                         logger.debug("Doctor id: " + userDoctorId + " and Calendar Doctor id: " + calendarDoctorId + " is equals? " + calendarDoctorId.equals(userDoctorId));
@@ -225,28 +228,28 @@ public class AppointmentService {
                                         logger.info("CHECK SLOT");
                                         if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_08_00_09_00) && !calendarDayRepository.findTimeSlot1FromId(calendarId)) {
                                             logger.info("SOLT 1 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 1 is busy");
                                         } else if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_09_00_10_00) && !calendarDayRepository.findTimeSlot2FromId(calendarId)) {
                                             logger.info("SOLT 2 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 2 is busy");
                                         } else if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_10_00_11_00) && !calendarDayRepository.findTimeSlot3FromId(calendarId)) {
                                             logger.info("SOLT 3 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 3 is busy");
                                         } else if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_11_00_12_00) && !calendarDayRepository.findTimeSlot4FromId(calendarId)) {
                                             logger.info("SOLT 4 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 4 is busy");
                                         } else if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_15_00_16_00) && !calendarDayRepository.findTimeSlot5FromId(calendarId)) {
                                             logger.info("SOLT 5 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 5 is busy");
                                         } else if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_16_00_17_00) && !calendarDayRepository.findTimeSlot6FromId(calendarId)) {
                                             logger.info("SOLT 6 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 6 is busy");
                                         } else if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_17_00_18_00) && !calendarDayRepository.findTimeSlot7FromId(calendarId)) {
                                             logger.info("SOLT 7 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 7 is busy");
                                         } else if (appointmentInput.getTimeSlot().equals(TimeSlot.TIME_SLOT_18_00_19_00) && !calendarDayRepository.findTimeSlot8FromId(calendarId)) {
                                             logger.info("SOLT 8 IS EMPTY");
-                                            return null;
+                                            throw new BodyErrorException("The slot 8 is busy");
                                         } else {
                                             logger.info("CHECK SLOT PASSED");
                                             logger.debug("DATES ARE EQUALS ENTER INTO SWITCH!!!");
@@ -295,9 +298,9 @@ public class AppointmentService {
                                             logger.info("CREATE APPOINTMENT IN DATE: " + LocalDate.from(appointmentInput.getAppointmentStart()));
                                             Appointment appointment = newAppointment(appointmentInput);
                                             appointment.setCreatedBy(user);
-                                            logger.debug("Set the user: " + user + " who created the appointment");
+                                            logger.debug("Set the user: " + user.getId() + " who created the appointment");
                                             appointment.setDoctor(userRepository.findUserById(appointmentInput.getDoctor()));
-                                            logger.debug("Set doctor: " + userRepository.findUserById(appointmentInput.getDoctor()) + " of the appointment");
+                                            logger.debug("Set doctor: " + userRepository.findUserById(appointmentInput.getDoctor()).getId() + " of the appointment");
                                             appointment.setCalendarDay(calendarDayRepository.findAllById(calendarId));
                                             logger.debug("Set calendarDay of the appointment");
                                             appointmentRepository.save(appointment);
@@ -316,9 +319,9 @@ public class AppointmentService {
                                 logger.info("CREATE NEW DATE APPOINTMENT IN DATE: " + LocalDate.from(appointmentInput.getAppointmentStart()));
                                 Appointment appointment = newAppointment(appointmentInput);
                                 appointment.setDoctor(doctor);
-                                logger.debug("Set doctor: " + doctor + " of the appointment");
+                                logger.debug("Set doctor: " + doctor.getId() + " of the appointment");
                                 appointment.setCreatedBy(user);
-                                logger.debug("Set the user: " + user + " who created the appointment");
+                                logger.debug("Set the user: " + user.getId() + " who created the appointment");
                                 logger.info("CREATE NEW CALENDAR DAY: " + LocalDate.from(appointmentInput.getAppointmentStart()));
                                 CalendarDay calendarDay = newCalendarDay(appointmentInput);
                                 calendarDay.setDay(appointment.getAppointmentDate());
@@ -339,7 +342,7 @@ public class AppointmentService {
             }
         }
         logger.debug("ERROR/BUG");
-        return null;
+        throw new MethodErrorException("An error has occurred in the system");
     }
 
 
