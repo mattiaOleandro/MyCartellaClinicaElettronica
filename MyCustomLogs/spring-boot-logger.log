@@ -1138,3 +1138,59 @@ Set patient: 61 of the appointment
 2022-10-12 18:50:43,264 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
 2022-10-12 18:50:43,270 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
 2022-10-12 18:50:43,284 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-10-12 19:45:15,944 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting MyCartellaClinicaElettronicaApplication using Java 17.0.2 on CompName with PID 16904 (C:\Users\matti\Desktop\MyCartellaClinicaElettronica\target\classes started by Cataclysma666 in C:\Users\matti\Desktop\MyCartellaClinicaElettronica)
+2022-10-12 19:45:15,947 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2022-10-12 19:45:16,117 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-10-12 19:45:16,118 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-10-12 19:45:18,480 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-12 19:45:18,915 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 410 ms. Found 7 JPA repository interfaces.
+2022-10-12 19:45:20,845 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-10-12 19:45:20,869 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-10-12 19:45:20,872 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-10-12 19:45:20,873 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-12 19:45:36,694 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-10-12 19:45:36,695 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 20576 ms
+2022-10-12 19:45:37,206 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-12 19:45:37,348 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.6.10.Final
+2022-10-12 19:45:38,068 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-10-12 19:45:38,522 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-10-12 19:45:39,566 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-10-12 19:45:39,626 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2022-10-12 19:45:44,194 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-12 19:45:44,210 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-12 19:45:45,651 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-12 19:45:47,648 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Public method 'api' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-12 19:45:47,669 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Private method 'securityContext' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-12 19:45:47,671 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] The method 'defaultAuth' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-12 19:45:47,671 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Private method 'apiKey' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-12 19:45:48,559 WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: 11752f35-3ec3-40ab-912c-8c633fb5a55f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-10-12 19:45:48,989 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@b8cc25a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@34b9355f, org.springframework.security.web.context.SecurityContextPersistenceFilter@764f5ffe, org.springframework.security.web.header.HeaderWriterFilter@39b78e40, org.springframework.security.web.authentication.logout.LogoutFilter@5e23f18a, it.angelo.MyCartellaClinicaElettronica.JwtTokenFilter@6f77b465, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2dc428ab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11633922, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5d61aa44, org.springframework.security.web.session.SessionManagementFilter@1f95b9eb, org.springframework.security.web.access.ExceptionTranslationFilter@7d040758, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@c8b7959]
+2022-10-12 19:45:49,451 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-10-12 19:45:50,017 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-10-12 19:45:50,090 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-12 19:45:52,165 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started MyCartellaClinicaElettronicaApplication in 37.413 seconds (JVM running for 38.759)
+2022-10-12 19:45:52,967 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-10-12 19:45:52,968 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2022-10-12 19:45:52,968 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed initialization in 0 ms
+2022-10-12 19:45:53,511 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-2] (generateAvailabilityByDoctor) method called at class it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService at line# 35
+2022-10-12 19:45:53,641 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-2] The user 2 is doctor? true
+2022-10-12 19:47:21,177 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-4] Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.util.ArrayList<java.time.LocalDate>` from String value (token `JsonToken.VALUE_STRING`); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `java.util.ArrayList<java.time.LocalDate>` from String value (token `JsonToken.VALUE_STRING`)<EOL> at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 3, column: 27] (through reference chain: it.angelo.MyCartellaClinicaElettronica.appointment.entities.AvailabilityDTO["dateUnavailability"])]
+2022-10-12 19:49:24,674 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-7] (setUnavailabilityByDayAndDoctor) method called at class it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService at line# 35
+2022-10-12 19:49:24,677 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-7] The user 2 is doctor? true
+2022-10-12 19:49:24,803 INFO it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-7] CALENDAR DAY UNAVAILABILITY DATE: 2022-10-12
+2022-10-12 19:49:33,686 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-8] (generateAvailabilityByDoctor) method called at class it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService at line# 35
+2022-10-12 19:49:33,686 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-8] The user 2 is doctor? true
+2022-10-12 19:50:17,782 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-9] (setUnavailabilityByDayAndDoctor) method called at class it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService at line# 35
+2022-10-12 19:50:17,782 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-9] The user 2 is doctor? true
+2022-10-12 19:50:17,837 INFO it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-9] CALENDAR DAY UNAVAILABILITY DATE: 2022-10-14
+2022-10-12 19:50:17,858 INFO it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-9] CALENDAR DAY UNAVAILABILITY DATE: 2022-10-17
+2022-10-12 19:50:22,128 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-10] (generateAvailabilityByDoctor) method called at class it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService at line# 35
+2022-10-12 19:50:22,131 DEBUG it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService [http-nio-8080-exec-10] The user 2 is doctor? true
+2022-10-12 19:51:37,230 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-10-12 19:51:37,235 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-10-12 19:51:37,256 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

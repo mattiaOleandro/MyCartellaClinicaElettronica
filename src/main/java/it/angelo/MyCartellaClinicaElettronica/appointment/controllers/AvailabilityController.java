@@ -5,10 +5,8 @@ import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.BodyErrorEx
 import it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,6 +17,20 @@ public class AvailabilityController {
 
     @Autowired
     private AvailabilityService availabilityService;
+
+    @PostMapping
+    @PreAuthorize("hasRole('ROLE_SECRETARY')")
+    public ResponseEntity setUnavailability(@RequestBody AvailabilityDTO availabilityDTO){
+        try {
+            return ResponseEntity.ok(availabilityService.setUnavailabilityByDayAndDoctor(availabilityDTO));
+        }catch (BodyErrorException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    //TODO imposta indisponibile determinati slot di alcuni giorni
 
     @GetMapping
     public ResponseEntity checkAvailability(@RequestBody AvailabilityDTO availabilityDTO){
@@ -31,5 +43,11 @@ public class AvailabilityController {
         }
     }
 
-    //per rimuovere i giorni di ferie o di malattie creare gia la data in calendar day e mettere tutti gli slot occupati
+    //TODO cerca disponibilità' timeslot di un determinato giorno
+
+    //TODO modifica indisponibilità giorno
+
+    //TODO modifica indisponibilità timeslot
+
+    //TODO elimina indisponibilità
 }

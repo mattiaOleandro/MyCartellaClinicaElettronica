@@ -1,6 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.services;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AvailabilityDTO;
+import it.angelo.MyCartellaClinicaElettronica.appointment.entities.CalendarDay;
 import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.BodyErrorException;
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.CalendarDayRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
@@ -33,8 +34,6 @@ public class AvailabilityService {
     Logger logger = LoggerFactory.getLogger(AvailabilityService.class);
     int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
 
-    private LocalDate endOfAvailability;
-
     public List<LocalDate> generateAvailabilityByDoctor(AvailabilityDTO availabilityDTO) throws Exception, BodyErrorException {
 
         logger.debug(String.format("(generateAvailabilityByDoctor) method called at %s at line# %d",
@@ -42,9 +41,7 @@ public class AvailabilityService {
 
         List<LocalDate> listOfAvailability = new ArrayList<>();
 
-        endOfAvailability = availabilityDTO.getEndDate();
-
-        List<LocalDate> listOfPossibleAvailability = LocalDate.now().datesUntil(endOfAvailability).collect(Collectors.toList());
+        List<LocalDate> listOfPossibleAvailability = LocalDate.now().datesUntil(availabilityDTO.getEndDate()).collect(Collectors.toList());
 
         boolean isDoctor = userRepository.getSingleUserIdRoleId(availabilityDTO.getDoctorId()) == 4;
         logger.debug("The user " + availabilityDTO.getDoctorId() + " is doctor? " + isDoctor);
@@ -80,6 +77,44 @@ public class AvailabilityService {
         return listOfAvailability;
     }
 
+    public String setUnavailabilityByDayAndDoctor(AvailabilityDTO availabilityDTO) throws BodyErrorException {
 
+        logger.debug(String.format("(setUnavailabilityByDayAndDoctor) method called at %s at line# %d",
+                AvailabilityService.class , lineGetter));
+
+        boolean isDoctor = userRepository.getSingleUserIdRoleId(availabilityDTO.getDoctorId()) == 4;
+        logger.debug("The user " + availabilityDTO.getDoctorId() + " is doctor? " + isDoctor);
+
+        if (userRepository.findUserById(availabilityDTO.getDoctorId()) == null || !isDoctor){
+            logger.debug("Stopped controller!");
+            throw new BodyErrorException("There is a problem with the selected doctor: " + availabilityDTO.getDoctorId());
+        }
+
+        for (int i = 0; i < availabilityDTO.getDateUnavailability().size(); i++) {
+            LocalDate dateUnavailability = availabilityDTO.getDateUnavailability().get(i);
+
+            CalendarDay calendarDay = new CalendarDay();
+
+            calendarDay.setDay(dateUnavailability);
+
+            calendarDay.setTimeSlot1IsAvailable(false);
+            calendarDay.setTimeSlot2IsAvailable(false);
+            calendarDay.setTimeSlot3IsAvailable(false);
+            calendarDay.setTimeSlot4IsAvailable(false);
+            calendarDay.setTimeSlot5IsAvailable(false);
+            calendarDay.setTimeSlot6IsAvailable(false);
+            calendarDay.setTimeSlot7IsAvailable(false);
+            calendarDay.setTimeSlot8IsAvailable(false);
+
+            calendarDayRepository.save(calendarDay);
+
+            calendarDayRepository.updateCalendarDoctor(calendarDay.getId(), availabilityDTO.getDoctorId());
+
+            logger.info("CALENDAR DAY UNAVAILABILITY " +
+                    "DATE: " + calendarDay.getDay());
+
+        }
+        return "Dates: " + availabilityDTO.getDateUnavailability() + " set unavailability";
+    }
 }
 
