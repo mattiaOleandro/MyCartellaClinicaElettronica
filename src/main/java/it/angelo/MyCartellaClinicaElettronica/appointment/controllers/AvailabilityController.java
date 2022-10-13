@@ -29,6 +29,8 @@ public class AvailabilityController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }catch (Exception e){
             return ResponseEntity.internalServerError().body(e.getMessage());
+        } catch (MethodErrorException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
