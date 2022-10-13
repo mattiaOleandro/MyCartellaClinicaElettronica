@@ -61,8 +61,8 @@ public class SignUpControllerTest {
     public void signupDoctor() throws Exception{
         //Creiamo una copia dell'oggetto che verrà trasformata in Json dal mockMVC
         SignupDoctorDTO signupDoctorDTO = new SignupDoctorDTO(
-                "Pippo", "Morfina",
-                "pippoladroga@gmail.com", "password",
+                "Pippo", "Solito",
+                "pippo@gmail.com", "password",
                 "via bianca","Milano","123456789",
                 "Italiana","Milano",LocalDate.parse("1970-09-30"),
                 "af6a4fa654f654","ad888ad",
