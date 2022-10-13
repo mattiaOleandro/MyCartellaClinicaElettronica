@@ -1,6 +1,7 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.repositories;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.CalendarDay;
+import it.angelo.MyCartellaClinicaElettronica.appointment.entities.TimeSlot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

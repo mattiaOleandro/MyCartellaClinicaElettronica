@@ -14,4 +14,10 @@ public class AvailabilityDTO {
     //----------------UNAVAILABILITY--------------
 
     private List<LocalDate> dateUnavailability;
+    private LocalDate dateUnavailabilityTimeSlot;
+    private List<TimeSlot> listTimeSlots;
+
+    //DATA PER CONTROLLARE LA DISPONIBILITA' DEI TIMESLOT
+
+    private LocalDate dateCheckTimeSlot;
 }

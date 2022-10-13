@@ -2,6 +2,8 @@ package it.angelo.MyCartellaClinicaElettronica.appointment.controllers;
 
 import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AvailabilityDTO;
 import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.BodyErrorException;
+import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.MethodErrorException;
+import it.angelo.MyCartellaClinicaElettronica.appointment.exceptions.TimeSlotUnavailabilityException;
 import it.angelo.MyCartellaClinicaElettronica.appointment.services.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,19 @@ public class AvailabilityController {
         }
     }
 
-    //TODO imposta indisponibile determinati slot di alcuni giorni
+    @PostMapping("/timeslot")
+    @PreAuthorize("hasRole('ROLE_SECRETARY')")
+    public ResponseEntity setUnavailabilityTimeSlot(@RequestBody AvailabilityDTO availabilityDTO){
+        try {
+            return ResponseEntity.ok(availabilityService.setUnavailabilityTimeSlotByDayAndDoctor(availabilityDTO));
+        }catch (BodyErrorException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        } catch (MethodErrorException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 
     @GetMapping
     public ResponseEntity checkAvailability(@RequestBody AvailabilityDTO availabilityDTO){
@@ -43,7 +57,20 @@ public class AvailabilityController {
         }
     }
 
-    //TODO cerca disponibilità' timeslot di un determinato giorno
+    @GetMapping("/timeslot")
+    public ResponseEntity checkAvailabilityTimeSlot(@RequestBody AvailabilityDTO availabilityDTO){
+        try {
+            return ResponseEntity.ok(availabilityService.checkAvailabilityTimeSlotByDayAndDoctor(availabilityDTO));
+        }catch (BodyErrorException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        } catch (TimeSlotUnavailabilityException e) {
+            return ResponseEntity.ok(e.getMessage());
+        } catch (MethodErrorException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 
     //TODO modifica indisponibilità giorno
 
