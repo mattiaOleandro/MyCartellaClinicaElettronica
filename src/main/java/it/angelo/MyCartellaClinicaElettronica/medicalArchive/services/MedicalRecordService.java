@@ -1,16 +1,22 @@
 package it.angelo.MyCartellaClinicaElettronica.medicalArchive.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecordDTO;
+import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalReport;
 import it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories.MedicalRecordRepository;
-import it.angelo.MyCartellaClinicaElettronica.user.entities.MedicalRecord;
+import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecord;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -47,30 +53,28 @@ public class MedicalRecordService {
         return medicalRecordRepository.save(medicalRecord);
     }
 
-    //non funziona come dovrebbe, aggiorna tutto l'oggetto quindi cancella tutti i dati nelle colonne
-    //che non vengono settati sotto
     public MedicalRecord update(Long id, MedicalRecord medicalRecordInput) throws Exception {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (medicalRecordInput == null)return null;
-                medicalRecordInput.setId(id);
-                medicalRecordInput.setUpdatedAt(LocalDateTime.now());
-                medicalRecordInput.setUpdatedBy(user);
+        Optional<MedicalRecord>mdToBeUpdated = medicalRecordRepository.findById(id);
+        mdToBeUpdated.ifPresent(record -> record.setDescription(medicalRecordInput.getDescription()));
+        mdToBeUpdated.ifPresent(record -> record.setPatientHistory(medicalRecordInput.getPatientHistory()));
+        mdToBeUpdated.ifPresent(record -> record.setUpdatedBy(medicalRecordInput.getUpdatedBy()));
+        mdToBeUpdated.ifPresent(record -> record.setUpdatedAt(LocalDateTime.now()));
 
-            return medicalRecordRepository.save(medicalRecordInput);
+            return medicalRecordRepository.save(mdToBeUpdated.get());
     }
 
-    public MedicalRecord update2(Long id, String description, String patient_history, MedicalRecord medicalRecordUpdated){
-
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        medicalRecordUpdated.setId(id);
-        medicalRecordUpdated.setUpdatedAt(LocalDateTime.now());
-        medicalRecordUpdated.setUpdatedBy(user);
-        medicalRecordRepository.updateWithQuery(id, description, patient_history);
-
-        return medicalRecordUpdated;
+    public MedicalRecord patchDescription(Long id, String description){
+        Optional<MedicalRecord> medicalRecordTobeModified = medicalRecordRepository.findById(id);
+        medicalRecordTobeModified.ifPresent(record -> record.setDescription(description));
+        return medicalRecordRepository.saveAndFlush(medicalRecordTobeModified.get());
     }
 
+    public MedicalRecord patchPatientHistory(Long id, String patientHistory){
+        Optional<MedicalRecord> medicalRecordTobeModified = medicalRecordRepository.findById(id);
+        medicalRecordTobeModified.ifPresent(record -> record.setPatientHistory(patientHistory));
+        return medicalRecordRepository.saveAndFlush(medicalRecordTobeModified.get());
+    }
 
     //controlliamo se una Cartella clinica è modificabile dall'utente autenticato
     public boolean canEdit(Long id) {
@@ -79,4 +83,6 @@ public class MedicalRecordService {
         if(!medicalRecord.isPresent())return false;
         return medicalRecord.get().getCreatedBy().getId() == user.getId();
     }
+
+
 }

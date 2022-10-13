@@ -1,6 +1,6 @@
 package it.angelo.MyCartellaClinicaElettronica.medicalArchive.repositories;
 
-import it.angelo.MyCartellaClinicaElettronica.user.entities.MedicalRecord;
+import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecord;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
