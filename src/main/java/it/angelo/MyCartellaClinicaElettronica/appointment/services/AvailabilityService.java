@@ -115,9 +115,11 @@ public class AvailabilityService {
                             logger.debug("LIST OF CALENDAR ID BY CALENDAR DOCTOR: " + calendarIdByCalendarDoctor);
                             List<Long> calendarIdByCalendarDay = calendarDayRepository.findCalendarIdFromCalendarDayByDate(date);
                             logger.debug("LIST OF CALENDAR ID BY CALENDAR DAY: " + calendarIdByCalendarDay);
-                            for (Long id1 : calendarIdByCalendarDoctor) {
+                            for (int i = 0; i < calendarIdByCalendarDoctor.size(); i++) {
+                                Long id1 = calendarIdByCalendarDoctor.get(i);
                                 logger.debug("calendar_id by calendar_doctor = " + id1);
-                                for (Long id2 : calendarIdByCalendarDay) {
+                                for (int j = 0; j < calendarIdByCalendarDay.size(); j++) {
+                                    Long id2 = calendarIdByCalendarDay.get(j);
                                     logger.debug("calendar_id by calendar_day = " + id2);
                                     logger.debug("calendar_id1: " + id1 + " and calendar_id2: " + id2 + " is equals? " + id1.equals(id2));
                                     if (id1.equals(id2)) {
@@ -166,10 +168,16 @@ public class AvailabilityService {
                                         } else {
                                             return listTimeSlotAvailability;
                                         }
+                                    }else{
+                                        logger.debug("Entra nel else");
+                                        if (calendarIdByCalendarDoctor.size() - 1 == i && calendarIdByCalendarDay.size() - 1 == j){
+                                            logger.debug("Entra nel if");
+                                            return listTimeSlotAvailabilityStandard;
+                                        }
                                     }
                                 }
                             }
-                        } else {
+                        }else{
                             logger.debug("Doctor id and Calendar Doctor id is not equals");
                         }
                     }
@@ -247,7 +255,8 @@ public class AvailabilityService {
                                 for (int l = 0; l < calendarIdByCalendarDoctor.size(); l++) {
                                     Long id1 = calendarIdByCalendarDoctor.get(l);
                                     logger.debug("calendar_id by calendar_doctor = " + id1);
-                                    for (Long id2 : calendarIdByCalendarDay) {
+                                    for (int k = 0; k < calendarIdByCalendarDay.size(); k++) {
+                                        Long id2 = calendarIdByCalendarDay.get(k);
                                         logger.debug("calendar_id by calendar_day = " + id2);
                                         logger.debug("calendar_id1: " + id1 + " and calendar_id2: " + id2 + " is equals? " + id1.equals(id2));
                                         if (id1.equals(id2)) {
@@ -257,7 +266,7 @@ public class AvailabilityService {
                                             l = calendarIdByCalendarDoctor.size();
                                         } else {
                                             logger.debug("Doctor id and Calendar Doctor id is not equals");
-                                            if (listOfDay.size() -1 == y && calendarIdByCalendarDoctor.size() - 1 == l) {
+                                            if (listOfDay.size() -1 == y && calendarIdByCalendarDoctor.size() - 1 == l && calendarIdByCalendarDay.size() - 1 == k) {
                                                 j = listOfUserIdRoleDoctor.size();
                                                 CalendarDay calendarDay = new CalendarDay();
 
@@ -293,10 +302,12 @@ public class AvailabilityService {
         return converter.stream().toList();
     }
 
-    public String setUnavailabilityTimeSlotByDayAndDoctor(AvailabilityDTO availabilityDTO) throws BodyErrorException, MethodErrorException {
+    public List<String> setUnavailabilityTimeSlotByDayAndDoctor(AvailabilityDTO availabilityDTO) throws BodyErrorException, MethodErrorException {
 
         logger.debug(String.format("(setUnavailabilityByDayAndDoctor) method called at %s at line# %d",
                 AvailabilityService.class , lineGetter));
+
+        List<String> s = new ArrayList<>();
 
         boolean isDoctor = userRepository.getSingleUserIdRoleId(availabilityDTO.getDoctorId()) == 4;
         logger.debug("The user " + availabilityDTO.getDoctorId() + " is doctor? " + isDoctor);
@@ -363,10 +374,10 @@ public class AvailabilityService {
 
             calendarDayRepository.updateCalendarDoctor(calendarDay.getId(), availabilityDTO.getDoctorId());
 
-            logger.info("CALENDAR DAY UNAVAILABILITY " +
+            logger.info("CALENDAR DAY TIMESLOT UNAVAILABILITY " +
                     "DATE: " + calendarDay.getDay());
 
-            return "Dates: " + availabilityDTO.getDateUnavailabilityTimeSlot() + " set " + availabilityDTO.getListTimeSlots() + " unavailability";
+            s.add("Dates: " + availabilityDTO.getDateUnavailabilityTimeSlot() + " set " + availabilityDTO.getListTimeSlots() + " unavailability");
         }else{
             for (Date date : listOfDay) {
                 logger.info("DATES ARE EQUALS: " + date);
@@ -380,14 +391,16 @@ public class AvailabilityService {
                             logger.debug("LIST OF CALENDAR ID BY CALENDAR DOCTOR: " + calendarIdByCalendarDoctor);
                             List<Long> calendarIdByCalendarDay = calendarDayRepository.findCalendarIdFromCalendarDayByDate(date);
                             logger.debug("LIST OF CALENDAR ID BY CALENDAR DAY: " + calendarIdByCalendarDay);
-                            for (Long id1 : calendarIdByCalendarDoctor) {
+                            for (int i = 0; i < calendarIdByCalendarDoctor.size(); i++) {
+                                Long id1 = calendarIdByCalendarDoctor.get(i);
                                 logger.debug("calendar_id by calendar_doctor = " + id1);
-                                for (Long id2 : calendarIdByCalendarDay) {
+                                for (int l = 0; l < calendarIdByCalendarDay.size(); l ++) {
+                                    Long id2 = calendarIdByCalendarDay.get(l);
                                     logger.debug("calendar_id by calendar_day = " + id2);
                                     logger.debug("calendar_id1: " + id1 + " and calendar_id2: " + id2 + " is equals? " + id1.equals(id2));
                                     if (id1.equals(id2)) {
-                                        for (int i = 0; i < availabilityDTO.getListTimeSlots().size(); i++) {
-                                            switch (availabilityDTO.getListTimeSlots().get(i)) {
+                                        for (int j = 0; j < availabilityDTO.getListTimeSlots().size(); j++) {
+                                            switch (availabilityDTO.getListTimeSlots().get(j)) {
                                                 case TIME_SLOT_08_00_09_00 -> {
                                                     calendarDayRepository.updateTimeSlot1FromId(Boolean.FALSE, id1);
                                                     logger.debug("Set time slot 1 occupied in calendarDay");
@@ -421,7 +434,61 @@ public class AvailabilityService {
                                                     logger.debug("Set time slot 8 occupied in calendarDay");
                                                 }
                                             }
-                                            return "Dates: " + availabilityDTO.getDateUnavailabilityTimeSlot() + " set " + availabilityDTO.getListTimeSlots() + " unavailability";
+                                            s.add("Dates: " + availabilityDTO.getDateUnavailabilityTimeSlot() + " set " + availabilityDTO.getListTimeSlots() + " unavailability");
+                                            i = calendarIdByCalendarDoctor.size();
+                                            l = calendarIdByCalendarDay.size();
+                                        }
+                                    }else{
+                                        if (calendarIdByCalendarDoctor.size() - 1 == i && calendarIdByCalendarDay.size() - 1 == l){
+                                            CalendarDay calendarDay = new CalendarDay();
+
+                                            calendarDay.setDay(availabilityDTO.getDateUnavailabilityTimeSlot());
+
+                                            for (int j = 0; j < availabilityDTO.getListTimeSlots().size(); j++) {
+                                                switch (availabilityDTO.getListTimeSlots().get(j)) {
+                                                    case TIME_SLOT_08_00_09_00 -> {
+                                                        calendarDay.setTimeSlot1IsAvailable(false);
+                                                        logger.debug("Set time slot 1 occupied in calendarDay");
+                                                    }
+                                                    case TIME_SLOT_09_00_10_00 -> {
+                                                        calendarDay.setTimeSlot2IsAvailable(false);
+                                                        logger.debug("Set time slot 2 occupied in calendarDay");
+                                                    }
+                                                    case TIME_SLOT_10_00_11_00 -> {
+                                                        calendarDay.setTimeSlot3IsAvailable(false);
+                                                        logger.debug("Set time slot 3 occupied in calendarDay");
+                                                    }
+                                                    case TIME_SLOT_11_00_12_00 -> {
+                                                        calendarDay.setTimeSlot4IsAvailable(false);
+                                                        logger.debug("Set time slot 4 occupied in calendarDay");
+                                                    }
+                                                    case TIME_SLOT_15_00_16_00 -> {
+                                                        calendarDay.setTimeSlot5IsAvailable(false);
+                                                        logger.debug("Set time slot 5 occupied in calendarDay");
+                                                    }
+                                                    case TIME_SLOT_16_00_17_00 -> {
+                                                        calendarDay.setTimeSlot6IsAvailable(false);
+                                                        logger.debug("Set time slot 6 occupied in calendarDay");
+                                                    }
+                                                    case TIME_SLOT_17_00_18_00 -> {
+                                                        calendarDay.setTimeSlot7IsAvailable(false);
+                                                        logger.debug("Set time slot 7 occupied in calendarDay");
+                                                    }
+                                                    case TIME_SLOT_18_00_19_00 -> {
+                                                        calendarDay.setTimeSlot8IsAvailable(false);
+                                                        logger.debug("Set time slot 8 occupied in calendarDay");
+                                                    }
+                                                }
+                                            }
+
+                                            calendarDayRepository.save(calendarDay);
+
+                                            calendarDayRepository.updateCalendarDoctor(calendarDay.getId(), availabilityDTO.getDoctorId());
+
+                                            logger.info("CALENDAR DAY TIMESLOT UNAVAILABILITY " +
+                                                    "DATE: " + calendarDay.getDay());
+
+                                            s.add("Dates: " + availabilityDTO.getDateUnavailabilityTimeSlot() + " set " + availabilityDTO.getListTimeSlots() + " unavailability");
                                         }
                                     }
                                 }
@@ -431,8 +498,8 @@ public class AvailabilityService {
                 }
             }
         }
-        logger.debug("ERROR/BUG");
-        throw new MethodErrorException("An error has occurred in the system");
+        HashSet converter = new HashSet(s);
+        return converter.stream().toList();
     }
 }
 
