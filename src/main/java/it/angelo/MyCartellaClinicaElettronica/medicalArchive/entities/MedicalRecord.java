@@ -1,10 +1,10 @@
-package it.angelo.MyCartellaClinicaElettronica.user.entities;
+package it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -22,7 +22,7 @@ public class MedicalRecord extends BaseEntity {
     private String description;
     private String patientHistory;
 
-    private boolean isActive = true;
+    private boolean isActive = true; //cancellazione logica
 
     @ManyToOne
     private User patient;
@@ -36,5 +36,6 @@ public class MedicalRecord extends BaseEntity {
     @JsonBackReference //necessario per evitare Infinite recursion (StackOverflowError)
     @JsonIgnore // per evitare "Failed to evaluate Jackson deserialization"
     private Set<MedicalReport> medicalReport;
+
 
 }

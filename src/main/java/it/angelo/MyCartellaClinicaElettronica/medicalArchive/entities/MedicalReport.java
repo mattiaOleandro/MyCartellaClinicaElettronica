@@ -1,12 +1,13 @@
-package it.angelo.MyCartellaClinicaElettronica.user.entities;
+package it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import it.angelo.MyCartellaClinicaElettronica.medicalArchive.entities.MedicalRecord;
+import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.utils.entities.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 
 // Referto medico
@@ -34,7 +35,7 @@ public class MedicalReport extends BaseEntity {
     //tanti referti(MedicalReport) possono essere contenuti dentro la cartella clinica(medicalRecord)
     @ManyToOne
     @JoinColumn(name = "medical_record_id")
-    @JsonManagedReference //necessario per evitare Infinite recursion (StackOverflowError)
+    @JsonIgnore
     private MedicalRecord medicalRecord; // lo trovo in MedicalRecord mappedBy
 
 }
