@@ -7,6 +7,8 @@ import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.RoleRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.repositories.UserRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.utils.Roles;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,12 @@ public class SignupService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    Logger logger = LoggerFactory.getLogger(SignupService.class);
+    int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
+
     public User signup(SignupDTO signupDTO) throws Exception {
+        logger.debug(String.format("\'/signup\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupDTO.getEmail()));
         return this.signup(signupDTO, Roles.REGISTERED);
     }
 
@@ -42,10 +49,13 @@ public class SignupService {
      * contains the business logic related to the signup
      * @param signupDTO represents the user data that will be transferred from the frontend
      * @param role the role of user
-     * @return an user
+     * @return a user
      * @throws Exception can throw a generic exception
      */
     public User signup(SignupDTO signupDTO, String role) throws Exception { //SignupDTO rappresenta in Java l'oggetto body su Postman
+        logger.debug(String.format("\'/signup\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupDTO.getEmail()));
+
         User userInDB = userRepository.findByEmail(signupDTO.getEmail());
         if(userInDB != null) throw new Exception("User already exist");
         // creo nuovo user e setto i parametri necessari
@@ -70,7 +80,7 @@ public class SignupService {
 
         //assegniamo all'utente un set di ruoli
         Set<Role> roles = new HashSet<>();
-        Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
+        Optional<Role> userRole = roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set user role");
         roles.add(userRole.get());
         user.setRoles(roles);
@@ -80,6 +90,9 @@ public class SignupService {
     }
 
     public User signupDoctor(SignupDoctorDTO signupDoctorDTO, String role) throws Exception{
+        logger.debug(String.format("\'/signupDoctor\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupDoctorDTO.getEmail()));
+
         User userInDB = userRepository.findByEmail(signupDoctorDTO.getEmail());
         if(userInDB != null) throw new Exception("Doctor already exist");
 
@@ -87,6 +100,17 @@ public class SignupService {
         user.setName(signupDoctorDTO.getName());
         user.setEmail(signupDoctorDTO.getEmail());
         user.setSurname(signupDoctorDTO.getSurname());
+        //la password viene codificata con PasswordEncoder e assegnata all'utente
+        user.setPassword(passwordEncoder.encode(signupDoctorDTO.getPassword()));
+        user.setAddress(signupDoctorDTO.getAddress());
+        user.setCity(signupDoctorDTO.getCity());
+        user.setPhone(signupDoctorDTO.getPhone());
+        user.setNationality(signupDoctorDTO.getNationality());
+        user.setPlaceOfBirth(signupDoctorDTO.getPlaceOfBirth());
+        user.setBirthDate(signupDoctorDTO.getBirthDate());
+        user.setFiscalCode(signupDoctorDTO.getFiscalCode());
+        user.setDocumentNumber(signupDoctorDTO.getDocumentNumber());
+
         user.setBadgeNumber(signupDoctorDTO.getBadgeNumber());
         user.setMedicalSpecialization(signupDoctorDTO.getMedicalSpecialization());
         user.setPlaceOfWork(signupDoctorDTO.getPlaceOfWork());
@@ -97,6 +121,7 @@ public class SignupService {
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set Doctor role");
+
         roles.add(userRole.get());
         user.setRoles(roles);
 
@@ -105,6 +130,9 @@ public class SignupService {
     }
 
     public User signupPatient(SignupPatientDTO signupPatientDTO, String role) throws Exception{
+        logger.debug(String.format("\'/signupPatient\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupPatientDTO.getEmail()));
+
         User userInDB = userRepository.findByEmail(signupPatientDTO.getEmail());
         if(userInDB != null) throw new Exception("Patient already exist");
 
@@ -112,6 +140,17 @@ public class SignupService {
         user.setName(signupPatientDTO.getName());
         user.setEmail(signupPatientDTO.getEmail());
         user.setSurname(signupPatientDTO.getSurname());
+        //la password viene codificata con PasswordEncoder e assegnata all'utente
+        user.setPassword(passwordEncoder.encode(signupPatientDTO.getPassword()));
+        user.setAddress(signupPatientDTO.getAddress());
+        user.setCity(signupPatientDTO.getCity());
+        user.setPhone(signupPatientDTO.getPhone());
+        user.setNationality(signupPatientDTO.getNationality());
+        user.setPlaceOfBirth(signupPatientDTO.getPlaceOfBirth());
+        user.setBirthDate(signupPatientDTO.getBirthDate());
+        user.setFiscalCode(signupPatientDTO.getFiscalCode());
+        user.setDocumentNumber(signupPatientDTO.getDocumentNumber());
+
         user.setMedicalPathology(signupPatientDTO.getMedicalPathology());
 
         user.setActivationCode(UUID.randomUUID().toString());
@@ -119,7 +158,8 @@ public class SignupService {
         Set<Role> roles = new HashSet<>();
         Optional<Role> userRole =roleRepository.findByName(role.toUpperCase());
         if(!userRole.isPresent()) throw new Exception("Cannot set Patient role");
-        roles.add(userRole.get());
+
+
         user.setRoles(roles);
 
         mailNotificationService.sendActivationEmail(user);
@@ -127,6 +167,8 @@ public class SignupService {
     }
 
     public User signupSecretary(SignupSecretaryDTO signupSecretaryDTO, String role) throws Exception{
+        logger.debug(String.format("\'/signupSecretary\' method called at %s at line# %d by %s",
+                SignupService.class , lineGetter, signupSecretaryDTO.getEmail()));
         User userInDB = userRepository.findByEmail(signupSecretaryDTO.getEmail());
         if(userInDB != null) throw new Exception("Secretary already exist");
 
@@ -134,6 +176,17 @@ public class SignupService {
         user.setName(signupSecretaryDTO.getName());
         user.setEmail(signupSecretaryDTO.getEmail());
         user.setSurname(signupSecretaryDTO.getSurname());
+        //la password viene codificata con PasswordEncoder e assegnata all'utente
+        user.setPassword(passwordEncoder.encode(signupSecretaryDTO.getPassword()));
+        user.setAddress(signupSecretaryDTO.getAddress());
+        user.setCity(signupSecretaryDTO.getCity());
+        user.setPhone(signupSecretaryDTO.getPhone());
+        user.setNationality(signupSecretaryDTO.getNationality());
+        user.setPlaceOfBirth(signupSecretaryDTO.getPlaceOfBirth());
+        user.setBirthDate(signupSecretaryDTO.getBirthDate());
+        user.setFiscalCode(signupSecretaryDTO.getFiscalCode());
+        user.setDocumentNumber(signupSecretaryDTO.getDocumentNumber());
+
         user.setPlaceOfWork(signupSecretaryDTO.getPlaceOfWork());
 
         user.setActivationCode(UUID.randomUUID().toString());
@@ -159,6 +212,8 @@ public class SignupService {
      * @throws Exception can throw a generic exception
      */
     public User activate(SignupActivationDTO signupActivationDTO) throws Exception {
+        logger.debug(String.format("\'/activate\' method called at %s at line# %d .",
+                SignupService.class , lineGetter));
         User user = userRepository.findByActivationCode(signupActivationDTO.getActivationCode());
         if(user == null) throw  new Exception("User not found");
         user.setActive(true);

@@ -3,12 +3,16 @@ package it.angelo.MyCartellaClinicaElettronica.user.repositories;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * is the repository of the user
  */
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
@@ -64,4 +68,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "LIMIT 1")
     Optional<User> pickDoctor();
 
+    User findUserById(Long id);
+
+    @Query(nativeQuery = true, value = "SELECT ur.role_id FROM user_roles AS ur\n" +
+            "WHERE ur.user_id = :id")
+    Long getSingleUserIdRoleId(@Param(value = "id")Long id);
+
+    @Query(nativeQuery = true, value = "SELECT ur.user_id FROM user_roles AS ur\n" +
+            "WHERE ur.role_id = 4")
+    List<Long> getAllUserIdByRoleId();
 }

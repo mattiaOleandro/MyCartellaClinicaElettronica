@@ -21,11 +21,12 @@ public class MyCartellaClinicaElettronicaApplication implements CommandLineRunne
 
 	@Override
 	public void run(String... args) throws Exception {
-
+	/*
 		//Role VIEWER
 		Role viewer = new Role();
 		viewer.setName("VIEWER");
 		viewer.setDescription("Viewer");
 		roleRepository.save(viewer);
+	*/
 	}
 }

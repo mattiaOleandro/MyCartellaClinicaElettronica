@@ -33,7 +33,5 @@ public class SignupDTO {
      */
     @Column(unique = true,length = 16) //valutare omocodia
     private String fiscalCode;
-
     private String documentNumber;
-
 }

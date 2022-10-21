@@ -17,4 +17,5 @@ public class SignupDoctorDTO extends SignupDTO{
 
     @Enumerated(EnumType.STRING)
     private EnumPlaceOfWork placeOfWork;
+
 }

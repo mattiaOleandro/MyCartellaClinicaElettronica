@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * it is mapped as a superclass
  */
 @Data
-@MappedSuperclass //aggiungerà tutti gli attributi di BaseEntity ad ogni classe che la estende(Appointment ad esempio)
+@MappedSuperclass //aggiungerà tutti gli attributi di BaseEntity a ogni classe che la estende(Appointment ad esempio)
 public class BaseEntity {
 
     // sapremo quando è stato creato l'appuntamento, quando aggiornato, il creatore o chi l'ha modificato per ultimo

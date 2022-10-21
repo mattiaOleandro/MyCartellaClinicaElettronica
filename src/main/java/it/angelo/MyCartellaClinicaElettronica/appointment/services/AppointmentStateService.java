@@ -5,6 +5,8 @@ import it.angelo.MyCartellaClinicaElettronica.appointment.entities.AppointmentSt
 import it.angelo.MyCartellaClinicaElettronica.appointment.repositories.AppointmentRepository;
 import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import it.angelo.MyCartellaClinicaElettronica.user.services.DoctorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -20,19 +22,30 @@ public class AppointmentStateService {
     @Autowired
     private DoctorService doctorService;
 
+    Logger logger = LoggerFactory.getLogger(AppointmentStateService.class);
+    int lineGetter = new Exception().getStackTrace()[0].getLineNumber();
+
     public Appointment setAccept(Appointment appointment) throws Exception{
+
+        logger.debug(String.format("\'/setAccept\' method called at %s at line# %d by %s",
+                AppointmentStateService.class , lineGetter, appointment.getNumber()));
+
         if(appointment == null) throw new NullPointerException();
+
+
         if(appointment.getStatus() != AppointmentStateEnum.CREATED) throw new Exception("Cannot edit appointment");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         if(appointment.getPatient().getId() != user.getId()) throw new Exception("This is not your appointment");
+
         // Additional actions (!)
 
-        //Doctor selection
-        User doctor = doctorService.pickDoctor();
-        appointment.setDoctor(doctor);
+        //Doctor selection, the first available doctor will be assigned to appointment
+        //User doctor = doctorService.pickDoctor();
+        //appointment.setDoctor(doctor);
 
-        //go ahead one step
+        //go ahead one step in state machine
         appointment.setStatus(AppointmentStateEnum.ACCEPTED);
         appointment.setUpdatedAt(LocalDateTime.now());
         appointment.setUpdatedBy(user);
@@ -40,7 +53,11 @@ public class AppointmentStateService {
     }
 
     public Appointment setInProgress(Appointment appointment) throws Exception{
+        logger.debug(String.format("\'/setInProgress\' method called at %s at line# %d by %s",
+                AppointmentStateService.class , lineGetter, appointment.getNumber()));
+
         if(appointment == null) throw new NullPointerException();
+
         if(appointment.getStatus() != AppointmentStateEnum.ACCEPTED) throw new Exception("Cannot edit appointment");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,10 +71,14 @@ public class AppointmentStateService {
     }
 
     public Appointment setComplete(Appointment appointment) throws Exception{
+        logger.debug(String.format("\'/setComplete\' method called at %s at line# %d by %s",
+                AppointmentStateService.class , lineGetter, appointment.getNumber()));
         if(appointment == null) throw new NullPointerException();
+
         if(appointment.getStatus() != AppointmentStateEnum.IN_PROGRESS) throw new Exception("Cannot edit appointment");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         if(appointment.getDoctor().getId() != user.getId()) throw new Exception("This is not your appointment");
 
         //go ahead one step

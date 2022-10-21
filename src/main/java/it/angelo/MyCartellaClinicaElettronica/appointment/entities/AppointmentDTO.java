@@ -1,11 +1,12 @@
 package it.angelo.MyCartellaClinicaElettronica.appointment.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import it.angelo.MyCartellaClinicaElettronica.user.entities.User;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * contains all attributes relating to an appointment
@@ -33,4 +34,9 @@ public class AppointmentDTO {
 //--------------------------------------------------------------------------
     private Long patient;
 
+    private TimeSlot timeSlot;
+
+//---------------- Test doctor ---------------------------------------------
+
+    private Long doctor;
 }
