@@ -4245,3 +4245,323 @@ This generated password is for development use only. Your security configuration
 2022-10-14 02:38:03,230 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
 2022-10-14 02:38:03,235 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
 2022-10-14 02:38:03,256 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-10-14 12:15:36,169 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting MyCartellaClinicaElettronicaApplication using Java 17.0.1 on Erlik with PID 20072 (C:\Users\Erlik Khan\IdeaProjects\MyCartellaClinicaElettronica\target\classes started by Erlik Khan in C:\Users\Erlik Khan\IdeaProjects\MyCartellaClinicaElettronica)
+2022-10-14 12:15:36,182 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2022-10-14 12:15:36,255 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-10-14 12:15:36,255 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-10-14 12:15:38,105 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-14 12:15:38,230 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 111 ms. Found 7 JPA repository interfaces.
+2022-10-14 12:15:39,806 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-10-14 12:15:39,818 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-10-14 12:15:39,819 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-10-14 12:15:39,819 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-14 12:15:39,931 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-10-14 12:15:39,931 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3675 ms
+2022-10-14 12:15:40,275 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-14 12:15:40,365 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.6.10.Final
+2022-10-14 12:15:40,589 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-10-14 12:15:40,708 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-10-14 12:15:41,111 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-10-14 12:15:41,131 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2022-10-14 12:15:42,910 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-14 12:15:42,921 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-14 12:15:43,432 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-14 12:15:44,086 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Public method 'api' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 12:15:44,092 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Private method 'securityContext' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 12:15:44,093 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] The method 'defaultAuth' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 12:15:44,095 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Private method 'apiKey' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 12:15:44,357 WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: bbde1041-a774-486c-8cb6-6652e91e5dc6
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-10-14 12:15:44,458 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1af73bf4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ee49f10, org.springframework.security.web.context.SecurityContextPersistenceFilter@75e64eb3, org.springframework.security.web.header.HeaderWriterFilter@2a68307e, org.springframework.security.web.authentication.logout.LogoutFilter@60418e0a, it.angelo.MyCartellaClinicaElettronica.JwtTokenFilter@387a9eb1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@646f973c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@466f8744, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58f0729c, org.springframework.security.web.session.SessionManagementFilter@4bad2ac3, org.springframework.security.web.access.ExceptionTranslationFilter@386c52a7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@748b1175]
+2022-10-14 12:15:44,617 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-10-14 12:15:44,802 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-10-14 12:15:44,827 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-14 12:15:45,372 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started MyCartellaClinicaElettronicaApplication in 10.435 seconds (JVM running for 11.371)
+2022-10-14 12:50:05,904 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-10-14 12:50:05,905 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2022-10-14 12:50:05,907 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed initialization in 2 ms
+2022-10-14 12:50:06,009 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-2] '/signup' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by magneto@magneto.com
+2022-10-14 12:50:06,010 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-2] '/signup' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by magneto@magneto.com
+2022-10-14 12:51:02,122 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-3] '/signup' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by magneto@magneto.com
+2022-10-14 12:51:02,123 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-3] '/signup' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by magneto@magneto.com
+2022-10-14 12:51:35,044 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-4] '/activate' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 .
+2022-10-14 12:51:49,968 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-5] '/login' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by magneto@magneto.com
+2022-10-14 12:51:49,974 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-5] '/canUserLogin' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by magneto@magneto.com
+2022-10-14 12:51:50,051 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-5] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by magneto@magneto.com
+2022-10-14 12:52:00,893 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-6] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by magneto@magneto.com
+2022-10-14 13:49:42,232 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m942ms605µs800ns).
+2022-10-14 13:50:19,376 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService [http-nio-8080-exec-9] '/request' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService at line# 33 by magneto@magneto.com
+2022-10-14 13:50:38,851 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService [http-nio-8080-exec-10] '/restore' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService at line# 33 .
+2022-10-14 13:50:50,370 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-1] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by magneto@magneto.com
+2022-10-14 13:51:41,951 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-2] '/signupPatient' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by alfred@butler.com
+2022-10-14 13:52:18,733 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-3] '/signupDoctor' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by dottoroctopus@doctrooctopus.de
+2022-10-14 13:59:41,978 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-10-14 13:59:41,983 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-10-14 13:59:41,990 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-10-14 13:59:49,409 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting MyCartellaClinicaElettronicaApplication using Java 17.0.1 on Erlik with PID 22056 (C:\Users\Erlik Khan\IdeaProjects\MyCartellaClinicaElettronica\target\classes started by Erlik Khan in C:\Users\Erlik Khan\IdeaProjects\MyCartellaClinicaElettronica)
+2022-10-14 13:59:49,414 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2022-10-14 13:59:49,486 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-10-14 13:59:49,487 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-10-14 13:59:50,915 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-14 13:59:51,036 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 105 ms. Found 7 JPA repository interfaces.
+2022-10-14 13:59:51,943 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-10-14 13:59:51,955 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-10-14 13:59:51,956 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-10-14 13:59:51,957 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-14 13:59:52,065 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-10-14 13:59:52,066 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2578 ms
+2022-10-14 13:59:52,342 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-14 13:59:52,403 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.6.10.Final
+2022-10-14 13:59:52,619 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-10-14 13:59:52,741 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-10-14 13:59:53,076 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-10-14 13:59:53,093 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2022-10-14 13:59:54,719 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-14 13:59:54,732 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-14 13:59:55,232 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-14 13:59:55,902 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Public method 'api' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 13:59:55,922 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Private method 'securityContext' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 13:59:55,925 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] The method 'defaultAuth' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 13:59:55,927 INFO it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig [restartedMain] Private method 'apiKey' method called at class it.angelo.MyCartellaClinicaElettronica.configuration.SpringFoxConfig at line#34
+2022-10-14 13:59:56,438 WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: f842d78e-e5f7-4fa5-854b-9753fa9d43a8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-10-14 13:59:56,634 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@12bfb586, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@21f4995c, org.springframework.security.web.context.SecurityContextPersistenceFilter@9255740, org.springframework.security.web.header.HeaderWriterFilter@4f44916b, org.springframework.security.web.authentication.logout.LogoutFilter@57ee208d, it.angelo.MyCartellaClinicaElettronica.JwtTokenFilter@6da672fe, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@379905ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7c7b0ebe, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d480427, org.springframework.security.web.session.SessionManagementFilter@4ba9962c, org.springframework.security.web.access.ExceptionTranslationFilter@5668627d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2b573a65]
+2022-10-14 13:59:56,995 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-10-14 13:59:57,343 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-10-14 13:59:57,386 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-14 13:59:58,202 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started MyCartellaClinicaElettronicaApplication in 9.338 seconds (JVM running for 10.169)
+2022-10-14 14:00:08,410 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-10-14 14:00:08,411 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2022-10-14 14:00:08,413 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed initialization in 2 ms
+2022-10-14 14:00:08,523 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-2] '/signupDoctor' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by dottoroctopus@doctrooctopus.de
+2022-10-14 14:00:41,435 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-3] '/activate' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 .
+2022-10-14 14:00:55,689 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-4] '/login' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by dottoroctopus@doctrooctopus.de
+2022-10-14 14:00:55,696 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-4] '/canUserLogin' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by dottoroctopus@doctrooctopus.de
+2022-10-14 14:00:55,778 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-4] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by dottoroctopus@doctrooctopus.de
+2022-10-14 14:01:04,695 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-5] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by dottoroctopus@doctrooctopus.de
+2022-10-14 15:22:49,313 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-8] '/signup' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by bpd01538@cdfaq.com
+2022-10-14 15:22:49,314 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-8] '/signup' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 by bpd01538@cdfaq.com
+2022-10-14 15:24:03,414 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService [http-nio-8080-exec-1] '/activate' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.SignupService at line# 40 .
+2022-10-14 15:24:36,960 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-2] '/login' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:24:36,965 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-2] '/canUserLogin' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:24:37,041 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-2] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:24:45,585 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-3] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:25:09,231 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-4] '/login' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:25:09,239 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-4] '/canUserLogin' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:25:09,334 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-4] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.Exception: Cannot login] with root cause
+java.lang.Exception: Cannot login
+	at it.angelo.MyCartellaClinicaElettronica.auth.controllers.LoginController.login(LoginController.java:46)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at it.angelo.MyCartellaClinicaElettronica.JwtTokenFilter.doFilterInternal(JwtTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-10-14 15:25:17,782 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-5] '/login' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:25:17,786 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-5] '/canUserLogin' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:25:17,872 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-5] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:25:37,185 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService [http-nio-8080-exec-7] '/request' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService at line# 33 by bpd01538@cdfaq.com
+2022-10-14 15:26:13,743 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService [http-nio-8080-exec-8] '/restore' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.PasswordService at line# 33 .
+2022-10-14 15:26:25,981 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-9] '/login' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:26:25,991 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-9] '/canUserLogin' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:26:26,113 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-9] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.Exception: Cannot login] with root cause
+java.lang.Exception: Cannot login
+	at it.angelo.MyCartellaClinicaElettronica.auth.controllers.LoginController.login(LoginController.java:46)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at it.angelo.MyCartellaClinicaElettronica.JwtTokenFilter.doFilterInternal(JwtTokenFilter.java:54)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-10-14 15:26:30,203 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-10] '/login' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:26:30,208 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-10] '/canUserLogin' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:26:30,282 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-10] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 15:26:35,651 DEBUG it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService [http-nio-8080-exec-2] '/generateJWT' method called at class it.angelo.MyCartellaClinicaElettronica.auth.services.LoginService at line# 36 by bpd01538@cdfaq.com
+2022-10-14 17:51:02,525 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h10m39s165ms561µs800ns).
+2022-10-14 17:52:01,504 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-10-14 17:52:01,512 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-10-14 17:52:01,528 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

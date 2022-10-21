@@ -100,6 +100,17 @@ public class SignupService {
         user.setName(signupDoctorDTO.getName());
         user.setEmail(signupDoctorDTO.getEmail());
         user.setSurname(signupDoctorDTO.getSurname());
+        //la password viene codificata con PasswordEncoder e assegnata all'utente
+        user.setPassword(passwordEncoder.encode(signupDoctorDTO.getPassword()));
+        user.setAddress(signupDoctorDTO.getAddress());
+        user.setCity(signupDoctorDTO.getCity());
+        user.setPhone(signupDoctorDTO.getPhone());
+        user.setNationality(signupDoctorDTO.getNationality());
+        user.setPlaceOfBirth(signupDoctorDTO.getPlaceOfBirth());
+        user.setBirthDate(signupDoctorDTO.getBirthDate());
+        user.setFiscalCode(signupDoctorDTO.getFiscalCode());
+        user.setDocumentNumber(signupDoctorDTO.getDocumentNumber());
+
         user.setBadgeNumber(signupDoctorDTO.getBadgeNumber());
         user.setMedicalSpecialization(signupDoctorDTO.getMedicalSpecialization());
         user.setPlaceOfWork(signupDoctorDTO.getPlaceOfWork());
@@ -129,6 +140,17 @@ public class SignupService {
         user.setName(signupPatientDTO.getName());
         user.setEmail(signupPatientDTO.getEmail());
         user.setSurname(signupPatientDTO.getSurname());
+        //la password viene codificata con PasswordEncoder e assegnata all'utente
+        user.setPassword(passwordEncoder.encode(signupPatientDTO.getPassword()));
+        user.setAddress(signupPatientDTO.getAddress());
+        user.setCity(signupPatientDTO.getCity());
+        user.setPhone(signupPatientDTO.getPhone());
+        user.setNationality(signupPatientDTO.getNationality());
+        user.setPlaceOfBirth(signupPatientDTO.getPlaceOfBirth());
+        user.setBirthDate(signupPatientDTO.getBirthDate());
+        user.setFiscalCode(signupPatientDTO.getFiscalCode());
+        user.setDocumentNumber(signupPatientDTO.getDocumentNumber());
+
         user.setMedicalPathology(signupPatientDTO.getMedicalPathology());
 
         user.setActivationCode(UUID.randomUUID().toString());
@@ -154,6 +176,17 @@ public class SignupService {
         user.setName(signupSecretaryDTO.getName());
         user.setEmail(signupSecretaryDTO.getEmail());
         user.setSurname(signupSecretaryDTO.getSurname());
+        //la password viene codificata con PasswordEncoder e assegnata all'utente
+        user.setPassword(passwordEncoder.encode(signupSecretaryDTO.getPassword()));
+        user.setAddress(signupSecretaryDTO.getAddress());
+        user.setCity(signupSecretaryDTO.getCity());
+        user.setPhone(signupSecretaryDTO.getPhone());
+        user.setNationality(signupSecretaryDTO.getNationality());
+        user.setPlaceOfBirth(signupSecretaryDTO.getPlaceOfBirth());
+        user.setBirthDate(signupSecretaryDTO.getBirthDate());
+        user.setFiscalCode(signupSecretaryDTO.getFiscalCode());
+        user.setDocumentNumber(signupSecretaryDTO.getDocumentNumber());
+
         user.setPlaceOfWork(signupSecretaryDTO.getPlaceOfWork());
 
         user.setActivationCode(UUID.randomUUID().toString());

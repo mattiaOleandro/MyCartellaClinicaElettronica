@@ -33,24 +33,5 @@ public class SignupDTO {
      */
     @Column(unique = true,length = 16) //valutare omocodia
     private String fiscalCode;
-
     private String documentNumber;
-
-    public SignupDTO() {
-    }
-
-    public SignupDTO(String name, String surname, String email, String password, String address, String city, String phone, String nationality, String placeOfBirth, LocalDate birthDate, String fiscalCode, String documentNumber) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.city = city;
-        this.phone = phone;
-        this.nationality = nationality;
-        this.placeOfBirth = placeOfBirth;
-        this.birthDate = birthDate;
-        this.fiscalCode = fiscalCode;
-        this.documentNumber = documentNumber;
-    }
 }
