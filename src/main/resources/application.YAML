@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: S1V1sP4c3mP4r4B3llum
+    password: password
     url: jdbc:mysql://localhost:3306/my-cartella-clinica-elettronica-db
     username: root
   jpa:
@@ -18,7 +18,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: develhope.test.agosto.2022@gmail.com
-    password: zxtluwrzvhczcvgi
+    password: password
     properties:
       mail:
         smtp:
